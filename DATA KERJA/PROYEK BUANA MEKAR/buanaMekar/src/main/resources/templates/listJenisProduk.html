@@ -17,32 +17,29 @@
             <form th:action="@{/logout}" method="post">
                 <input type="submit" value="Logout" />
             </form>
-            <h1>User Manager</h1>
+            <h1>Jenis Produk Manager</h1>
             
-            <a class="btn btn-primary" href="new">Create New</a>
+            <a class="btn btn-primary" href="jenisProduk/new">Create New</a>
             <br>
             <br>
             <table class="table table-striped" border="1" cellpadding="10">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>ROLE</th>
+                        <th>Jenis Produk</th>
                         
                         <th sec:authorize="hasRole('ROLE_ADMIN')">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="user : ${listUsers}">
-                        <td th:text="${user.id}">ID</td>
-                        <td th:text="${user.username}">Username</td>
-                        <td th:text="${user.password}">Password</td>
-                        <td th:text="${user.role}">Role</td>
+                    <tr th:each="jenisProduks : ${listJenisProduks}">
+                        <td th:text="${jenisProduks.id}">ID</td>
+                        <td th:text="${jenisProduks.jenis_produk}">Jenis Produk</td>
+                        
                         <td sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a class="btn btn-info" th:href="@{'/edit/'+${user.id}}">Edit</a>
+                            <a class="btn btn-info" th:href="@{'/jenisProduk/edit/'+${jenisProduks.id}}">Edit</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-danger" th:href="@{'/delete/'+${user.id}}">Delete</a>
+                            <a class="btn btn-danger" th:href="@{'/jenisProduk/delete/'+${jenisProduks.id}}">Delete</a>
                         </td>
                     </tr>
                 </tbody>

@@ -4,11 +4,10 @@
  * and open the template in the editor.
  */
 package com.example.buanaMekar.repositories;
-import com.example.buanaMekar.entities.User;
+
+import com.example.buanaMekar.entities.Toko;
 import java.util.List;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,10 +15,8 @@ import org.springframework.stereotype.Repository;
  * @author Insane
  */
 @Repository
-public interface UserRepository extends CrudRepository<User, Long>{
+public interface TokoRepository extends CrudRepository<Toko, Long>{
+   
+    List<Toko> findAll();
     
-    List<User> findAll();
-    
-    @Query("SELECT u FROM User u WHERE u.username = :username")
-    public User getUserByUsername(@Param("username")String username);
 }

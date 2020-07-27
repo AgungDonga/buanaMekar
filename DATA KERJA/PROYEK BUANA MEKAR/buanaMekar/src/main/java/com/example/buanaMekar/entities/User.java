@@ -28,7 +28,7 @@ public class User {
     private String username;
     private String password;
     private String role;
-    private boolean enabled;
+    private String enabled;
 
     public Long getId() {
         return id;
@@ -62,11 +62,11 @@ public class User {
         this.role = role;
     }
 
-    public boolean isEnabled() {
+    public String isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(String enabled) {
         this.enabled = enabled;
     }
     
