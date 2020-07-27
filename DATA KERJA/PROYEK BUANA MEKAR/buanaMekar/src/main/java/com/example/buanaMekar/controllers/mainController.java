@@ -40,6 +40,12 @@ public class mainController {
         return "welcome";
 
     }
+//    
+//    @RequestMapping("/login")
+//    public String viewLoginPage(){
+//        return "login";
+//
+//    }
 
     @RequestMapping("/new")
     public String showNewUserForm(Model model) {
