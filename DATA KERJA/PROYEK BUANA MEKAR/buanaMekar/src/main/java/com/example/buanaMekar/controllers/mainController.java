@@ -27,16 +27,11 @@ public class mainController {
     @Autowired
     private UserService service;
     
-//    @RequestMapping("/")
-//    public String viewHomePage(){
-//        return "welcome";
-//    }
     
     @RequestMapping("/createuser")
     public String createUser(){
         return "createUser";
     }
-    
 
     @RequestMapping("/")
     public String viewHomePage(Model model){
@@ -61,7 +56,7 @@ public class mainController {
     
     @RequestMapping("/edit/{id}")
     public ModelAndView showEditUserForm(@PathVariable(name = "id")Long id){
-        ModelAndView mav = new ModelAndView("edit_user");
+        ModelAndView mav = new ModelAndView("editUser");
         User user = service.get(id);
         mav.addObject("user",user);
         return mav;

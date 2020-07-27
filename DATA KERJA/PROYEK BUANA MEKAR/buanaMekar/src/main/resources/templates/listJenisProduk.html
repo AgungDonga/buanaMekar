@@ -17,34 +17,29 @@
             <form th:action="@{/logout}" method="post">
                 <input type="submit" value="Logout" />
             </form>
-            <h1>Product Manager</h1>
+            <h1>Jenis Produk Manager</h1>
             
-            <a class="btn btn-primary" href="new">Create New</a>
+            <a class="btn btn-primary" href="jenisProduk/new">Create New</a>
             <br>
             <br>
             <table class="table table-striped" border="1" cellpadding="10">
                 <thead>
                     <tr>
-                        <th>Product ID</th>
-                        <th>NAME</th>
-                        <th>BRAND</th>
-                        <th>MADE IN</th>
-                        <th>PRICE</th>
+                        <th>ID</th>
+                        <th>Jenis Produk</th>
                         
                         <th sec:authorize="hasRole('ROLE_ADMIN')">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="product : ${listProducts}">
-                        <td th:text="${product.id}">PRODUCT ID</td>
-                        <td th:text="${product.name}">NAME</td>
-                        <td th:text="${product.brand}">BRAND</td>
-                        <td th:text="${product.madein}">MADE IN</td>
-                        <td th:text="${product.price}">PRICE</td>
+                    <tr th:each="jenisProduks : ${listJenisProduks}">
+                        <td th:text="${jenisProduks.id}">ID</td>
+                        <td th:text="${jenisProduks.jenis_produk}">Jenis Produk</td>
+                        
                         <td sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a class="btn btn-info" th:href="@{'/edit/'+${product.id}}">Edit</a>
+                            <a class="btn btn-info" th:href="@{'/jenisProduk/edit/'+${jenisProduks.id}}">Edit</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-danger" th:href="@{'/delete/'+${product.id}}">Delete</a>
+                            <a class="btn btn-danger" th:href="@{'/jenisProduk/delete/'+${jenisProduks.id}}">Delete</a>
                         </td>
                     </tr>
                 </tbody>

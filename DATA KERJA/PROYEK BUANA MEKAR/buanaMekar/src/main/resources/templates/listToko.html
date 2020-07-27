@@ -17,32 +17,35 @@
             <form th:action="@{/logout}" method="post">
                 <input type="submit" value="Logout" />
             </form>
-            <h1>User Manager</h1>
+            <h1>Toko Manager</h1>
             
-            <a class="btn btn-primary" href="new">Create New</a>
+            <a class="btn btn-primary" href="toko/new">Create New</a>
             <br>
             <br>
             <table class="table table-striped" border="1" cellpadding="10">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>ROLE</th>
+                        <th>Nama Toko</th>
+                        <th>Alamat Toko</th>
+                        <th>No NPWP</th>
+                        <th>No HP</th>
                         
                         <th sec:authorize="hasRole('ROLE_ADMIN')">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="user : ${listUsers}">
-                        <td th:text="${user.id}">ID</td>
-                        <td th:text="${user.username}">Username</td>
-                        <td th:text="${user.password}">Password</td>
-                        <td th:text="${user.role}">Role</td>
+                    <tr th:each="tokos : ${listTokos}">
+                        <td th:text="${tokos.id}">ID</td>
+                        <td th:text="${tokos.nama_toko}">Nama Toko</td>
+                        <td th:text="${tokos.alamat_toko}">Alamat Toko</td>
+                        <td th:text="${tokos.no_npwp}">No NPWP</td>
+                        <td th:text="${tokos.no_hp}">No HP</td>
+                        
                         <td sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a class="btn btn-info" th:href="@{'/edit/'+${user.id}}">Edit</a>
+                            <a class="btn btn-info" th:href="@{'/toko/edit/'+${tokos.id}}">Edit</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-danger" th:href="@{'/delete/'+${user.id}}">Delete</a>
+                            <a class="btn btn-danger" th:href="@{'/toko/delete/'+${tokos.id}}">Delete</a>
                         </td>
                     </tr>
                 </tbody>
