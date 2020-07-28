@@ -61,15 +61,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/edit/**","/delete/**").hasRole("ADMIN")
+                .antMatchers("/","/images/**","/vendor/**","/scss/**" ,"/fonts/**", "/js/**", "/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll()
+                .formLogin().loginPage("/login")
+                .defaultSuccessUrl("/")
+                .permitAll()
                 .and()
                 .logout().permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")
                 ;
     }
+    
     
     
 }
