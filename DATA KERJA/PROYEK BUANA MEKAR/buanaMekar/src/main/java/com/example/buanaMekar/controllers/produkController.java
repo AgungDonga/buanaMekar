@@ -56,9 +56,10 @@ public class produkController {
     }
     
     @RequestMapping("/produk/edit/{id}")
-    public ModelAndView showEditProdukForm(@PathVariable(name = "id")Long id){
+    public ModelAndView showEditProdukForm(@PathVariable(name = "id")Long id, Model model){
         ModelAndView mav = new ModelAndView("editProduk");
         Produk produk = service.get(id);
+        model.addAttribute("jenisProduk", service.getAllJenisProduk());
         mav.addObject("produk",produk);
         return mav;
     }
