@@ -48,6 +48,11 @@ public class mainController {
     public String createUser(){
         return "createUser";
     }
+    
+    @RequestMapping("/dashboard")
+    public String dashboard(){
+        return "dash";
+    }
 
     @RequestMapping("/")
     public String viewHomePage(Model model){
