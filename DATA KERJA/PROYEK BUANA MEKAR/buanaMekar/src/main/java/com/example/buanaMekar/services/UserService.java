@@ -5,7 +5,7 @@
  */
 package com.example.buanaMekar.services;
 
-import com.example.buanaMekar.entities.User;
+import com.example.buanaMekar.entities.Users;
 import com.example.buanaMekar.repositories.UserRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,19 +25,19 @@ public class UserService {
     @Autowired
     UserRepository repo;
 
-    public List<User> listAll() {
+    public List<Users> listAll() {
         return repo.findAll();
 
     }
 
-    public void save(User user) {
+    public void save(Users user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled("1");
         repo.save(user);
 
     }
 
-    public User get(long id) {
+    public Users get(long id) {
         return repo.findById(id).get();
 
     }

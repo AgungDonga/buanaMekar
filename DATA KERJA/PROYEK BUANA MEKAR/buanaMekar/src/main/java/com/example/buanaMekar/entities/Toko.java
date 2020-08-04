@@ -5,67 +5,139 @@
  */
 package com.example.buanaMekar.entities;
 
+import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Insane
+ * @author BWP
  */
 @Entity
-public class Toko {
-    
+@Table(name = "toko")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Toko.findAll", query = "SELECT t FROM Toko t")
+    , @NamedQuery(name = "Toko.findById", query = "SELECT t FROM Toko t WHERE t.id = :id")
+    , @NamedQuery(name = "Toko.findByNamaToko", query = "SELECT t FROM Toko t WHERE t.namaToko = :namaToko")
+    , @NamedQuery(name = "Toko.findByAlamatToko", query = "SELECT t FROM Toko t WHERE t.alamatToko = :alamatToko")
+    , @NamedQuery(name = "Toko.findByNoNpwp", query = "SELECT t FROM Toko t WHERE t.noNpwp = :noNpwp")
+    , @NamedQuery(name = "Toko.findByNoHp", query = "SELECT t FROM Toko t WHERE t.noHp = :noHp")})
+public class Toko implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    private String nama_toko;
-    private String alamat_toko;
-    private String no_npwp;
-    private String no_hp;
-    
-    public Long getId() {
-        return id;
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "nama_toko")
+    private String namaToko;
+    @Column(name = "alamat_toko")
+    private String alamatToko;
+    @Column(name = "no_npwp")
+    private String noNpwp;
+    @Column(name = "no_hp")
+    private String noHp;
+    @OneToMany(mappedBy = "toko")
+    private Collection<Orderan> orderanCollection;
+
+    public Toko() {
     }
 
-    public void setId(Long id) {
+    public Toko(Integer id) {
         this.id = id;
     }
 
-    public String getNama_toko() {
-        return nama_toko;
+    public Toko(Integer id, String namaToko) {
+        this.id = id;
+        this.namaToko = namaToko;
     }
 
-    public void setNama_toko(String nama_toko) {
-        this.nama_toko = nama_toko;
+    public Integer getId() {
+        return id;
     }
 
-    public String getAlamat_toko() {
-        return alamat_toko;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setAlamat_toko(String alamat_toko) {
-        this.alamat_toko = alamat_toko;
+    public String getNamaToko() {
+        return namaToko;
     }
 
-    public String getNo_npwp() {
-        return no_npwp;
+    public void setNamaToko(String namaToko) {
+        this.namaToko = namaToko;
     }
 
-    public void setNo_npwp(String no_npwp) {
-        this.no_npwp = no_npwp;
+    public String getAlamatToko() {
+        return alamatToko;
     }
 
-    public String getNo_hp() {
-        return no_hp;
+    public void setAlamatToko(String alamatToko) {
+        this.alamatToko = alamatToko;
     }
 
-    public void setNo_hp(String no_hp) {
-        this.no_hp = no_hp;
+    public String getNoNpwp() {
+        return noNpwp;
     }
-    
-    
+
+    public void setNoNpwp(String noNpwp) {
+        this.noNpwp = noNpwp;
+    }
+
+    public String getNoHp() {
+        return noHp;
+    }
+
+    public void setNoHp(String noHp) {
+        this.noHp = noHp;
+    }
+
+    @XmlTransient
+    public Collection<Orderan> getOrderanCollection() {
+        return orderanCollection;
+    }
+
+    public void setOrderanCollection(Collection<Orderan> orderanCollection) {
+        this.orderanCollection = orderanCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Toko)) {
+            return false;
+        }
+        Toko other = (Toko) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.example.buanaMekar.entities.Toko[ id=" + id + " ]";
+    }
     
 }

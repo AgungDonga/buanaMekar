@@ -5,56 +5,88 @@
  */
 package com.example.buanaMekar.entities;
 
+import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Insane
+ * @author BWP
  */
 @Entity
-public class Produk {
-    
+@Table(name = "produk")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Produk.findAll", query = "SELECT p FROM Produk p")
+    , @NamedQuery(name = "Produk.findById", query = "SELECT p FROM Produk p WHERE p.id = :id")
+    , @NamedQuery(name = "Produk.findByMerkProduk", query = "SELECT p FROM Produk p WHERE p.merkProduk = :merkProduk")
+    , @NamedQuery(name = "Produk.findByHarga", query = "SELECT p FROM Produk p WHERE p.harga = :harga")
+    , @NamedQuery(name = "Produk.findByStok", query = "SELECT p FROM Produk p WHERE p.stok = :stok")
+    , @NamedQuery(name = "Produk.findByCatatan", query = "SELECT p FROM Produk p WHERE p.catatan = :catatan")})
+public class Produk implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    private String merk_produk;
-    private String catatan;
-    private Integer harga;
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "merk_produk")
+    private String merkProduk;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "harga")
+    private Double harga;
+    @Column(name = "stok")
     private Integer stok;
-    
+    @Column(name = "catatan")
+    private String catatan;
     @JoinColumn(name = "jenis_produk", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private JenisProduk jenis_produk;
-    
+    @ManyToOne(optional = false)
+    private JenisProduk jenisProduk;
+    @OneToMany(mappedBy = "produk")
+    private Collection<Orderan> orderanCollection;
 
-    public Long getId() {
-        return id;
+    public Produk() {
     }
 
-    public void setId(Long id) {
+    public Produk(Integer id) {
         this.id = id;
     }
 
-    public String getMerk_produk() {
-        return merk_produk;
+    public Integer getId() {
+        return id;
     }
 
-    public void setMerk_produk(String merk_produk) {
-        this.merk_produk = merk_produk;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getHarga() {
+    public String getMerkProduk() {
+        return merkProduk;
+    }
+
+    public void setMerkProduk(String merkProduk) {
+        this.merkProduk = merkProduk;
+    }
+
+    public Double getHarga() {
         return harga;
     }
 
-    public void setHarga(Integer harga) {
+    public void setHarga(Double harga) {
         this.harga = harga;
     }
 
@@ -66,7 +98,6 @@ public class Produk {
         this.stok = stok;
     }
 
-
     public String getCatatan() {
         return catatan;
     }
@@ -75,16 +106,46 @@ public class Produk {
         this.catatan = catatan;
     }
 
-    public JenisProduk getJenis_produk() {
-        return jenis_produk;
+    public JenisProduk getJenisProduk() {
+        return jenisProduk;
     }
 
-    public void setJenis_produk(JenisProduk jenis_produk) {
-        this.jenis_produk = jenis_produk;
+    public void setJenisProduk(JenisProduk jenisProduk) {
+        this.jenisProduk = jenisProduk;
     }
 
-    
-    
-    
+    @XmlTransient
+    public Collection<Orderan> getOrderanCollection() {
+        return orderanCollection;
+    }
+
+    public void setOrderanCollection(Collection<Orderan> orderanCollection) {
+        this.orderanCollection = orderanCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Produk)) {
+            return false;
+        }
+        Produk other = (Produk) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.example.buanaMekar.entities.Produk[ id=" + id + " ]";
+    }
     
 }

@@ -5,7 +5,7 @@
  */
 package com.example.buanaMekar.controllers;
 
-import com.example.buanaMekar.entities.User;
+import com.example.buanaMekar.entities.Users;
 import com.example.buanaMekar.services.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +56,7 @@ public class mainController {
 
     @RequestMapping("/")
     public String viewHomePage(Model model){
-        List<User> listUsers = service.listAll();
+        List<Users> listUsers = service.listAll();
         model.addAttribute("listUsers",listUsers);
         return "welcome";
 
@@ -70,13 +70,13 @@ public class mainController {
 
     @RequestMapping("/new")
     public String showNewUserForm(Model model) {
-        User user = new User();
+        Users user = new Users();
         model.addAttribute("user", user);
         return "createUser";
     }
 
     @RequestMapping(value = "/save",method = RequestMethod.POST)
-    public String saveUser(@ModelAttribute("user")User user){
+    public String saveUser(@ModelAttribute("user")Users user){
         service.save(user);
         return "redirect:/";
     }
@@ -84,7 +84,7 @@ public class mainController {
     @RequestMapping("/edit/{id}")
     public ModelAndView showEditUserForm(@PathVariable(name = "id")Long id){
         ModelAndView mav = new ModelAndView("editUser");
-        User user = service.get(id);
+        Users user = service.get(id);
         mav.addObject("user",user);
         return mav;
     }

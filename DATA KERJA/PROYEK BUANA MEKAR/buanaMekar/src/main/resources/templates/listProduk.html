@@ -38,17 +38,17 @@
                 <tbody>
                     <tr th:each="produks : ${listProduks}">
                         <td th:text="${produks.id}">ID</td>
-                        <td th:text="${produks.merk_produk}">Merk Produk</td>
+                        <!--<td th:text="${produks.merk_produk}">Merk Produk</td>-->
                         <td th:text="${produks.harga}">Harga Produk</td>
                         <td th:text="${produks.stok}">Stok</td>
-                        <td th:text="${produks.jenis_produk.jenis_produk}">Jenis Produk</td>
+                        <!--<td th:text="${produks.jenis_produk.jenis_produk}">Jenis Produk</td>-->
                         <td th:text="${produks.catatan}">Catatan</td>
-                        
+<!--                        
                         <td sec:authorize="hasRole('ROLE_ADMIN')">
                             <a class="btn btn-info" th:href="@{'/produk/edit/'+${produks.id}}">Edit</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <a class="btn btn-danger" th:href="@{'/produk/delete/'+${produks.id}}">Delete</a>
-                        </td>
+                        </td>-->
                     </tr>
                 </tbody>
             </table>

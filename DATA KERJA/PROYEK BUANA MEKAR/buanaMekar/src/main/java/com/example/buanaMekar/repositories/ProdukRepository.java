@@ -7,6 +7,7 @@ package com.example.buanaMekar.repositories;
 
 import com.example.buanaMekar.entities.Produk;
 import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,8 +16,6 @@ import org.springframework.stereotype.Repository;
  * @author Insane
  */
 @Repository
-public interface ProdukRepository extends CrudRepository<Produk, Long>{
-   
-    List<Produk> findAll();
+public interface ProdukRepository extends JpaRepository<Produk, String>{
     
 }

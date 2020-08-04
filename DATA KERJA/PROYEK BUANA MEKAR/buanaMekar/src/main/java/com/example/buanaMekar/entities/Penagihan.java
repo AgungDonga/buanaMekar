@@ -6,33 +6,32 @@
 package com.example.buanaMekar.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author BWP
  */
 @Entity
-@Table(name = "jenis_produk")
+@Table(name = "penagihan")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "JenisProduk.findAll", query = "SELECT j FROM JenisProduk j")
-    , @NamedQuery(name = "JenisProduk.findById", query = "SELECT j FROM JenisProduk j WHERE j.id = :id")
-    , @NamedQuery(name = "JenisProduk.findByJenisProduk", query = "SELECT j FROM JenisProduk j WHERE j.jenisProduk = :jenisProduk")})
-public class JenisProduk implements Serializable {
+    @NamedQuery(name = "Penagihan.findAll", query = "SELECT p FROM Penagihan p")
+    , @NamedQuery(name = "Penagihan.findById", query = "SELECT p FROM Penagihan p WHERE p.id = :id")
+    , @NamedQuery(name = "Penagihan.findByStatusPenagihan", query = "SELECT p FROM Penagihan p WHERE p.statusPenagihan = :statusPenagihan")
+    , @NamedQuery(name = "Penagihan.findByCatatan", query = "SELECT p FROM Penagihan p WHERE p.catatan = :catatan")})
+public class Penagihan implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,22 +39,19 @@ public class JenisProduk implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "jenis_produk")
-    private String jenisProduk;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jenisProduk")
-    private Collection<Produk> produkCollection;
+    @Column(name = "status_penagihan")
+    private String statusPenagihan;
+    @Column(name = "catatan")
+    private String catatan;
+    @JoinColumn(name = "orderan", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Orderan orderan;
 
-    public JenisProduk() {
+    public Penagihan() {
     }
 
-    public JenisProduk(Integer id) {
+    public Penagihan(Integer id) {
         this.id = id;
-    }
-
-    public JenisProduk(Integer id, String jenisProduk) {
-        this.id = id;
-        this.jenisProduk = jenisProduk;
     }
 
     public Integer getId() {
@@ -66,21 +62,28 @@ public class JenisProduk implements Serializable {
         this.id = id;
     }
 
-    public String getJenisProduk() {
-        return jenisProduk;
+    public String getStatusPenagihan() {
+        return statusPenagihan;
     }
 
-    public void setJenisProduk(String jenisProduk) {
-        this.jenisProduk = jenisProduk;
+    public void setStatusPenagihan(String statusPenagihan) {
+        this.statusPenagihan = statusPenagihan;
     }
 
-    @XmlTransient
-    public Collection<Produk> getProdukCollection() {
-        return produkCollection;
+    public String getCatatan() {
+        return catatan;
     }
 
-    public void setProdukCollection(Collection<Produk> produkCollection) {
-        this.produkCollection = produkCollection;
+    public void setCatatan(String catatan) {
+        this.catatan = catatan;
+    }
+
+    public Orderan getOrderan() {
+        return orderan;
+    }
+
+    public void setOrderan(Orderan orderan) {
+        this.orderan = orderan;
     }
 
     @Override
@@ -93,10 +96,10 @@ public class JenisProduk implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof JenisProduk)) {
+        if (!(object instanceof Penagihan)) {
             return false;
         }
-        JenisProduk other = (JenisProduk) object;
+        Penagihan other = (Penagihan) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -105,7 +108,7 @@ public class JenisProduk implements Serializable {
 
     @Override
     public String toString() {
-        return "com.example.buanaMekar.entities.JenisProduk[ id=" + id + " ]";
+        return "com.example.buanaMekar.entities.Penagihan[ id=" + id + " ]";
     }
     
 }

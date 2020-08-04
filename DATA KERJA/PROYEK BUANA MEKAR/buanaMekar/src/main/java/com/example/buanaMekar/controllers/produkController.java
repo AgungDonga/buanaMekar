@@ -35,7 +35,7 @@ public class produkController {
 
     @RequestMapping("/produk")
     public String viewJenisProdukPage(Model model){
-        List<Produk> listProduks = service.listAll();
+        Iterable<Produk> listProduks = service.listAll();
         model.addAttribute("listProduks",listProduks);
         return "listProduk";
 
@@ -54,21 +54,21 @@ public class produkController {
         service.save(produk);
         return "redirect:/produk";
     }
-    
-    @RequestMapping("/produk/edit/{id}")
-    public ModelAndView showEditProdukForm(@PathVariable(name = "id")Long id, Model model){
-        ModelAndView mav = new ModelAndView("editProduk");
-        Produk produk = service.get(id);
-        model.addAttribute("jenisProduk", service.getAllJenisProduk());
-        mav.addObject("produk",produk);
-        return mav;
-    }
-    
-    @RequestMapping("/produk/delete/{id}")
-    public String deleteProduk(@PathVariable(name = "id")Long id){
-        service.delete(id);
-        
-        return "redirect:/produk";
-    }
+//    
+//    @RequestMapping("/produk/edit/{id}")
+//    public ModelAndView showEditProdukForm(@PathVariable(name = "id")Long id, Model model){
+//        ModelAndView mav = new ModelAndView("editProduk");
+//        Produk produk = service.get(id);
+//        model.addAttribute("jenisProduk", service.getAllJenisProduk());
+//        mav.addObject("produk",produk);
+//        return mav;
+//    }
+//    
+//    @RequestMapping("/produk/delete/{id}")
+//    public String deleteProduk(@PathVariable(name = "id")Long id){
+//        service.delete(id);
+//        
+//        return "redirect:/produk";
+//    }
     
 }

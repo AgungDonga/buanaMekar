@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.example.buanaMekar.repositories;
-import com.example.buanaMekar.entities.User;
+import com.example.buanaMekar.entities.Users;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Repository;
  * @author Insane
  */
 @Repository
-public interface UserRepository extends CrudRepository<User, Long>{
+public interface UserRepository extends CrudRepository<Users, Long>{
     
-    List<User> findAll();
+    List<Users> findAll();
     
-    @Query("SELECT u FROM User u WHERE u.username = :username")
-    public User getUserByUsername(@Param("username")String username);
+    @Query("SELECT u FROM Users u WHERE u.username = :username")
+    public Users getUserByUsername(@Param("username")String username);
 }

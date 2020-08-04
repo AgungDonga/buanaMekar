@@ -28,7 +28,7 @@ public class ProdukService {
     
     
 
-    public List<Produk> listAll() {
+    public Iterable<Produk> listAll() {
         return repo.findAll();
 
     }
@@ -37,16 +37,16 @@ public class ProdukService {
         repo.save(produk);
 
     }
-
-    public Produk get(long id) {
-        return repo.findById(id).get();
-
-    }
-
-    public void delete(long id) {
-        repo.deleteById(id);
-
-    }
+//
+//    public Produk get(long id) {
+//        return repo.findById(id).get();
+//
+//    }
+//
+//    public void delete(long id) {
+//        repo.deleteById(id);
+//
+//    }
     
     public List<JenisProduk> getAllJenisProduk() {
         return JenisProdukRepo.findAll();
