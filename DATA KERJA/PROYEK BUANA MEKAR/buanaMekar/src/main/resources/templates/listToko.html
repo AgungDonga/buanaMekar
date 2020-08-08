@@ -37,10 +37,10 @@
                 <tbody>
                     <tr th:each="tokos : ${listTokos}">
                         <td th:text="${tokos.id}">ID</td>
-                        <td th:text="${tokos.nama_toko}">Nama Toko</td>
-                        <td th:text="${tokos.alamat_toko}">Alamat Toko</td>
-                        <td th:text="${tokos.no_npwp}">No NPWP</td>
-                        <td th:text="${tokos.no_hp}">No HP</td>
+                        <td th:text="${tokos.namaToko}">Nama Toko</td>
+                        <td th:text="${tokos.alamatToko}">Alamat Toko</td>
+                        <td th:text="${tokos.noNpwp}">No NPWP</td>
+                        <td th:text="${tokos.noHp}">No HP</td>
                         
                         <td sec:authorize="hasRole('ROLE_ADMIN')">
                             <a class="btn btn-info" th:href="@{'/toko/edit/'+${tokos.id}}">Edit</a>

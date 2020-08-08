@@ -6,7 +6,7 @@
 package com.example.buanaMekar.services;
 
 import com.example.buanaMekar.details.MyUserDetails;
-import com.example.buanaMekar.entities.User;
+import com.example.buanaMekar.entities.Users;
 import com.example.buanaMekar.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.getUserByUsername(username);
+        Users user = userRepository.getUserByUsername(username);
         
         if (user == null) {
             throw new UsernameNotFoundException("Could not find user");

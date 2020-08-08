@@ -5,39 +5,108 @@
  */
 package com.example.buanaMekar.entities;
 
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Insane
+ * @author BWP
  */
 @Entity
-public class JenisProduk {
-    
+@Table(name = "jenis_produk")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "JenisProduk.findAll", query = "SELECT j FROM JenisProduk j")
+    , @NamedQuery(name = "JenisProduk.findById", query = "SELECT j FROM JenisProduk j WHERE j.id = :id")
+    , @NamedQuery(name = "JenisProduk.findByJenisProduk", query = "SELECT j FROM JenisProduk j WHERE j.jenisProduk = :jenisProduk")})
+public class JenisProduk implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    private String jenis_produk;
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "jenis_produk")
+    private String jenisProduk;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jenisProduk", fetch = FetchType.LAZY)
+    private List<Produk> produkList;
 
-    public Long getId() {
-        return id;
+    public JenisProduk() {
     }
 
-    public void setId(Long id) {
+    public JenisProduk(Integer id) {
         this.id = id;
     }
 
-    public String getJenis_produk() {
-        return jenis_produk;
+    public JenisProduk(Integer id, String jenisProduk) {
+        this.id = id;
+        this.jenisProduk = jenisProduk;
     }
 
-    public void setJenis_produk(String jenis_produk) {
-        this.jenis_produk = jenis_produk;
+    public Integer getId() {
+        return id;
     }
-    
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getJenisProduk() {
+        return jenisProduk;
+    }
+
+    public void setJenisProduk(String jenisProduk) {
+        this.jenisProduk = jenisProduk;
+    }
+
+    @XmlTransient
+    public List<Produk> getProdukList() {
+        return produkList;
+    }
+
+    public void setProdukList(List<Produk> produkList) {
+        this.produkList = produkList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof JenisProduk)) {
+            return false;
+        }
+        JenisProduk other = (JenisProduk) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.example.buanaMekar.entities.JenisProduk[ id=" + id + " ]";
+    }
     
 }

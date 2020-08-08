@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @author Insane
  */
 @Repository
-public interface JenisProdukRepository extends CrudRepository<JenisProduk, Long>{
+public interface JenisProdukRepository extends CrudRepository<JenisProduk, Integer>{
    
     List<JenisProduk> findAll();
     

@@ -16,7 +16,7 @@
                     </tr>
                     <tr>
                         <td>Merk Produk</td>
-                        <td><input type="text" th:field="*{merk_produk}" /></td>
+                        <td><input type="text" th:field="*{merkProduk}" /></td>
                     </tr>
                     <tr>
                         <td>Harga</td>
@@ -29,9 +29,9 @@
                     <tr>
                         <td>Jenis Produk</td>
                         <td>
-                            <select class="form-control" th:field="*{jenis_produk}" >
+                            <select class="form-control" th:field="*{jenisProduk}" >
                                 <option value="0">select Produk</option>
-                                <option th:each="produks : ${jenisProduk}" th:value="${produks.id}" th:text="${produks.jenis_produk}"></option>
+                                <option th:each="produks : ${jenisProduk}" th:value="${produks.id}" th:text="${produks.jenisProduk}"></option>
                             </select>
                         </td>
                     </tr>

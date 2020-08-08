@@ -31,12 +31,12 @@ public class TokoService {
 
     }
 
-    public Toko get(long id) {
+    public Toko get(Integer id) {
         return repo.findById(id).get();
 
     }
 
-    public void delete(long id) {
+    public void delete(Integer id) {
         repo.deleteById(id);
 
     }

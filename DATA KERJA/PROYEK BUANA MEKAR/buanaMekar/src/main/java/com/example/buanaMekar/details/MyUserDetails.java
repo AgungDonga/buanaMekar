@@ -5,7 +5,7 @@
  */
 package com.example.buanaMekar.details;
 
-import com.example.buanaMekar.entities.User;
+import com.example.buanaMekar.entities.Users;
 import java.util.Arrays;
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,9 +18,9 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public class MyUserDetails implements UserDetails{
 
-    private User user;
+    private Users user;
     
-    public MyUserDetails(User user){
+    public MyUserDetails(Users user){
         this.user = user;
     }
     

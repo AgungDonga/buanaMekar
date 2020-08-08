@@ -31,12 +31,12 @@ public class JenisProdukService {
 
     }
 
-    public JenisProduk get(long id) {
+    public JenisProduk get(Integer id) {
         return repo.findById(id).get();
 
     }
 
-    public void delete(long id) {
+    public void delete(Integer id) {
         repo.deleteById(id);
 
     }

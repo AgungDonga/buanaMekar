@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @author Insane
  */
 @Repository
-public interface TokoRepository extends CrudRepository<Toko, Long>{
+public interface TokoRepository extends CrudRepository<Toko, Integer>{
    
     List<Toko> findAll();
     

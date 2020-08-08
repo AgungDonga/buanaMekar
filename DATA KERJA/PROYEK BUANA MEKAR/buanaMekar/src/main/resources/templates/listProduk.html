@@ -38,10 +38,10 @@
                 <tbody>
                     <tr th:each="produks : ${listProduks}">
                         <td th:text="${produks.id}">ID</td>
-                        <td th:text="${produks.merk_produk}">Merk Produk</td>
+                        <td th:text="${produks.merkProduk}">Merk Produk</td>
                         <td th:text="${produks.harga}">Harga Produk</td>
                         <td th:text="${produks.stok}">Stok</td>
-                        <td th:text="${produks.jenis_produk.jenis_produk}">Jenis Produk</td>
+                        <td th:text="${produks.jenisProduk.jenisProduk}">Jenis Produk</td>
                         <td th:text="${produks.catatan}">Catatan</td>
                         
                         <td sec:authorize="hasRole('ROLE_ADMIN')">

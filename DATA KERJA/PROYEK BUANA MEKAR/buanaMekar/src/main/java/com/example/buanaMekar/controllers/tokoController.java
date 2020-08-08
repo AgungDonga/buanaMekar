@@ -55,7 +55,7 @@ public class tokoController {
     }
     
     @RequestMapping("/toko/edit/{id}")
-    public ModelAndView showEditTokoForm(@PathVariable(name = "id")Long id){
+    public ModelAndView showEditTokoForm(@PathVariable(name = "id")Integer id){
         ModelAndView mav = new ModelAndView("editToko");
         Toko toko = service.get(id);
         mav.addObject("toko",toko);
@@ -63,7 +63,7 @@ public class tokoController {
     }
     
     @RequestMapping("/toko/delete/{id}")
-    public String deleteToko(@PathVariable(name = "id")Long id){
+    public String deleteToko(@PathVariable(name = "id")Integer id){
         service.delete(id);
         
         return "redirect:/toko";

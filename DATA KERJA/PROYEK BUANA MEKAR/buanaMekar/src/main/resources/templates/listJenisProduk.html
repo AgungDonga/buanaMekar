@@ -34,7 +34,7 @@
                 <tbody>
                     <tr th:each="jenisProduks : ${listJenisProduks}">
                         <td th:text="${jenisProduks.id}">ID</td>
-                        <td th:text="${jenisProduks.jenis_produk}">Jenis Produk</td>
+                        <td th:text="${jenisProduks.jenisProduk}">Jenis Produk</td>
                         
                         <td sec:authorize="hasRole('ROLE_ADMIN')">
                             <a class="btn btn-info" th:href="@{'/jenisProduk/edit/'+${jenisProduks.id}}">Edit</a>

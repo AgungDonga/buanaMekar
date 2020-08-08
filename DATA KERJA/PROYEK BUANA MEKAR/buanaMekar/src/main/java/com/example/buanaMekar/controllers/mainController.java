@@ -5,7 +5,7 @@
  */
 package com.example.buanaMekar.controllers;
 
-import com.example.buanaMekar.entities.User;
+import com.example.buanaMekar.entities.Users;
 import com.example.buanaMekar.services.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +42,6 @@ public class mainController {
         return result;
     }
     
-    
-    
     @RequestMapping("/createuser")
     public String createUser(){
         return "createUser";
@@ -56,9 +54,9 @@ public class mainController {
 
     @RequestMapping("/")
     public String viewHomePage(Model model){
-        List<User> listUsers = service.listAll();
+        List<Users> listUsers = service.listAll();
         model.addAttribute("listUsers",listUsers);
-        return "welcome";
+        return "redirect:/dashboard";
 
     }
 //    
@@ -70,27 +68,27 @@ public class mainController {
 
     @RequestMapping("/new")
     public String showNewUserForm(Model model) {
-        User user = new User();
+        Users user = new Users();
         model.addAttribute("user", user);
         return "createUser";
     }
 
     @RequestMapping(value = "/save",method = RequestMethod.POST)
-    public String saveUser(@ModelAttribute("user")User user){
+    public String saveUser(@ModelAttribute("user")Users user){
         service.save(user);
         return "redirect:/";
     }
     
     @RequestMapping("/edit/{id}")
-    public ModelAndView showEditUserForm(@PathVariable(name = "id")Long id){
+    public ModelAndView showEditUserForm(@PathVariable(name = "id")Integer id){
         ModelAndView mav = new ModelAndView("editUser");
-        User user = service.get(id);
+        Users user = service.get(id);
         mav.addObject("user",user);
         return mav;
     }
     
     @RequestMapping("/delete/{id}")
-    public String deleteUser(@PathVariable(name = "id")Long id){
+    public String deleteUser(@PathVariable(name = "id")Integer id){
         service.delete(id);
         
         return "redirect:/";

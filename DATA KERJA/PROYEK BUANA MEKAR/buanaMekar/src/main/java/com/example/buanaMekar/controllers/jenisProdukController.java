@@ -55,7 +55,7 @@ public class jenisProdukController {
     }
     
     @RequestMapping("/jenisProduk/edit/{id}")
-    public ModelAndView showEditJenisProdukForm(@PathVariable(name = "id")Long id){
+    public ModelAndView showEditJenisProdukForm(@PathVariable(name = "id")Integer id){
         ModelAndView mav = new ModelAndView("editJenisProduk");
         JenisProduk jenisProduk = service.get(id);
         mav.addObject("jenisProduk",jenisProduk);
@@ -63,7 +63,7 @@ public class jenisProdukController {
     }
     
     @RequestMapping("/jenisProduk/delete/{id}")
-    public String deleteJenisProduk(@PathVariable(name = "id")Long id){
+    public String deleteJenisProduk(@PathVariable(name = "id")Integer id){
         service.delete(id);
         
         return "redirect:/jenisProduk";
