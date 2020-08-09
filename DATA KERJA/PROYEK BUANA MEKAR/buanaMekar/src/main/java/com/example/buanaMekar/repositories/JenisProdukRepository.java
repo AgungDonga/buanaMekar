@@ -18,7 +18,4 @@ import org.springframework.stereotype.Repository;
 public interface JenisProdukRepository extends CrudRepository<JenisProduk, Integer>{
    
     List<JenisProduk> findAll();
-    
-    
-    
 }

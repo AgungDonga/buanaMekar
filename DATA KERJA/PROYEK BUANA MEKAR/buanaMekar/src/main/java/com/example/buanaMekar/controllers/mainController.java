@@ -49,7 +49,7 @@ public class mainController {
     
     @RequestMapping("/dashboard")
     public String dashboard(){
-        return "dash";
+        return "index";
     }
 
     @RequestMapping("/")

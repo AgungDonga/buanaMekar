@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 /**
@@ -69,7 +70,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
-                .logout().permitAll()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login")
+                .deleteCookies("my-remember-me-cookie")
+                .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")
                 ;
