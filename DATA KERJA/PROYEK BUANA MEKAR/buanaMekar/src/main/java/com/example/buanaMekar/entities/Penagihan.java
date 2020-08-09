@@ -44,9 +44,9 @@ public class Penagihan implements Serializable {
     private String statusPenagihan;
     @Column(name = "catatan")
     private String catatan;
-    @JoinColumn(name = "orderan", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Orderan orderan;
+    @JoinColumn(name = "invoice", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Invoice invoice;
 
     public Penagihan() {
     }
@@ -79,12 +79,12 @@ public class Penagihan implements Serializable {
         this.catatan = catatan;
     }
 
-    public Orderan getOrderan() {
-        return orderan;
+    public Invoice getInvoice() {
+        return invoice;
     }
 
-    public void setOrderan(Orderan orderan) {
-        this.orderan = orderan;
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 
     @Override

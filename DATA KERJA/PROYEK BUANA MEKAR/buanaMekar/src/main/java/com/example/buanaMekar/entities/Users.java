@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
-    , @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id")
+    , @NamedQuery(name = "Users.findByUserId", query = "SELECT u FROM Users u WHERE u.userId = :userId")
     , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
     , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
     , @NamedQuery(name = "Users.findByRole", query = "SELECT u FROM Users u WHERE u.role = :role")
@@ -38,7 +38,7 @@ public class Users implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "user_id")
-    private Integer id;
+    private Integer userId;
     @Basic(optional = false)
     @Column(name = "username")
     private String username;
@@ -54,23 +54,23 @@ public class Users implements Serializable {
     public Users() {
     }
 
-    public Users(Integer id) {
-        this.id = id ;
+    public Users(Integer userId) {
+        this.userId = userId;
     }
 
-    public Users(Integer id, String username, String password, String role) {
-        this.id  = id;
+    public Users(Integer userId, String username, String password, String role) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.role = role;
     }
 
     public Integer getUserId() {
-        return id;
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -108,7 +108,7 @@ public class Users implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (userId != null ? userId.hashCode() : 0);
         return hash;
     }
 
@@ -119,7 +119,7 @@ public class Users implements Serializable {
             return false;
         }
         Users other = (Users) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
             return false;
         }
         return true;
@@ -127,7 +127,7 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "com.example.buanaMekar.entities.Users[ id=" + id + " ]";
+        return "com.example.buanaMekar.entities.Users[ userId=" + userId + " ]";
     }
     
 }
