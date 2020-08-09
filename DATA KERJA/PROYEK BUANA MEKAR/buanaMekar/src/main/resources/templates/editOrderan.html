@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+        <div align="center">
+            <h1>Create New Orderan</h1>
+            <br/>
+            <form action="#" th:action="@{/orderan/save}" th:object="${orderan}" method="post" enctype="multipart/form-data">
+                <table border="0" cellpadding="10">
+                    <tr>
+                        <td><input hidden="true" type="text" th:field="*{id}" readonly="readonly"/></td>
+                    </tr>
+                    <tr>
+                        <td>Toko</td>
+                        <td>
+                            <select class="form-control" th:field="*{toko}" >
+                                <option onblur="true" value="0">select Toko</option>
+                                <option th:each="tokos : ${toko}" th:value="${tokos.id}" th:text="${tokos.namaToko}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Merk Produk</td>
+                        <td>
+                            <select class="form-control" th:field="*{produk}" >
+                                <option value="0">select Merk Produk</option>
+                                <option th:each="produks : ${produk}" th:value="${produks.id}" th:text="${produks.merkProduk}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td><input type="text" th:field="*{quantity}" /></td>
+                    </tr>
+                    <td colspan="2"><button type="submit">Save</button></td>
+                    </tr>
+                </table>
+
+            </form>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>
