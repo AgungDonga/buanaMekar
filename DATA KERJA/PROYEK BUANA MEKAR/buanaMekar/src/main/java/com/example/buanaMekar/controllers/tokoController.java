@@ -40,12 +40,12 @@ public class tokoController {
         return "listToko";
 
     }
-
+    
     @RequestMapping("/toko/new")
     public String showNewTokoForm(Model model) {
         Toko toko = new Toko();
-        model.addAttribute("toko", toko);
-        return "createToko";
+        model.addAttribute("toko",toko);
+        return "listToko";
     }
 
     @RequestMapping(value = "/toko/save",method = RequestMethod.POST)

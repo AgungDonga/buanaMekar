@@ -1,59 +1,191 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <div th:replace="frag/component::head"></div>
 
-    </head>
-    <body>
-        
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
 
-        <div align="center">
-            
-            <h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Logout" />
-            </form>
-            <h1>Toko Manager</h1>
-            
-            <a class="btn btn-primary" href="toko/new">Create New</a>
-            <br>
-            <br>
-            <table class="table table-striped" border="1" cellpadding="10">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nama Toko</th>
-                        <th>Alamat Toko</th>
-                        <th>No NPWP</th>
-                        <th>No HP</th>
-                        
-                        <th sec:authorize="hasRole('ROLE_ADMIN')">ACTIONS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="tokos : ${listTokos}">
-                        <td th:text="${tokos.id}">ID</td>
-                        <td th:text="${tokos.namaToko}">Nama Toko</td>
-                        <td th:text="${tokos.alamatToko}">Alamat Toko</td>
-                        <td th:text="${tokos.noNpwp}">No NPWP</td>
-                        <td th:text="${tokos.noHp}">No HP</td>
-                        
-                        <td sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a class="btn btn-info" th:href="@{'/toko/edit/'+${tokos.id}}">Edit</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-danger" th:href="@{'/toko/delete/'+${tokos.id}}">Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div th:replace="frag/component::sidenavbar"></div>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+
+                <ol class="breadcrumb">
+                    <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href="/">Tables</a></li>
+                    <li class="active">Tables</li>
+                </ol>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="col-lg-3 col-xs-6" data-toggle="modal" data-target="#modal-primary">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3>+</h3>
+                            <p>Tambah Data</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a class="small-box-footer">
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-header">
+                                <h3 class="box-title">Data Tabel Toko</h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nama Toko</th>
+                                            <th>Alamat Toko</th>
+                                            <th>No NPWP</th>
+                                            <th>No HP</th>
+
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')">ACTIONS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="tokos : ${listTokos}">
+                                            <td th:text="${tokos.id}">ID</td>
+                                            <td th:text="${tokos.namaToko}">Nama Toko</td>
+                                            <td th:text="${tokos.alamatToko}">Alamat Toko</td>
+                                            <td th:text="${tokos.noNpwp}">No NPWP</td>
+                                            <td th:text="${tokos.noHp}">No HP</td>
+
+                                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                                <a class="btn btn-info" th:href="@{'/toko/edit/'+${tokos.id}}"><i class="fa fa-edit"></i></a>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <a class="btn btn-danger" th:href="@{'/toko/delete/'+${tokos.id}}"><i class="fa fa-remove"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nama Toko</th>
+                                            <th>Alamat Toko</th>
+                                            <th>No NPWP</th>
+                                            <th>No HP</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </section>
+            <!-- /.content -->
         </div>
+        <!-- /.content-wrapper -->
+        <div th:replace="frag/component::footer"></div>
 
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    </body>
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+    <div th:replace="frag/component::script"></div>
+
+
+    <!-- /.modal UPDATE -->
+<!--    <div class="modal fade" id="modal-default" th:attrappend="id=${id}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Toko</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="#" th:action="@{/toko/save}" th:object="${toko}" method="post" enctype="multipart/form-data">
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" th:field="*{id}" readonly="readonly">
+                            <label for="exampleInputEmail1">Nama Toko</label>
+                            <input type="text" class="form-control" th:field="*{namaToko}">
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" value="submit">Save changes</button>
+                    </div>
+                </form>
+                <?php endforeach; ?>
+
+            </div>
+             /.modal-content 
+        </div>
+         /.modal-dialog 
+    </div>-->
+    <!-- /.modal -->
+
+
+    <!-- /.modal INSERT -->
+<!--    <div class="modal fade" id="modal-primary">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Masukkan Data Toko</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                </div>
+
+                                <form action="#" th:action="@{/toko/save}" th:object="${toko}" method="post" enctype="multipart/form-data">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Nama Toko</label>
+                                            <input type="text" class="form-control" th:field="*{namaToko}">
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Alamat Toko</label>
+                                            <input type="text" class="form-control" th:field="*{alamatToko}">
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">NO NPWP</label>
+                                            <input type="text" class="form-control" th:field="*{noNpwp}">
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">NO HP</label>
+                                            <input type="text" class="form-control" th:field="*{noHp}">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+            </div>
+             /.modal-content 
+        </div>
+         /.modal-dialog 
+    </div>-->
+    <!-- /.modal -->
+
+</body>
 </html>

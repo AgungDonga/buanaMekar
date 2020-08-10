@@ -90,6 +90,17 @@ hr{ border-top-color:#dadada;}
 	opacity: 1;
 }
 
+.box{
+    position: relative;
+    border radius: 3px;
+    background: #ffffff;
+    border top:3px solid #d2d6de;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+
 
 /* Top user navigation */
 #user-nav {
@@ -233,7 +244,7 @@ hr{ border-top-color:#dadada;}
 	top: -7px;
 }
 .container-fluid .row-fluid:first-child {
-	margin-top: 20px;
+	margin-top: 5px;
 }
 /* Breadcrumb */
 #breadcrumb {

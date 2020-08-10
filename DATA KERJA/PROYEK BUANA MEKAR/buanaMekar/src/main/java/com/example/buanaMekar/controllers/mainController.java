@@ -49,14 +49,14 @@ public class mainController {
     
     @RequestMapping("/dashboard")
     public String dashboard(){
-        return "index";
+        return "main";
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/user")
     public String viewHomePage(Model model){
         List<Users> listUsers = service.listAll();
         model.addAttribute("listUsers",listUsers);
-        return "redirect:/dashboard";
+        return "listUser";
 
     }
 //    
