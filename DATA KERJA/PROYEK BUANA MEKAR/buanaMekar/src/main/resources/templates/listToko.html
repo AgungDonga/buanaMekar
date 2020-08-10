@@ -68,11 +68,108 @@
                                             <td th:text="${tokos.noHp}">No HP</td>
 
                                             <td sec:authorize="hasRole('ROLE_ADMIN')">
-                                                <a class="btn btn-info" th:href="@{'/toko/edit/'+${tokos.id}}"><i class="fa fa-edit"></i></a>
-                                                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                <a class="btn btn-info" th:attrappend="data-target=${tokos.id}" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i></a>
+                                                &nbsp;
                                                 <a class="btn btn-danger" th:href="@{'/toko/delete/'+${tokos.id}}"><i class="fa fa-remove"></i></a>
                                             </td>
-                                        </tr>
+
+                                            <!-- /.modal INSERT -->
+                                    <div class="modal fade" id="modal-primary">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Masukkan Data Toko</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span></button>
+                                                </div>
+
+                                                <form action="#" th:action="@{/toko/save}" method="post" enctype="multipart/form-data">
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Nama Toko</label>
+                                                            <input type="text" class="form-control" id="namaToko" name="namaToko">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Alamat</label>
+                                                            <input type="text" class="form-control" id="alamatToko" name="alamatToko">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">NPWP</label>
+                                                            <input type="text" class="form-control" id="noNpwp" name="noNpwp">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">No HP</label>
+                                                            <input type="text" class="form-control" id="noHp" name="noHp">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <!-- /.modal -->
+
+
+                                    <!-- /.modal UPDATE -->
+                                    <div class="modal fade" id="modal-default" th:attrappend="id=${tokos.id}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Update Toko</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+
+                                                <form action="#" th:action="@{/toko/save}" method="post" enctype="multipart/form-data">
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Nama Toko</label>
+                                                            <input type="text" class="form-control" id="namaToko" name="namaToko">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Alamat</label>
+                                                            <input type="text" class="form-control" id="alamatToko" name="alamatToko">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">NPWP</label>
+                                                            <input type="text" class="form-control" id="noNpwp" name="noNpwp">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">No HP</label>
+                                                            <input type="text" class="form-control" id="noHp" name="noHp">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary" value="submit">Save changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal -->
+
+                                    </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -83,6 +180,9 @@
                                             <th>No HP</th>
                                         </tr>
                                     </tfoot>
+
+
+
                                 </table>
                             </div>
                             <!-- /.box-body -->
@@ -104,88 +204,10 @@
     <div th:replace="frag/component::script"></div>
 
 
-    <!-- /.modal UPDATE -->
-<!--    <div class="modal fade" id="modal-default" th:attrappend="id=${id}">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Update Toko</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form action="#" th:action="@{/toko/save}" th:object="${toko}" method="post" enctype="multipart/form-data">
-
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="hidden" th:field="*{id}" readonly="readonly">
-                            <label for="exampleInputEmail1">Nama Toko</label>
-                            <input type="text" class="form-control" th:field="*{namaToko}">
-                        </div>
-                    </div>
-                    
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" value="submit">Save changes</button>
-                    </div>
-                </form>
-                <?php endforeach; ?>
-
-            </div>
-             /.modal-content 
-        </div>
-         /.modal-dialog 
-    </div>-->
-    <!-- /.modal -->
 
 
-    <!-- /.modal INSERT -->
-<!--    <div class="modal fade" id="modal-primary">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Masukkan Data Toko</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                </div>
 
-                                <form action="#" th:action="@{/toko/save}" th:object="${toko}" method="post" enctype="multipart/form-data">
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Nama Toko</label>
-                                            <input type="text" class="form-control" th:field="*{namaToko}">
-                                        </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Alamat Toko</label>
-                                            <input type="text" class="form-control" th:field="*{alamatToko}">
-                                        </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">NO NPWP</label>
-                                            <input type="text" class="form-control" th:field="*{noNpwp}">
-                                        </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">NO HP</label>
-                                            <input type="text" class="form-control" th:field="*{noHp}">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </form>
-            </div>
-             /.modal-content 
-        </div>
-         /.modal-dialog 
-    </div>-->
-    <!-- /.modal -->
+
 
 </body>
 </html>

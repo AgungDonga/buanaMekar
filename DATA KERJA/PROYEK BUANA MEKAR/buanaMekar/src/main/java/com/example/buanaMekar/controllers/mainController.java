@@ -47,7 +47,7 @@ public class mainController {
         return "createUser";
     }
     
-    @RequestMapping("/dashboard")
+    @RequestMapping("/")
     public String dashboard(){
         return "main";
     }

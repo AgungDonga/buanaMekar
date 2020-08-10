@@ -43,8 +43,8 @@ public class tokoController {
     
     @RequestMapping("/toko/new")
     public String showNewTokoForm(Model model) {
-        Toko toko = new Toko();
-        model.addAttribute("toko",toko);
+        Toko tokoNew = new Toko();
+        model.addAttribute(tokoNew);
         return "listToko";
     }
 
