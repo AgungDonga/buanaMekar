@@ -69,7 +69,7 @@
 
                                             <td sec:authorize="hasRole('ROLE_ADMIN')">
 
-                                                <a class="btn btn-info" th:attrappend="data-target=${tokos.id}" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i></a>
+                                                <a class="btn btn-info" th:attr="data-target='#modal-warning'+${tokos.id}" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i></a>
                                                 &nbsp;
                                                 <a class="btn btn-danger" th:href="@{'/toko/delete/'+${tokos.id}}"><i class="fa fa-remove"></i></a>
                                             </td>
@@ -124,7 +124,7 @@
 
 
                                     <!-- /.modal UPDATE -->
-                                    <div class="modal fade" id="modal-default" th:attrappend="id=${tokos.id}">
+                                    <div class="modal fade" th:id="modal-warning+${tokos.id}">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -138,30 +138,31 @@
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Nama Toko</label>
-                                                            <input type="text" class="form-control" id="namaToko" name="namaToko">
+                                                            <input type="hidden" class="form-control" id="id" name="id" th:value="${tokos.id}">
+                                                            <input type="text" class="form-control" id="namaToko" name="namaToko" th:value="${tokos.namaToko}">
                                                         </div>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Alamat</label>
-                                                            <input type="text" class="form-control" id="alamatToko" name="alamatToko">
+                                                            <input type="text" class="form-control" id="alamatToko" name="alamatToko" th:value="${tokos.alamatToko}">
                                                         </div>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">NPWP</label>
-                                                            <input type="text" class="form-control" id="noNpwp" name="noNpwp">
+                                                            <input type="text" class="form-control" id="noNpwp" name="noNpwp" th:value="${tokos.noNpwp}">
                                                         </div>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">No HP</label>
-                                                            <input type="text" class="form-control" id="noHp" name="noHp">
+                                                            <input type="text" class="form-control" id="noHp" name="noHp" th:value="${tokos.noHp}">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer justify-content-between">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary" value="submit">Save changes</button>
+                                                        <button type="submit" class="btn btn-primary" value="submit">Save changes</button>
                                                     </div>
                                                 </form>
                                             </div>
