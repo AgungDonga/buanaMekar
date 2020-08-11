@@ -72,7 +72,7 @@ public class JenisProduk implements Serializable {
     }
 
     public void setJenisProduk(String jenisProduk) {
-        this.jenisProduk = jenisProduk;
+        this.jenisProduk = jenisProduk.toUpperCase();
     }
 
     @XmlTransient

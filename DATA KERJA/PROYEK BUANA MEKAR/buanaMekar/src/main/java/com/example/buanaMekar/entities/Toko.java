@@ -80,7 +80,7 @@ public class Toko implements Serializable {
     }
 
     public void setNamaToko(String namaToko) {
-        this.namaToko = namaToko;
+        this.namaToko = namaToko.toUpperCase();
     }
 
     public String getAlamatToko() {
@@ -88,7 +88,7 @@ public class Toko implements Serializable {
     }
 
     public void setAlamatToko(String alamatToko) {
-        this.alamatToko = alamatToko;
+        this.alamatToko = alamatToko.toUpperCase();
     }
 
     public String getNoNpwp() {

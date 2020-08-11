@@ -80,7 +80,7 @@ public class Produk implements Serializable {
     }
 
     public void setMerkProduk(String merkProduk) {
-        this.merkProduk = merkProduk;
+        this.merkProduk = merkProduk.toUpperCase();
     }
 
     public Double getHarga() {
@@ -104,7 +104,7 @@ public class Produk implements Serializable {
     }
 
     public void setCatatan(String catatan) {
-        this.catatan = catatan;
+        this.catatan = catatan.toUpperCase();
     }
 
     public JenisProduk getJenisProduk() {

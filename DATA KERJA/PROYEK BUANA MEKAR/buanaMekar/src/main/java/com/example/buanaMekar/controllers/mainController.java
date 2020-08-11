@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,21 +66,23 @@ public class mainController {
 //        return "login";
 //
 //    }
+    
+    
 
-    @RequestMapping("/new")
+    @RequestMapping("/user/new")
     public String showNewUserForm(Model model) {
         Users user = new Users();
         model.addAttribute("user", user);
         return "createUser";
     }
 
-    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @RequestMapping(value = "/user/save",method = RequestMethod.POST)
     public String saveUser(@ModelAttribute("user")Users user){
         service.save(user);
-        return "redirect:/";
+        return "redirect:/user";
     }
     
-    @RequestMapping("/edit/{id}")
+    @RequestMapping("/user/edit/{id}")
     public ModelAndView showEditUserForm(@PathVariable(name = "id")Integer id){
         ModelAndView mav = new ModelAndView("editUser");
         Users user = service.get(id);
@@ -87,10 +90,10 @@ public class mainController {
         return mav;
     }
     
-    @RequestMapping("/delete/{id}")
+    @RequestMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable(name = "id")Integer id){
         service.delete(id);
         
-        return "redirect:/";
+        return "redirect:/user";
     }
 }
