@@ -6,6 +6,7 @@
 package com.example.buanaMekar.controllers;
 
 import com.example.buanaMekar.entities.Produk;
+import com.example.buanaMekar.services.JenisProdukService;
 import com.example.buanaMekar.services.ProdukService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class produkController {
     private ProdukService service;
     
     
+    @Autowired
+    private JenisProdukService service2;
+    
     @RequestMapping("/produk/createProduk")
     public String createProduk(){
         return "createProduk";
@@ -36,6 +40,7 @@ public class produkController {
     @RequestMapping("/produk")
     public String viewJenisProdukPage(Model model){
         List<Produk> listProduks = service.listAll();
+        model.addAttribute("jenisProduks", service.getAllJenisProduk());
         model.addAttribute("listProduks",listProduks);
         return "listProduk";
 

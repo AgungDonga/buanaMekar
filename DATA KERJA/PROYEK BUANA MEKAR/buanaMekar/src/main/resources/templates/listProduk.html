@@ -75,60 +75,8 @@
                                                 <a class="btn btn-danger" th:href="@{'/produk/delete/'+${produks.id}}" onclick="return confirm('Apakah kamu yakin ingin menghapus?');"><i class="fa fa-remove"></i></a>
                                             </td>
 
-                                            <!-- /.modal INSERT -->
-                                    <div class="modal fade" id="modal-primary">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title"><b>Masukkan Data Produk</b></h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span></button>
-                                                </div>
 
-                                                <form action="#" th:action="@{/produk/save}" method="post" enctype="multipart/form-data">
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Merk Produk</label>
-                                                            <input type="text" class="form-control" id="merkProduk" name="merkProduk">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Harga</label>
-                                                            <input type="text" class="form-control" id="harga" name="harga">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Stok</label>
-                                                            <input type="text" class="form-control" id="stok" name="stok">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Jenis Produk</label>
-                                                            <select class="form-control" id="jenisProduk" name="jenisProduk" >
-                                                                <option value="0">Select Jenis Produk</option>
-                                                                <option th:each="produks : ${jenisProduk}" th:value="${produks.id}" th:text="${produks.jenisProduk}"></option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Catatan</label>
-                                                            <input type="text" class="form-control" id="catatan" name="catatan">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="modal-footer justify-content-between">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.modal UPDATE -->
+                                            <!-- /.modal UPDATE -->
                                     <div class="modal fade" th:id="modal-warning+${produks.id}">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -163,7 +111,9 @@
                                                             <label for="exampleInputEmail1">Jenis Produk</label>
                                                             <select class="form-control" id="jenisProduk" name="jenisProduk" >
                                                                 <option value="0">Select Jenis Produk</option>
-                                                                <option th:each="produks : ${jenisProduk}" th:value="${produks.id}" th:text="${produks.jenisProduk}"></option>
+                                                                <div th:each="jenis : ${jenisProduks}">
+                                                                <option th:value="${jenis.id}" th:text="${jenis.jenisProduk}"></option>
+                                                                </div>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -182,11 +132,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
-
-
                                     </tr>
                                     </tbody>
                                     <tfoot>
@@ -200,10 +145,62 @@
                                             <th>ACTIONS</th>
                                         </tr>
                                     </tfoot>
-
-
-
                                 </table>
+                                <!-- /.modal INSERT -->
+                                <div class="modal fade" id="modal-primary">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title"><b>Masukkan Data Produk</b></h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span></button>
+                                            </div>
+
+                                            <form action="#" th:action="@{/produk/save}" method="post" enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Merk Produk</label>
+                                                        <input type="text" class="form-control" id="merkProduk" name="merkProduk">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Harga</label>
+                                                        <input type="text" class="form-control" id="harga" name="harga">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Stok</label>
+                                                        <input type="text" class="form-control" id="stok" name="stok">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Jenis Produk</label>
+                                                        <select class="form-control" id="jenisProduk" name="jenisProduk" >
+                                                            <option value="0">Select Jenis Produk</option>
+                                                            <div th:each="jenis : ${jenisProduks}">
+                                                                <option th:value="${jenis.id}" th:text="${jenis.jenisProduk}"></option>
+                                                            </div>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Catatan</label>
+                                                        <input type="text" class="form-control" id="catatan" name="catatan">
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <!-- /.box-body -->
                         </div>
