@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
     <div th:replace="frag/component::head"></div>
 
@@ -25,13 +26,13 @@
             <section class="content">
                 <div class="col-lg-3 col-xs-6" data-toggle="modal" data-target="#modal-primary">
                     <!-- small box -->
-                    <div class="small-box bg-yellow">
+                    <div class="small-box bg-yellow" sec:authorize="hasRole('ADMIN')">
                         <div class="inner">
                             <h3>+</h3>
                             <p>Tambah Data</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-person-add"></i>
+                            <i class="fa fa-building-o"></i>
                         </div>
                         <a class="small-box-footer">
                             <i class="fa fa-arrow-circle-right"></i>
@@ -43,7 +44,7 @@
                     <div class="col-xs-12">
                         <div class="box">
                             <div class="box-header">
-                                <h3 class="box-title">Data Tabel Toko</h3>
+                                <h3 class="box-title">Menu Toko</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -51,33 +52,30 @@
                                     <thead>
                                         <tr>
                                             <th>NO</th>
-                                            <th>ID</th>
                                             <th>Nama Toko</th>
                                             <th>Alamat Toko</th>
                                             <th>No NPWP</th>
                                             <th>No HP</th>
-
-                                            <th sec:authorize="hasRole('ROLE_ADMIN')">ACTIONS</th>
+                                            <th sec:authorize="hasRole('ADMIN')">ACTIONS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="tokos : ${listTokos}">
                                             <td></td>
-                                            <td th:text="${tokos.id}">ID</td>
                                             <td th:text="${tokos.namaToko}">Nama Toko</td>
                                             <td th:text="${tokos.alamatToko}">Alamat Toko</td>
                                             <td th:text="${tokos.noNpwp}">No NPWP</td>
                                             <td th:text="${tokos.noHp}">No HP</td>
 
-                                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                            <td sec:authorize="hasRole('ADMIN')">
 
                                                 <a class="btn btn-info" th:attr="data-target='#modal-warning'+${tokos.id}" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i></a>
 
                                                 <a class="btn btn-danger" th:href="@{'/toko/delete/'+${tokos.id}}" onclick="return confirm('Apakah kamu yakin ingin menghapus?');"><i class="fa fa-remove"></i></a>
                                             </td>
-                                            
 
-                                    <!-- /.modal INSERT -->
+
+                                            <!-- /.modal INSERT -->
                                     <div class="modal fade" id="modal-primary">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -182,6 +180,7 @@
                                             <th>Alamat Toko</th>
                                             <th>No NPWP</th>
                                             <th>No HP</th>
+                                            <th sec:authorize="hasRole('ADMIN')">ACTIONS</th>
                                         </tr>
                                     </tfoot>
 

@@ -35,11 +35,13 @@ public class OrderanController {
     @RequestMapping("/orderan")
     public String viewOrderanPage(Model model){
         List<Orderan> listOrderans = service.listAll();
+        model.addAttribute("produks", service.getAllProduk());
+        model.addAttribute("tokos", service.getAllToko());
         model.addAttribute("listOrderans",listOrderans);
         return "listOrderan";
 
     }
-
+    
     @RequestMapping("/orderan/new")
     public String showNewOrderanForm(Model model) {
         Orderan orderan = new Orderan();

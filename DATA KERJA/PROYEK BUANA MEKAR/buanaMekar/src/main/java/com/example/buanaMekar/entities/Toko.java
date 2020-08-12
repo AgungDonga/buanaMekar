@@ -18,6 +18,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -43,6 +44,8 @@ public class Toko implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
+//    @NotBlank(message = "Nama toko tidak boleh kosong")
     @Basic(optional = false)
     @Column(name = "nama_toko")
     private String namaToko;
@@ -50,6 +53,7 @@ public class Toko implements Serializable {
     private String alamatToko;
     @Column(name = "no_npwp")
     private String noNpwp;
+    
     @Column(name = "no_hp")
     private String noHp;
     @OneToMany(mappedBy = "toko", fetch = FetchType.LAZY)

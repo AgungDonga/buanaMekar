@@ -29,9 +29,6 @@ public class produkController {
     private ProdukService service;
     
     
-    @Autowired
-    private JenisProdukService service2;
-    
     @RequestMapping("/produk/createProduk")
     public String createProduk(){
         return "createProduk";

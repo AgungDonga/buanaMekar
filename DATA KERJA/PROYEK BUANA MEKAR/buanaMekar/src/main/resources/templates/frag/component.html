@@ -1,7 +1,8 @@
 <div th:fragment="head">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>MaterialAdminLTE 2 | Data Tables</title>
+    <title>Buana Putra Kaltim</title>
+    <link rel="icon"  href="main/dist/img/BPK.jpeg" type = "image/x-icon">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -24,7 +25,7 @@
 <div th:fragment="sidenavbar">
     <header class="main-header">
         <!-- Logo -->
-        <a href="main/index2.html" class="logo">
+        <a href="/" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>BPK</b></span>
             <!-- logo for regular state and mobile devices -->
@@ -51,7 +52,7 @@
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="main/dist/img/user-160x160.jpg" class="img-circle" alt="User Image">
+                                <img src="main/dist/img/BPK.jpeg" class="img-circle" alt="User Image">
 
                                 <p>
                                     [[${#httpServletRequest.remoteUser}]] <br> <small>ROLE</small>
@@ -67,10 +68,7 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- Control Sidebar Toggle Button -->
-                    <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                    </li>
+                    
                 </ul>
             </div>
         </nav>
@@ -96,14 +94,14 @@
                 <li class="header">MAIN NAVIGATION</li>
                 <li class="treeview">
                     <a href="toko">
-                        <i class="fa fa-dashboard"></i> 
+                        <i class="fa fa-building"></i> 
                         <span>Toko</span>
                     </a>
 
                 </li>
                 <li class="treeview">
                     <a href="produk">
-                        <i class="fa fa-files-o"></i>
+                        <i class="fa fa-shopping-basket"></i>
                         <span>Produk</span>
                     </a>
 
@@ -120,13 +118,13 @@
                         <span>Orderan</span>
                     </a>
                 </li>
-                <li class="treeview">
+                <li sec:authorize="hasRole('ADMIN')" class="treeview">
                     <a href="#">
                         <i class="fa fa-laptop"></i>
                         <span>Invoice</span>
                     </a>
                 </li>
-                <li class="treeview">
+                <li sec:authorize="hasRole('ADMIN')" class="treeview">
                     <a href="user">
                         <i class="fa fa-edit"></i> 
                         <span>User</span>
@@ -161,7 +159,7 @@
         $.material.init();
     </script>
 
-    
+
 
 
 
