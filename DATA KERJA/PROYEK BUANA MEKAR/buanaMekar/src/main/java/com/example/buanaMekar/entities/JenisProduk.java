@@ -19,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -42,6 +44,8 @@ public class JenisProduk implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "jenis_produk")
     private String jenisProduk;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "jenisProduk", fetch = FetchType.LAZY)
@@ -72,7 +76,7 @@ public class JenisProduk implements Serializable {
     }
 
     public void setJenisProduk(String jenisProduk) {
-        this.jenisProduk = jenisProduk.toUpperCase();
+        this.jenisProduk = jenisProduk;
     }
 
     @XmlTransient

@@ -18,7 +18,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -44,16 +45,18 @@ public class Toko implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    
-//    @NotBlank(message = "Nama toko tidak boleh kosong")
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "nama_toko")
     private String namaToko;
+    @Size(max = 50)
     @Column(name = "alamat_toko")
     private String alamatToko;
+    @Size(max = 50)
     @Column(name = "no_npwp")
     private String noNpwp;
-    
+    @Size(max = 50)
     @Column(name = "no_hp")
     private String noHp;
     @OneToMany(mappedBy = "toko", fetch = FetchType.LAZY)
@@ -84,7 +87,7 @@ public class Toko implements Serializable {
     }
 
     public void setNamaToko(String namaToko) {
-        this.namaToko = namaToko.toUpperCase();
+        this.namaToko = namaToko;
     }
 
     public String getAlamatToko() {
@@ -92,7 +95,7 @@ public class Toko implements Serializable {
     }
 
     public void setAlamatToko(String alamatToko) {
-        this.alamatToko = alamatToko.toUpperCase();
+        this.alamatToko = alamatToko;
     }
 
     public String getNoNpwp() {

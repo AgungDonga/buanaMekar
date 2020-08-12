@@ -7,6 +7,7 @@ package com.example.buanaMekar.controllers;
 
 import com.example.buanaMekar.entities.Orderan;
 import com.example.buanaMekar.services.OrderanService;
+import com.example.buanaMekar.services.TokoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,9 @@ public class OrderanController {
     
     @Autowired
     OrderanService service;
+    
+    @Autowired
+    TokoService tokoService;
     
     @RequestMapping("/orderan/createOrderan")
     public String createOrderan(){

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html>
     <head>
     <div th:replace="frag/component::head"></div>
 
@@ -26,13 +25,13 @@
             <section class="content">
                 <div class="col-lg-3 col-xs-6" data-toggle="modal" data-target="#modal-primary">
                     <!-- small box -->
-                    <div class="small-box bg-yellow" sec:authorize="hasRole('ADMIN')">
+                    <div class="small-box bg-yellow">
                         <div class="inner">
                             <h3>+</h3>
                             <p>Tambah Data</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-shopping-cart"></i>
+                            <i class="ion ion-person-add"></i>
                         </div>
                         <a class="small-box-footer">
                             <i class="fa fa-arrow-circle-right"></i>
@@ -44,7 +43,7 @@
                     <div class="col-xs-12">
                         <div class="box">
                             <div class="box-header">
-                                <h3 class="box-title">Menu Orderan</h3>
+                                <h3 class="box-title">Data Tabel Produk</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -52,32 +51,33 @@
                                     <thead>
                                         <tr>
                                             <th>NO</th>
-                                            <th>Toko</th>
-                                            <th>Produk</th>
-                                            <th>Total Harga</th>
-                                            <th>Quantity</th>
-                                            <th>Status</th>
-                                            <th sec:authorize="hasRole('ADMIN')">ACTIONS</th>
+                                            <th>Merk Produk</th>
+                                            <th>Harga</th>
+                                            <th>Stok</th>
+                                            <th>Jenis Produk</th>
+                                            <th>Catatan</th>
+
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')">ACTIONS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="orderans : ${listOrderans}">
+                                        <tr th:each="produks : ${listProduks}">
                                             <td></td>
-                                            <td th:text="${orderans.toko.namaToko}">Toko</td>
-                                            <td th:text="${orderans.produk.merkProduk}">Merk Produk</td>
-                                            <td th:text="${orderans.totalHarga}">Total Harga</td>
-                                            <td th:text="${orderans.quantity}">Quantity</td>
-                                            <td th:text="${orderans.status}">Status</td>
+                                            <td th:text="${produks.merkProduk}">Merk Produk</td>
+                                            <td th:text="${produks.harga}">Harga Produk</td>
+                                            <td th:text="${produks.stok}">Stok</td>
+                                            <td th:text="${produks.jenisProduk.jenisProduk}">Jenis Produk</td>
+                                            <td th:text="${produks.catatan}">Catatan</td>
 
-                                            <td sec:authorize="hasRole('ADMIN')">
-                                                <a class="btn btn-info" th:attr="data-target='#modal-warning'+${orderans.id}" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i></a>
+                                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                                <a class="btn btn-info" th:attr="data-target='#modal-warning'+${produks.id}" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i></a>
 
-                                                <a class="btn btn-danger" th:href="@{'/orderan/delete/'+${orderans.id}}" onclick="return confirm('Apakah kamu yakin ingin menghapus?');"><i class="fa fa-remove"></i></a>
+                                                <a class="btn btn-danger" th:href="@{'/produk/delete/'+${produks.id}}" onclick="return confirm('Apakah kamu yakin ingin menghapus?');"><i class="fa fa-remove"></i></a>
                                             </td>
 
 
                                             <!-- /.modal UPDATE -->
-<!--                                    <div class="modal fade" th:id="modal-warning+${produks.id}">
+                                    <div class="modal fade" th:id="modal-warning+${produks.id}">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -131,18 +131,18 @@
                                                 </form>
                                             </div>
                                         </div>
-                                    </div>-->
+                                    </div>
                                     </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>NO</th>
-                                            <th>Toko</th>
-                                            <th>Produk</th>
-                                            <th>Total Harga</th>
-                                            <th>Quantity</th>
-                                            <th>Status</th>
-                                            <th sec:authorize="hasRole('ADMIN')">ACTIONS</th>
+                                            <th>Merk Produk</th>
+                                            <th>Harga</th>
+                                            <th>Stok</th>
+                                            <th>Jenis Produk</th>
+                                            <th>Catatan</th>
+                                            <th>ACTIONS</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -151,40 +151,48 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title"><b>Masukkan Data Orderan</b></h4>
+                                                <h4 class="modal-title"><b>Masukkan Data Produk</b></h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span></button>
                                             </div>
 
-                                            <form action="#" th:action="@{/orderan/save}" method="post" enctype="multipart/form-data">
-                                                
+                                            <form action="#" th:action="@{/produk/save}" method="post" enctype="multipart/form-data">
                                                 <div class="modal-body">
                                                     <div class="form-group">
-                                                        <label for="exampleInputEmail1">Nama Toko</label>
-                                                        <select class="form-control" id="toko" name="toko" >
-                                                            <option value="0">Select Nama Toko</option>
-                                                            <div th:each="tokoss : ${tokos}">
-                                                                <option th:value="${tokoss.id}" th:text="${tokoss.namaToko}"></option>
-                                                            </div>
-                                                        </select>
-                                                        
-                                                        
+                                                        <label for="exampleInputEmail1">Merk Produk</label>
+                                                        <input type="text" class="form-control" id="merkProduk" name="merkProduk">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <select class="form-control" id="produk" name="produk" >
-                                                            <option value="0">Select Produk</option>
-                                                            <div th:each="produk : ${produks}">
-                                                                <option th:value="${produk.id}" th:text="${produk.merkProduk}"></option>
-                                                            </div>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                            <label for="exampleInputEmail">Banyaknya</label>
-                                                            <input type="text" class="form-control" id="quantity" name="quantity">
-                                                    </div>
-                                                    
                                                 </div>
-                                                
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Harga</label>
+                                                        <input type="text" class="form-control" id="harga" name="harga">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Stok</label>
+                                                        <input type="text" class="form-control" id="stok" name="stok">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Jenis Produk</label>
+                                                        <select class="form-control" id="jenisProduk" name="jenisProduk" >
+                                                            <option value="0">Select Jenis Produk</option>
+                                                            <div th:each="jenis : ${jenisProduks}">
+                                                                <option th:value="${jenis.id}" th:text="${jenis.jenisProduk}"></option>
+                                                            </div>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Catatan</label>
+                                                        <input type="text" class="form-control" id="catatan" name="catatan">
+                                                    </div>
+                                                </div>
+
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                     <button type="submit" class="btn btn-primary">Save changes</button>

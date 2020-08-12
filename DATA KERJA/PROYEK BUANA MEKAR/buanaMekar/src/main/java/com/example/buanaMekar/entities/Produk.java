@@ -20,6 +20,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -45,6 +46,7 @@ public class Produk implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 50)
     @Column(name = "merk_produk")
     private String merkProduk;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -52,6 +54,7 @@ public class Produk implements Serializable {
     private Double harga;
     @Column(name = "stok")
     private Integer stok;
+    @Size(max = 50)
     @Column(name = "catatan")
     private String catatan;
     @JoinColumn(name = "jenis_produk", referencedColumnName = "id")
@@ -80,7 +83,7 @@ public class Produk implements Serializable {
     }
 
     public void setMerkProduk(String merkProduk) {
-        this.merkProduk = merkProduk.toUpperCase();
+        this.merkProduk = merkProduk;
     }
 
     public Double getHarga() {
@@ -104,7 +107,7 @@ public class Produk implements Serializable {
     }
 
     public void setCatatan(String catatan) {
-        this.catatan = catatan.toUpperCase();
+        this.catatan = catatan;
     }
 
     public JenisProduk getJenisProduk() {

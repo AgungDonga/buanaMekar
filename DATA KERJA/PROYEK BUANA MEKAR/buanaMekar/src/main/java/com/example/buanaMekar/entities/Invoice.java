@@ -8,9 +8,12 @@ package com.example.buanaMekar.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,6 +21,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -31,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Invoice.findAll", query = "SELECT i FROM Invoice i")
     , @NamedQuery(name = "Invoice.findById", query = "SELECT i FROM Invoice i WHERE i.id = :id")
+    , @NamedQuery(name = "Invoice.findByInvoice", query = "SELECT i FROM Invoice i WHERE i.invoice = :invoice")
     , @NamedQuery(name = "Invoice.findByPpn", query = "SELECT i FROM Invoice i WHERE i.ppn = :ppn")
     , @NamedQuery(name = "Invoice.findByTglKirim", query = "SELECT i FROM Invoice i WHERE i.tglKirim = :tglKirim")
     , @NamedQuery(name = "Invoice.findByTglTerima", query = "SELECT i FROM Invoice i WHERE i.tglTerima = :tglTerima")
@@ -40,15 +45,22 @@ public class Invoice implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private String id;
+    private Integer id;
+    @Size(max = 100)
+    @Column(name = "Invoice")
+    private String invoice;
     @Column(name = "ppn")
     private Integer ppn;
+    @Size(max = 20)
     @Column(name = "tgl_kirim")
     private String tglKirim;
+    @Size(max = 20)
     @Column(name = "tgl_terima")
     private String tglTerima;
+    @Size(max = 20)
     @Column(name = "tgl_jatuh_tempo")
     private String tglJatuhTempo;
     @Column(name = "status")
@@ -56,22 +68,30 @@ public class Invoice implements Serializable {
     @JoinColumn(name = "order", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Orderan order1;
-    @OneToMany(mappedBy = "invoice", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idInvoice", fetch = FetchType.LAZY)
     private List<Penagihan> penagihanList;
 
     public Invoice() {
     }
 
-    public Invoice(String id) {
+    public Invoice(Integer id) {
         this.id = id;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(String invoice) {
+        this.invoice = invoice;
     }
 
     public Integer getPpn() {

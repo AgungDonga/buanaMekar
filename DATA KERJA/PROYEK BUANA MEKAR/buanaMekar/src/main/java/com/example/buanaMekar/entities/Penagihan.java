@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Penagihan.findAll", query = "SELECT p FROM Penagihan p")
     , @NamedQuery(name = "Penagihan.findById", query = "SELECT p FROM Penagihan p WHERE p.id = :id")
+    , @NamedQuery(name = "Penagihan.findByInvoice", query = "SELECT p FROM Penagihan p WHERE p.invoice = :invoice")
     , @NamedQuery(name = "Penagihan.findByStatusPenagihan", query = "SELECT p FROM Penagihan p WHERE p.statusPenagihan = :statusPenagihan")
     , @NamedQuery(name = "Penagihan.findByCatatan", query = "SELECT p FROM Penagihan p WHERE p.catatan = :catatan")})
 public class Penagihan implements Serializable {
@@ -40,13 +42,18 @@ public class Penagihan implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 50)
+    @Column(name = "invoice")
+    private String invoice;
+    @Size(max = 50)
     @Column(name = "status_penagihan")
     private String statusPenagihan;
+    @Size(max = 50)
     @Column(name = "catatan")
     private String catatan;
-    @JoinColumn(name = "invoice", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Invoice invoice;
+    @JoinColumn(name = "id_invoice", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Invoice idInvoice;
 
     public Penagihan() {
     }
@@ -61,6 +68,14 @@ public class Penagihan implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(String invoice) {
+        this.invoice = invoice;
     }
 
     public String getStatusPenagihan() {
@@ -79,12 +94,12 @@ public class Penagihan implements Serializable {
         this.catatan = catatan;
     }
 
-    public Invoice getInvoice() {
-        return invoice;
+    public Invoice getIdInvoice() {
+        return idInvoice;
     }
 
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
+    public void setIdInvoice(Invoice idInvoice) {
+        this.idInvoice = idInvoice;
     }
 
     @Override
