@@ -43,6 +43,7 @@ public class JenisProduk implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @NotBlank
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)

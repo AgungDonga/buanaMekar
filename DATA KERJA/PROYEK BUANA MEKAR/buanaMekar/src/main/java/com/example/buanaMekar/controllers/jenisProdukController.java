@@ -8,9 +8,11 @@ package com.example.buanaMekar.controllers;
 import com.example.buanaMekar.entities.JenisProduk;
 import com.example.buanaMekar.services.JenisProdukService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,8 +51,15 @@ public class jenisProdukController {
     }
 
     @RequestMapping(value = "/jenisProduk/save",method = RequestMethod.POST)
-    public String saveJenisProduk(@ModelAttribute("jenisproduk")JenisProduk jenisProduk){
-        service.save(jenisProduk);
+    public String saveJenisProduk(@Valid @ModelAttribute("jenisproduk")JenisProduk jenisProduk,
+            BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+
+            return "redirect:/jenisProduk";
+        } else {
+            service.save(jenisProduk);
+        }
+        
         return "redirect:/jenisProduk";
     }
     

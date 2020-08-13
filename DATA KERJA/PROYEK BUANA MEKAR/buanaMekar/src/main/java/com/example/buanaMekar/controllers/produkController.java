@@ -6,12 +6,13 @@
 package com.example.buanaMekar.controllers;
 
 import com.example.buanaMekar.entities.Produk;
-import com.example.buanaMekar.services.JenisProdukService;
 import com.example.buanaMekar.services.ProdukService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,21 +25,20 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class produkController {
-    
+
     @Autowired
     private ProdukService service;
-    
-    
+
     @RequestMapping("/produk/createProduk")
-    public String createProduk(){
+    public String createProduk() {
         return "createProduk";
     }
 
     @RequestMapping("/produk")
-    public String viewJenisProdukPage(Model model){
+    public String viewJenisProdukPage(Model model) {
         List<Produk> listProduks = service.listAll();
         model.addAttribute("jenisProduks", service.getAllJenisProduk());
-        model.addAttribute("listProduks",listProduks);
+        model.addAttribute("listProduks", listProduks);
         return "listProduk";
 
     }
@@ -51,26 +51,31 @@ public class produkController {
         return "createProduk";
     }
 
-    @RequestMapping(value = "/produk/save",method = RequestMethod.POST)
-    public String saveProduk(@ModelAttribute("produk")Produk produk){
-        service.save(produk);
+    @RequestMapping(value = "/produk/save", method = RequestMethod.POST)
+    public String saveProduk(@Valid @ModelAttribute("produk") Produk produk,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/produk";
+        } else {
+            service.save(produk);
+        }
         return "redirect:/produk";
     }
-    
+
     @RequestMapping("/produk/edit/{id}")
-    public ModelAndView showEditProdukForm(@PathVariable(name = "id")Integer id, Model model){
+    public ModelAndView showEditProdukForm(@PathVariable(name = "id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView("editProduk");
         Produk produk = service.get(id);
         model.addAttribute("jenisProduk", service.getAllJenisProduk());
-        mav.addObject("produk",produk);
+        mav.addObject("produk", produk);
         return mav;
     }
-    
+
     @RequestMapping("/produk/delete/{id}")
-    public String deleteProduk(@PathVariable(name = "id")Integer id){
+    public String deleteProduk(@PathVariable(name = "id") Integer id) {
         service.delete(id);
-        
+
         return "redirect:/produk";
     }
-    
+
 }

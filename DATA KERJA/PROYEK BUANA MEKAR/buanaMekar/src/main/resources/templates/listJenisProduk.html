@@ -75,11 +75,11 @@
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span></button>
                                                 </div>
-                                                <form action="#" th:action="@{/jenisProduk/save}" method="post" enctype="multipart/form-data">
+                                                <form action="#" th:action="@{/jenisProduk/save}" method="post" enctype="multipart/form-data" id="newModalForm">
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Jenis Produk</label>
-                                                            <input type="text" class="form-control" id="jenisProduk" name="jenisProduk">
+                                                            <input type="text" class="form-control" id="jenisProduk" name="jenisProduk" placeholder="Masukan jenis produk" require/>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer justify-content-between">
@@ -149,6 +149,27 @@
         <div class="control-sidebar-bg"></div>
     </div>
 
+    <script>
+        $(function () {
+
+            $("#newModalForm").validate({
+                rules: {
+                    jenisProduk: {
+                        required: true,
+                        
+                    },
+                    action: "required"
+                },
+                messages: {
+                    jenisProduk: {
+                        required: "Please enter some data",
+                        
+                    },
+                    action: "Please provide some data"
+                }
+            });
+        });
+    </script>
     <div th:replace="frag/component::script"></div>
 </body>
 </html>
