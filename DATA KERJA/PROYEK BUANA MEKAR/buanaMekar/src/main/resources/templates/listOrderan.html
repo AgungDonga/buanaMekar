@@ -88,7 +88,7 @@
                                                 <form action="#" th:action="@{/orderan/save}" method="post" enctype="multipart/form-data">
                                                 
                                                 <div class="modal-body">
-                                                     <input type="hidden" id="id" name="id" th:value="${orderans.id}">
+                                                    <input type="hidden" id="id" name="id" th:value="${orderans.id}">
                                                     
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">Nama Toko</label>
@@ -188,13 +188,32 @@
                         </div>
                         <!-- /.box -->
                     </div>
+                    <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-green" sec:authorize="hasRole('ADMIN')">
+                        <div class="inner">
+                            <h3>+</h3>
+                            <p>Jadikan Invoice</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-print"></i>
+                        </div>
+                        <a class="small-box-footer">
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
                     <!-- /.col -->
                 </div>
+                
 
                 <!-- /.row -->
             </section>
             <!-- /.content -->
+            
         </div>
+        
+        
         <!-- /.content-wrapper -->
         <div th:replace="frag/component::footer"></div>
 
