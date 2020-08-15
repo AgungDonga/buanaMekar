@@ -58,6 +58,7 @@ public class OrderanController {
     @RequestMapping(value = "/orderan/save",method = RequestMethod.POST)
     public String saveOrderan(@ModelAttribute("orderan")Orderan orderan){
         orderan.setStatus("0"); // set default Status to = 0
+        orderan.setTotalHarga(orderan.getQuantity() * orderan.getProduk().getHarga());
         service.save(orderan);
         return "redirect:/orderan";
     }

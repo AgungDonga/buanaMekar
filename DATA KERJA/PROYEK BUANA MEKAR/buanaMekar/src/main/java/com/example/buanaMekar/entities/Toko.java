@@ -45,8 +45,6 @@ public class Toko implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    
-    @NotBlank(message = "Nama toko tidak boleh kosong")
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)

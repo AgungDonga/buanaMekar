@@ -23,27 +23,12 @@
 
             <!-- Main content -->
             <section class="content">
-                <div class="col-lg-3 col-xs-6" data-toggle="modal" data-target="#modal-primary">
-                    <!-- small box -->
-                    <div class="small-box bg-yellow">
-                        <div class="inner">
-                            <h3>+</h3>
-                            <p>Tambah Data</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a class="small-box-footer">
-                            <i class="fa fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
 
                 <div class="row box-body">
                     <div class="col-xs-12">
                         <div class="box">
                             <div class="box-header">
-                                <h3 class="box-title">Data Tabel Produk</h3>
+                                <h3 class="box-title">Data Tabel Invoice</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -51,97 +36,43 @@
                                     <thead>
                                         <tr>
                                             <th>NO</th>
-                                            <th>Merk Produk</th>
-                                            <th>Harga</th>
-                                            <th>Stok</th>
-                                            <th>Jenis Produk</th>
-                                            <th>Catatan</th>
+                                            <th>Invoice</th>
+                                            <th>Order</th>
+                                            <th>PPN</th>
+                                            <th>Tanggal Kirim</th>
+                                            <th>Tanggal Terima</th>
+                                            <th>Tanggal Jatuh Tempo</th>
 
                                             <th sec:authorize="hasRole('ROLE_ADMIN')">ACTIONS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="produks : ${listProduks}">
+                                        <tr th:each="invoice : ${listInvoices}">
                                             <td></td>
-                                            <td th:text="${produks.merkProduk}">Merk Produk</td>
-                                            <td th:text="${produks.harga}">Harga Produk</td>
-                                            <td th:text="${produks.stok}">Stok</td>
-                                            <td th:text="${produks.jenisProduk.jenisProduk}">Jenis Produk</td>
-                                            <td th:text="${produks.catatan}">Catatan</td>
+                                            <td th:text="${invoice.invoice}"></td>
+                                            <td th:text="${invoice.order1}"></td>
+                                            <td th:text="${invoice.ppn}"></td>
+                                            <td th:text="${invoice.tglKirim}"></td>
+                                            <td th:text="${invoice.tglTerima}"></td>
+                                            
+                                            <td th:text="${invoice.tglJatuhTempo}"></td>
 
                                             <td sec:authorize="hasRole('ROLE_ADMIN')">
                                                 <a class="btn btn-info" th:attr="data-target='#modal-warning'+${produks.id}" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i></a>
 
                                                 <a class="btn btn-danger" th:href="@{'/produk/delete/'+${produks.id}}" onclick="return confirm('Apakah kamu yakin ingin menghapus?');"><i class="fa fa-remove"></i></a>
                                             </td>
-
-
-                                            <!-- /.modal UPDATE -->
-                                    <div class="modal fade" th:id="modal-warning+${produks.id}">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title"><b>Update Data Produk</b></h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span></button>
-                                                </div>
-
-                                                <form action="#" th:action="@{/produk/save}" method="post" enctype="multipart/form-data">
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <input type="hidden" class="form-control" id="id" name="id" th:value="${produks.id}">
-                                                            <label for="exampleInputEmail1">Merk Produk</label>
-                                                            <input type="text" class="form-control" id="merkProduk" name="merkProduk" th:value="${produks.merkProduk}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Harga</label>
-                                                            <input type="text" class="form-control" id="harga" name="harga" th:value="${produks.harga}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Stok</label>
-                                                            <input type="text" class="form-control" id="stok" name="stok" th:value="${produks.stok}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Jenis Produk</label>
-                                                            <select class="form-control" id="jenisProduk" name="jenisProduk" >
-                                                                <option value="0">Select Jenis Produk</option>
-                                                                <div th:each="jenis : ${jenisProduks}">
-                                                                <option th:value="${jenis.id}" th:text="${jenis.jenisProduk}"></option>
-                                                                </div>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Catatan</label>
-                                                            <input type="text" class="form-control" id="catatan" name="catatan" th:value="${produks.catatan}">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="modal-footer justify-content-between">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </tr>
+                                        </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>NO</th>
-                                            <th>Merk Produk</th>
-                                            <th>Harga</th>
-                                            <th>Stok</th>
-                                            <th>Jenis Produk</th>
-                                            <th>Catatan</th>
+                                            <th>Invoice</th>
+                                            <th>Order</th>
+                                            <th>PPN</th>
+                                            <th>Tanggal Kirim</th>
+                                            <th>Tanggal Terima</th>
+                                            <th>Tanggal Jatuh Tempo</th>
                                             <th>ACTIONS</th>
                                         </tr>
                                     </tfoot>

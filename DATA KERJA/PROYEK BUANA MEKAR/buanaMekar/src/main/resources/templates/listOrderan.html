@@ -77,7 +77,7 @@
 
 
                                             <!-- /.modal UPDATE -->
-<!--                                    <div class="modal fade" th:id="modal-warning+${produks.id}">
+                                    <div class="modal fade" th:id="modal-warning+${orderans.id}">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -85,53 +85,45 @@
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span></button>
                                                 </div>
-
-                                                <form action="#" th:action="@{/produk/save}" method="post" enctype="multipart/form-data">
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <input type="hidden" class="form-control" id="id" name="id" th:value="${produks.id}">
-                                                            <label for="exampleInputEmail1">Merk Produk</label>
-                                                            <input type="text" class="form-control" id="merkProduk" name="merkProduk" th:value="${produks.merkProduk}">
-                                                        </div>
+                                                <form action="#" th:action="@{/orderan/save}" method="post" enctype="multipart/form-data">
+                                                
+                                                <div class="modal-body">
+                                                     <input type="hidden" id="id" name="id" th:value="${orderans.id}">
+                                                    
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">Nama Toko</label>
+                                                        <select class="form-control" id="toko" name="toko" >
+                                                            <option value="0">Select Nama Toko</option>
+                                                            <div th:each="tokoss : ${tokos}">
+                                                                <option th:value="${tokoss.id}" th:text="${tokoss.namaToko}" th:selected="(${orderans.toko.namaToko} == ${tokoss.namaToko} ? selected : no)"></option>
+                                                            </div>
+                                                        </select>
+                                                        
+                                                        
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Harga</label>
-                                                            <input type="text" class="form-control" id="harga" name="harga" th:value="${produks.harga}">
-                                                        </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control" id="produk" name="produk" >
+                                                            <div th:each="produk : ${produks}">
+                                                                <option th:value="${produk.id}" th:text="${produk.merkProduk}" th:selected="(${orderans.produk.merkProduk} == ${produk.merkProduk} ? selected : no)"></option>
+                                                            </div>
+                                                        </select>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Stok</label>
-                                                            <input type="text" class="form-control" id="stok" name="stok" th:value="${produks.stok}">
-                                                        </div>
+                                                    <div class="form-group">
+                                                            <label for="exampleInputEmail">Banyaknya</label>
+                                                            <input type="text" class="form-control" id="quantity" name="quantity" th:value="${orderans.quantity}">
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Jenis Produk</label>
-                                                            <select class="form-control" id="jenisProduk" name="jenisProduk" >
-                                                                <option value="0">Select Jenis Produk</option>
-                                                                <div th:each="jenis : ${jenisProduks}">
-                                                                <option th:value="${jenis.id}" th:text="${jenis.jenisProduk}"></option>
-                                                                </div>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Catatan</label>
-                                                            <input type="text" class="form-control" id="catatan" name="catatan" th:value="${produks.catatan}">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="modal-footer justify-content-between">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                                    </div>
-                                                </form>
+                                                    
+                                                </div>
+                                                
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+                                                
                                             </div>
                                         </div>
-                                    </div>-->
+                                    </div>
                                     </tr>
                                     </tbody>
                                     <tfoot>
