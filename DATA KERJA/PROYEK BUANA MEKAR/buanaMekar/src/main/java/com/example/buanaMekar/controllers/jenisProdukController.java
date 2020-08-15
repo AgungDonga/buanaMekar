@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,20 +26,19 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class jenisProdukController {
-    
+
     @Autowired
     private JenisProdukService service;
-    
-    
+
     @RequestMapping("/jenisProduk/createJenisProduk")
-    public String createJenisProduk(){
+    public String createJenisProduk() {
         return "createJenisProduk";
     }
 
     @RequestMapping("/jenisProduk")
-    public String viewJenisProdukPage(Model model){
+    public String viewJenisProdukPage(Model model) {
         List<JenisProduk> listJenisProduks = service.listAll();
-        model.addAttribute("listJenisProduks",listJenisProduks);
+        model.addAttribute("listJenisProduks", listJenisProduks);
         return "listJenisProduk";
 
     }
@@ -50,32 +50,35 @@ public class jenisProdukController {
         return "createJenisProduk";
     }
 
-    @RequestMapping(value = "/jenisProduk/save",method = RequestMethod.POST)
-    public String saveJenisProduk(@Valid @ModelAttribute("jenisproduk")JenisProduk jenisProduk,
-            BindingResult bindingResult){
+    @RequestMapping(value = "/jenisProduk/save", method = RequestMethod.POST)
+    public String saveJenisProduk(@Valid @ModelAttribute("jenisproduk") JenisProduk jenisProduk,
+            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-
+            List<FieldError> err = bindingResult.getFieldErrors();
+            for(FieldError e:err){
+                System.out.println("Error on object ---> "+e.getObjectName()+" on field ---> "+e.getField()+". Message ---> "+e.getDefaultMessage());
+           }
             return "redirect:/jenisProduk";
         } else {
             service.save(jenisProduk);
         }
-        
+
         return "redirect:/jenisProduk";
     }
-    
+
     @RequestMapping("/jenisProduk/edit/{id}")
-    public ModelAndView showEditJenisProdukForm(@PathVariable(name = "id")Integer id){
+    public ModelAndView showEditJenisProdukForm(@PathVariable(name = "id") Integer id) {
         ModelAndView mav = new ModelAndView("editJenisProduk");
         JenisProduk jenisProduk = service.get(id);
-        mav.addObject("jenisProduk",jenisProduk);
+        mav.addObject("jenisProduk", jenisProduk);
         return mav;
     }
-    
+
     @RequestMapping("/jenisProduk/delete/{id}")
-    public String deleteJenisProduk(@PathVariable(name = "id")Integer id){
+    public String deleteJenisProduk(@PathVariable(name = "id") Integer id) {
         service.delete(id);
-        
+
         return "redirect:/jenisProduk";
     }
-    
+
 }

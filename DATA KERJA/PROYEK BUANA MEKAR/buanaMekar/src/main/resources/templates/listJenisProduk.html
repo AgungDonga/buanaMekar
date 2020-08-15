@@ -77,11 +77,13 @@
                                                 </div>
                                                 <form action="#" th:action="@{/jenisProduk/save}" method="post" enctype="multipart/form-data" id="newModalForm">
                                                     <div class="modal-body">
-                                                        <div class="form-group">
+                                                        <div class="form-group has-error">
                                                             <label for="exampleInputEmail1">Jenis Produk</label>
-                                                            <input type="text" class="form-control" id="jenisProduk" name="jenisProduk" placeholder="Masukan jenis produk" require/>
+                                                            <input type="text" class="form-control required" id="jenisProduk" name="jenisProduk" placeholder="Masukan jenis produk"/>
+
                                                         </div>
                                                     </div>
+
                                                     <div class="modal-footer justify-content-between">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -149,27 +151,27 @@
         <div class="control-sidebar-bg"></div>
     </div>
 
-    <script>
-        $(function () {
 
-            $("#newModalForm").validate({
-                rules: {
-                    jenisProduk: {
-                        required: true,
-                        
-                    },
-                    action: "required"
-                },
-                messages: {
-                    jenisProduk: {
-                        required: "Please enter some data",
-                        
-                    },
-                    action: "Please provide some data"
-                }
-            });
+    
+   
+
+    <div th:replace="frag/component::script"></div>
+    
+    <script type="text/javascript">
+        
+        $('#newModalForm').on('submit', function (e) {
+            var jenisProduk = $('#jenisProduk');
+            // Check if there is an entered value
+            if (!jenisProduk.val()) {
+                // Add errors highlight
+                jenisProduk.closest('.form-group').removeClass('has-success').addClass('has-error');
+                // Stop submission of the form
+                e.preventDefault();
+            } else {
+                // Remove the errors highlight
+                jenisProduk.closest('.form-group').removeClass('has-error').addClass('has-success');
+            }
         });
     </script>
-    <div th:replace="frag/component::script"></div>
 </body>
 </html>

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +56,11 @@ public class produkController {
     public String saveProduk(@Valid @ModelAttribute("produk") Produk produk,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            List<FieldError> err = bindingResult.getFieldErrors();
+            for (FieldError e : err) {
+                System.out.println("Error on object ---> " + e.getObjectName() 
+                        + " on field ---> " + e.getField() + ". Message ---> " + e.getDefaultMessage());
+            }
             return "redirect:/produk";
         } else {
             service.save(produk);
