@@ -53,14 +53,18 @@ public class jenisProdukController {
     @RequestMapping(value = "/jenisProduk/save",method = RequestMethod.POST)
     public String saveJenisProduk(@Valid @ModelAttribute("jenisproduk")JenisProduk jenisProduk,
             BindingResult bindingResult){
-        if (bindingResult.hasErrors()) {
+        try{
+            if (bindingResult.hasErrors()) {
 
             return "redirect:/jenisProduk";
-        } else {
-            service.save(jenisProduk);
+            } else {
+                service.save(jenisProduk);
+            }
+
+            return "redirect:/jenisProduk";
+        }catch(Exception e){
+            return "redirect:/jenisProduk";
         }
-        
-        return "redirect:/jenisProduk";
     }
     
     @RequestMapping("/jenisProduk/edit/{id}")

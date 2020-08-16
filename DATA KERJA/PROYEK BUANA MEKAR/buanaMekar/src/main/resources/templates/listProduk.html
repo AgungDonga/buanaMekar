@@ -113,7 +113,7 @@
                                                             <select class="form-control" id="jenisProduk" name="jenisProduk" >
                                                                 <option value="0">Select Jenis Produk</option>
                                                                 <div th:each="jenis : ${jenisProduks}">
-                                                                <option th:value="${jenis.id}" th:text="${jenis.jenisProduk}"></option>
+                                                                <option th:value="${jenis.id}" th:text="${jenis.jenisProduk}" th:selected="(${produks.jenisProduk.jenisProduk} == ${jenis.jenisProduk} ? selected : no)"></option>
                                                                 </div>
                                                             </select>
                                                         </div>

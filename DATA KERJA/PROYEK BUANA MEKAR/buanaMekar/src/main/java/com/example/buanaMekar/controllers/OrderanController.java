@@ -6,7 +6,9 @@
 package com.example.buanaMekar.controllers;
 
 import com.example.buanaMekar.entities.Orderan;
+import com.example.buanaMekar.entities.SuratJalan;
 import com.example.buanaMekar.services.OrderanService;
+import com.example.buanaMekar.services.SuratJalanService;
 import com.example.buanaMekar.services.TokoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class OrderanController {
     @Autowired
     TokoService tokoService;
     
+    @Autowired
+    SuratJalanService suratJalanService;
+    
     @RequestMapping("/orderan/createOrderan")
     public String createOrderan(){
         return "createOrderan";
@@ -41,8 +46,32 @@ public class OrderanController {
         List<Orderan> listOrderans = service.listAll();
         model.addAttribute("produks", service.getAllProduk());
         model.addAttribute("tokos", service.getAllToko());
-        model.addAttribute("listOrderans",listOrderans);
+        if(listOrderans.size() >0){
+            if(listOrderans.get(0).getStatus().equals("0")){
+                model.addAttribute("listOrderans",listOrderans);
+            }
+        }
         return "listOrderan";
+    }
+    
+    @RequestMapping("/orderan/suratJalan")
+    public String cetakSuratJalan(Model model){
+        List<Orderan> listOrderans = service.listAll();
+        Orderan orderan = new Orderan();
+        
+        for (int i = 0; i < listOrderans.size(); i++) {
+            orderan.setId(listOrderans.get(i).getId());
+            orderan.setStatus("1");
+            orderan.setProduk(listOrderans.get(i).getProduk());
+            orderan.setQuantity(listOrderans.get(i).getQuantity());
+            orderan.setToko(listOrderans.get(i).getToko());
+            orderan.setTotalHarga(listOrderans.get(i).getTotalHarga());
+            SuratJalan sj = new SuratJalan();
+            sj.setOrderan(orderan);
+            service.save(orderan);
+            suratJalanService.save(sj);
+        }
+        return "listProduk";
 
     }
     

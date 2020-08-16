@@ -8,6 +8,7 @@ package com.example.buanaMekar.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -59,8 +60,8 @@ public class Orderan implements Serializable {
     @JoinColumn(name = "toko", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Toko toko;
-    @OneToMany(mappedBy = "order1", fetch = FetchType.LAZY)
-    private List<Invoice> invoiceList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderan", fetch = FetchType.LAZY)
+    private List<SuratJalan> suratJalanList;
 
     public Orderan() {
     }
@@ -118,12 +119,12 @@ public class Orderan implements Serializable {
     }
 
     @XmlTransient
-    public List<Invoice> getInvoiceList() {
-        return invoiceList;
+    public List<SuratJalan> getSuratJalanList() {
+        return suratJalanList;
     }
 
-    public void setInvoiceList(List<Invoice> invoiceList) {
-        this.invoiceList = invoiceList;
+    public void setSuratJalanList(List<SuratJalan> suratJalanList) {
+        this.suratJalanList = suratJalanList;
     }
 
     @Override
