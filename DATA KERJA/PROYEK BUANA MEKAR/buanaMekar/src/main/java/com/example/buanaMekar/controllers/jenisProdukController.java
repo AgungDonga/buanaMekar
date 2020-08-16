@@ -53,19 +53,15 @@ public class jenisProdukController {
     @RequestMapping(value = "/jenisProduk/save", method = RequestMethod.POST)
     public String saveJenisProduk(@Valid @ModelAttribute("jenisproduk") JenisProduk jenisProduk,
             BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
             List<FieldError> err = bindingResult.getFieldErrors();
-            for(FieldError e:err){
-                System.out.println("Error on object ---> "+e.getObjectName()+" on field ---> "+e.getField()+". Message ---> "+e.getDefaultMessage());
-           }
-            return "redirect:/jenisProduk";
-            } else {
-                service.save(jenisProduk);
+            for (FieldError e : err) {
+                System.out.println("Error on object ---> " + e.getObjectName() + " on field ---> " + e.getField() + ". Message ---> " + e.getDefaultMessage());
             }
-
             return "redirect:/jenisProduk";
-        }catch(Exception e){
-            return "redirect:/jenisProduk";
+        } else {
+            service.save(jenisProduk);
         }
 
         return "redirect:/jenisProduk";

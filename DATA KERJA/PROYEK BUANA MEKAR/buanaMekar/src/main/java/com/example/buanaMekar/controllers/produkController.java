@@ -69,7 +69,7 @@ public class produkController {
     }
 
     @RequestMapping("/produk/edit/{id}")
-    public ModelAndView showEditProdukForm(@PathVariable(name = "id") Integer id, Model model) {
+    public ModelAndView showEditProdukForm(@PathVariable(name = "id") String id, Model model) {
         ModelAndView mav = new ModelAndView("editProduk");
         Produk produk = service.get(id);
         model.addAttribute("jenisProduk", service.getAllJenisProduk());
@@ -78,7 +78,7 @@ public class produkController {
     }
 
     @RequestMapping("/produk/delete/{id}")
-    public String deleteProduk(@PathVariable(name = "id") Integer id) {
+    public String deleteProduk(@PathVariable(name = "id") String id) {
         service.delete(id);
 
         return "redirect:/produk";

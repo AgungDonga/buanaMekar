@@ -38,12 +38,12 @@ public class ProdukService {
 
     }
 
-    public Produk get(Integer id) {
+    public Produk get(String id) {
         return repo.findById(id).get();
 
     }
 
-    public void delete(Integer id) {
+    public void delete(String id) {
         repo.deleteById(id);
 
     }

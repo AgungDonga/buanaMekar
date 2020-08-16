@@ -37,8 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Invoice.findById", query = "SELECT i FROM Invoice i WHERE i.id = :id")
     , @NamedQuery(name = "Invoice.findByInvoice", query = "SELECT i FROM Invoice i WHERE i.invoice = :invoice")
     , @NamedQuery(name = "Invoice.findByPpn", query = "SELECT i FROM Invoice i WHERE i.ppn = :ppn")
-    , @NamedQuery(name = "Invoice.findByTglKirim", query = "SELECT i FROM Invoice i WHERE i.tglKirim = :tglKirim")
-    , @NamedQuery(name = "Invoice.findByTglTerima", query = "SELECT i FROM Invoice i WHERE i.tglTerima = :tglTerima")
     , @NamedQuery(name = "Invoice.findByTglJatuhTempo", query = "SELECT i FROM Invoice i WHERE i.tglJatuhTempo = :tglJatuhTempo")
     , @NamedQuery(name = "Invoice.findByStatus", query = "SELECT i FROM Invoice i WHERE i.status = :status")})
 public class Invoice implements Serializable {
@@ -54,12 +52,7 @@ public class Invoice implements Serializable {
     private String invoice;
     @Column(name = "ppn")
     private Integer ppn;
-    @Size(max = 20)
-    @Column(name = "tgl_kirim")
-    private String tglKirim;
-    @Size(max = 20)
-    @Column(name = "tgl_terima")
-    private String tglTerima;
+    
     @Size(max = 20)
     @Column(name = "tgl_jatuh_tempo")
     private String tglJatuhTempo;
@@ -100,22 +93,6 @@ public class Invoice implements Serializable {
 
     public void setPpn(Integer ppn) {
         this.ppn = ppn;
-    }
-
-    public String getTglKirim() {
-        return tglKirim;
-    }
-
-    public void setTglKirim(String tglKirim) {
-        this.tglKirim = tglKirim;
-    }
-
-    public String getTglTerima() {
-        return tglTerima;
-    }
-
-    public void setTglTerima(String tglTerima) {
-        this.tglTerima = tglTerima;
     }
 
     public String getTglJatuhTempo() {

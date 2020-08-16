@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
     <div th:replace="frag/component::head"></div>
 
@@ -39,8 +40,6 @@
                                             <th>Invoice</th>
                                             <th>Order</th>
                                             <th>PPN</th>
-                                            <th>Tanggal Kirim</th>
-                                            <th>Tanggal Terima</th>
                                             <th>Tanggal Jatuh Tempo</th>
 
                                             <th sec:authorize="hasRole('ROLE_ADMIN')">ACTIONS</th>
@@ -52,8 +51,6 @@
                                             <td th:text="${invoice.invoice}"></td>
                                             <td th:text="${invoice.order1}"></td>
                                             <td th:text="${invoice.ppn}"></td>
-                                            <td th:text="${invoice.tglKirim}"></td>
-                                            <td th:text="${invoice.tglTerima}"></td>
                                             <td th:text="${invoice.tglJatuhTempo}"></td>
 
                                             <td sec:authorize="hasRole('ROLE_ADMIN')">
@@ -69,8 +66,6 @@
                                             <th>Invoice</th>
                                             <th>Order</th>
                                             <th>PPN</th>
-                                            <th>Tanggal Kirim</th>
-                                            <th>Tanggal Terima</th>
                                             <th>Tanggal Jatuh Tempo</th>
                                             <th>ACTIONS</th>
                                         </tr>

@@ -51,7 +51,7 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>NO</th>
+                                            <th>Kode Produk</th>
                                             <th>Merk Produk</th>
                                             <th>Harga</th>
                                             <th>Stok</th>
@@ -63,7 +63,7 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="produks : ${listProduks}">
-                                            <td></td>
+                                            <td th:text="${produks.id}">Kode Produk</td>
                                             <td th:text="${produks.merkProduk}">Merk Produk</td>
                                             <td th:text="${produks.harga}">Harga Produk</td>
                                             <td th:text="${produks.stok}">Stok</td>

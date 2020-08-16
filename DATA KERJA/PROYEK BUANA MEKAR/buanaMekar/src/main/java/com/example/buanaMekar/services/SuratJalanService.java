@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package com.example.buanaMekar.services;
+import com.example.buanaMekar.entities.Orderan;
 import com.example.buanaMekar.entities.SuratJalan;
+import com.example.buanaMekar.repositories.OrderanRepository;
 import com.example.buanaMekar.repositories.SuratJalanRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class SuratJalanService {
     
     @Autowired
     SuratJalanRepository repo;
+    
+    @Autowired
+    OrderanRepository orderanRepo;
     
     public List<SuratJalan> listAll() {
         return repo.findAll();
@@ -41,7 +46,7 @@ public class SuratJalanService {
     }
     
 //    public List<Orderan> getAllOrderan() {
-//        return .findAll();
+//        return orderanRepo.findAll();
 //    }
     
 }
