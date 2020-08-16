@@ -190,18 +190,9 @@
                     </div>
                     <div class="col-lg-3 col-xs-6">
                     <!-- small box -->
-                    <div class="small-box bg-green" sec:authorize="hasRole('ADMIN')">
-                        <div class="inner">
-                            <h3>+</h3>
-                            <p>Jadikan Invoice</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-print"></i>
-                        </div>
-                        <a class="small-box-footer">
-                            <i class="fa fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
+                    <form action="#" th:action="@{/orderan/suratJalan}" method="post" enctype="multipart/form-data">
+                        <button type="submit" class="btn btn-primary">Jadikan Surat Jalan</button>
+                    </form>
                 </div>
                     <!-- /.col -->
                 </div>

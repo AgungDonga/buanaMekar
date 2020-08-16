@@ -9,6 +9,7 @@
     <class>com.example.buanaMekar.entities.Penagihan</class>
     <class>com.example.buanaMekar.entities.Users</class>
     <class>com.example.buanaMekar.entities.Invoice</class>
+    <class>com.example.buanaMekar.entities.SuratJalan</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/buana_mekar?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

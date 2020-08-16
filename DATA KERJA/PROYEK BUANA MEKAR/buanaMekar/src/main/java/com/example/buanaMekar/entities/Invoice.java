@@ -50,7 +50,7 @@ public class Invoice implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Size(max = 100)
-    @Column(name = "Invoice")
+    @Column(name = "invoice")
     private String invoice;
     @Column(name = "ppn")
     private Integer ppn;
@@ -65,9 +65,9 @@ public class Invoice implements Serializable {
     private String tglJatuhTempo;
     @Column(name = "status")
     private Integer status;
-    @JoinColumn(name = "order", referencedColumnName = "id")
+    @JoinColumn(name = "surat_jalan", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Orderan order1;
+    private SuratJalan suratJalan;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idInvoice", fetch = FetchType.LAZY)
     private List<Penagihan> penagihanList;
 
@@ -134,12 +134,12 @@ public class Invoice implements Serializable {
         this.status = status;
     }
 
-    public Orderan getOrder1() {
-        return order1;
+    public SuratJalan getSuratJalan() {
+        return suratJalan;
     }
 
-    public void setOrder1(Orderan order1) {
-        this.order1 = order1;
+    public void setSuratJalan(SuratJalan suratJalan) {
+        this.suratJalan = suratJalan;
     }
 
     @XmlTransient

@@ -59,8 +59,13 @@ public class jenisProdukController {
                 System.out.println("Error on object ---> "+e.getObjectName()+" on field ---> "+e.getField()+". Message ---> "+e.getDefaultMessage());
            }
             return "redirect:/jenisProduk";
-        } else {
-            service.save(jenisProduk);
+            } else {
+                service.save(jenisProduk);
+            }
+
+            return "redirect:/jenisProduk";
+        }catch(Exception e){
+            return "redirect:/jenisProduk";
         }
 
         return "redirect:/jenisProduk";
