@@ -9,6 +9,7 @@ import com.example.buanaMekar.entities.SuratJalan;
 import com.example.buanaMekar.services.OrderanService;
 import com.example.buanaMekar.services.SuratJalanService;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,13 @@ public class suratJalanController {
         List<SuratJalan> listSuratJalans = service.listAllSuratJalan();
         model.addAttribute("listSuratJalans",listSuratJalans);
         return "listSuratJalan";
+    }
+    
+    @RequestMapping("/detailSuratJalan")
+    public String viewDetailSuratJalanPage(Model model, HttpServletRequest request) {
+        List<SuratJalan> listSuratJalans = service.listAllSuratJalan();
+        model.addAttribute("listSuratJalans",listSuratJalans);
+        return "listDetailSuratJalan";
     }
 
 }
