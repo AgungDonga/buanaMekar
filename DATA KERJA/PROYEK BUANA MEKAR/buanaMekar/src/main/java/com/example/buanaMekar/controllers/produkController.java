@@ -63,6 +63,7 @@ public class produkController {
             }
             return "redirect:/produk";
         } else {
+            produk.setId(produk.getId().replaceAll(" ", "_"));
             service.save(produk);
         }
         return "redirect:/produk";

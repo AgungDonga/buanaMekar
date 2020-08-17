@@ -22,4 +22,9 @@ public interface SuratJalanRepository extends CrudRepository<SuratJalan, Integer
     
     @Query("SELECT sj, o FROM SuratJalan sj, Orderan o WHERE sj.status = 0 AND o.status = 1 Group by o.toko, sj.tglKirim")
     List<SuratJalan> findAllSuratJalan();
+    
+    //@Query(value = "SELECT sj FROM SuratJalan WHERE id LIKE ?1 OR topic LIKE ?1 OR forum_description LIKE ?1 OR date_forum LIKE ?1")
+    
+    @Query("SELECT sj, o FROM SuratJalan sj, Orderan o WHERE sj.status = 0 AND sj.tglKirim= ?1")
+    List<SuratJalan> listDetailSuratJalan(String key);
 }

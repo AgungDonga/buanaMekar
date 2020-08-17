@@ -35,6 +35,7 @@ public class suratJalanController {
     @RequestMapping("/detailSuratJalan")
     public String viewDetailSuratJalanPage(Model model, HttpServletRequest request) {
         List<SuratJalan> listSuratJalans = service.listAllSuratJalan();
+        //getById(request.getParameter("id")
         model.addAttribute("listSuratJalans",listSuratJalans);
         return "listDetailSuratJalan";
     }
