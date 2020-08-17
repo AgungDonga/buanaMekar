@@ -35,6 +35,10 @@ public class OrderanService {
         return repo.findAll();
 
     }
+    
+    public List<Orderan> getAllOrder(){
+        return repo.getAllOrder();
+    }
 
     public void save(Orderan orderan) {
         repo.save(orderan);

@@ -38,30 +38,29 @@
                                     <thead>
                                         <tr>
                                             <th>NO</th>
-                                            <th>No Orderan</th>
+                                            <th>Nama Toko</th>
                                             <th>Tanggal Kirim</th>
                                             <th>Tanggal Terima</th>
-                                            <th>Status</th>
+                                            <th>ACTION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="row : ${listSuratJalans}">
                                             <td></td>
-                                            <td th:text="${row.orderan.id}">Orderan</td>
+                                            <td th:text="${row.orderan.toko.namaToko}"></td>
                                             <td th:text="${row.tglKirim}">Tanggal Kirim</td>
                                             <td th:text="${row.tglTerima}">Tanggal Terima</td>
-                                            <td th:text="${row.status}">Status</td>
+                                            <td><a href="#">Detail</a></td>
 
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>NO</th>
-                                            <th>No Orderan</th>
+                                            <th>Nama Toko</th>
                                             <th>Tanggal Kirim</th>
                                             <th>Tanggal Terima</th>
-                                            <th>Status</th>
-                                            
+                                            <th>ACTION</th>
                                         </tr>
                                     </tfoot>
                                 </table>

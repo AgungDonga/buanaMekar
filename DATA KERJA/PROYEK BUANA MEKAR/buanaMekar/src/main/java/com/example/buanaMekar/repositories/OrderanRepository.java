@@ -7,6 +7,7 @@ package com.example.buanaMekar.repositories;
 
 import com.example.buanaMekar.entities.Orderan;
 import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +19,8 @@ import org.springframework.stereotype.Repository;
 public interface OrderanRepository extends CrudRepository<Orderan, Integer>{
     
     List<Orderan> findAll();
+    
+    @Query("SELECT o FROM Orderan o WHERE o.status = 0")
+    List<Orderan> getAllOrder();
     
 }

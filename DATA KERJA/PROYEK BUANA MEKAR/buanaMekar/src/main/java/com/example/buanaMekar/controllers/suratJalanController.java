@@ -26,7 +26,7 @@ public class suratJalanController {
 
     @RequestMapping("/suratJalan")
     public String viewSuratJalanPage(Model model) {
-        List<SuratJalan> listSuratJalans = service.listAll();
+        List<SuratJalan> listSuratJalans = service.listAllSuratJalan();
         model.addAttribute("listSuratJalans",listSuratJalans);
         return "listSuratJalan";
     }

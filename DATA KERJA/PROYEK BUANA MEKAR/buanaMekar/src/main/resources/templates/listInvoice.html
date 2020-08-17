@@ -38,36 +38,27 @@
                                         <tr>
                                             <th>NO</th>
                                             <th>Invoice</th>
-                                            <th>Order</th>
                                             <th>PPN</th>
                                             <th>Tanggal Jatuh Tempo</th>
-
-                                            <th sec:authorize="hasRole('ROLE_ADMIN')">ACTIONS</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="invoice : ${listInvoices}">
                                             <td></td>
                                             <td th:text="${invoice.invoice}"></td>
-                                            <td th:text="${invoice.order1}"></td>
                                             <td th:text="${invoice.ppn}"></td>
                                             <td th:text="${invoice.tglJatuhTempo}"></td>
-
-                                            <td sec:authorize="hasRole('ROLE_ADMIN')">
-                                                <a class="btn btn-info" th:attr="data-target='#modal-warning'+${produks.id}" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i></a>
-
-                                                <a class="btn btn-danger" th:href="@{'/produk/delete/'+${produks.id}}" onclick="return confirm('Apakah kamu yakin ingin menghapus?');"><i class="fa fa-remove"></i></a>
-                                            </td>
+                                            <td><a>Detail</a></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>NO</th>
                                             <th>Invoice</th>
-                                            <th>Order</th>
                                             <th>PPN</th>
                                             <th>Tanggal Jatuh Tempo</th>
-                                            <th>ACTIONS</th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                 </table>

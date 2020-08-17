@@ -52,7 +52,6 @@ public class Invoice implements Serializable {
     private String invoice;
     @Column(name = "ppn")
     private Integer ppn;
-    
     @Size(max = 20)
     @Column(name = "tgl_jatuh_tempo")
     private String tglJatuhTempo;

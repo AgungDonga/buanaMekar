@@ -44,14 +44,10 @@ public class OrderanController {
 
     @RequestMapping("/orderan")
     public String viewOrderanPage(Model model){
-        List<Orderan> listOrderans = service.listAll();
+        List<Orderan> listOrderans = service.getAllOrder();
         model.addAttribute("produks", service.getAllProduk());
         model.addAttribute("tokos", service.getAllToko());
-        if(listOrderans.size() >0){
-            if(listOrderans.get(0).getStatus().equals("0")){
-                model.addAttribute("listOrderans",listOrderans);
-            }
-        }
+        model.addAttribute("listOrderans",listOrderans);
         return "listOrderan";
     }
     
@@ -61,16 +57,19 @@ public class OrderanController {
         Orderan orderan = new Orderan();
         
         for (int i = 0; i < listOrderans.size(); i++) {
-            orderan.setId(listOrderans.get(i).getId());
-            orderan.setStatus("1");
-            orderan.setProduk(listOrderans.get(i).getProduk());
-            orderan.setQuantity(listOrderans.get(i).getQuantity());
-            orderan.setToko(listOrderans.get(i).getToko());
-            orderan.setTotalHarga(listOrderans.get(i).getTotalHarga());
-            SuratJalan sj = new SuratJalan();
-            sj.setOrderan(orderan);
-            service.save(orderan);
-            suratJalanService.save(sj);
+            if(listOrderans.get(i).getStatus().equals("0")){
+                orderan.setId(listOrderans.get(i).getId());
+                orderan.setStatus("1");
+                orderan.setProduk(listOrderans.get(i).getProduk());
+                orderan.setQuantity(listOrderans.get(i).getQuantity());
+                orderan.setToko(listOrderans.get(i).getToko());
+                orderan.setTotalHarga(listOrderans.get(i).getTotalHarga());
+                SuratJalan sj = new SuratJalan();
+                sj.setOrderan(orderan);
+                service.save(orderan);
+                orderan.setStatus("0");
+                suratJalanService.save(sj);
+            }
         }
         return "listProduk";
 

@@ -33,10 +33,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SuratJalan.findAll", query = "SELECT s FROM SuratJalan s")
+    , @NamedQuery(name = "SuratJalan.findById", query = "SELECT s FROM SuratJalan s WHERE s.id = :id")
     , @NamedQuery(name = "SuratJalan.findByTglKirim", query = "SELECT s FROM SuratJalan s WHERE s.tglKirim = :tglKirim")
     , @NamedQuery(name = "SuratJalan.findByTglTerima", query = "SELECT s FROM SuratJalan s WHERE s.tglTerima = :tglTerima")
-    , @NamedQuery(name = "SuratJalan.findByStatus", query = "SELECT s FROM SuratJalan s WHERE s.status = :status")
-    , @NamedQuery(name = "SuratJalan.findById", query = "SELECT s FROM SuratJalan s WHERE s.id = :id")})
+    , @NamedQuery(name = "SuratJalan.findByStatus", query = "SELECT s FROM SuratJalan s WHERE s.status = :status")})
 public class SuratJalan implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,33 +45,35 @@ public class SuratJalan implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 100)
+    @Column(name = "tgl_kirim")
+    private String tglKirim;
+    @Size(max = 100)
+    @Column(name = "tgl_terima")
+    private String tglTerima;
+    @Size(max = 100)
+    @Column(name = "status")
+    private String status;
     @OneToMany(mappedBy = "suratJalan", fetch = FetchType.LAZY)
     private List<Invoice> invoiceList;
     @JoinColumn(name = "orderan", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Orderan orderan;
 
-    @Size(max = 20)
-    @Column(name = "tgl_kirim")
-    private String tglKirim;
-    @Size(max = 20)
-    @Column(name = "tgl_terima")
-    private String tglTerima;
-    @Column(name = "status")
-    private String status;
-    
     public SuratJalan() {
     }
 
-    public String getStatus() {
-        return status;
+    public SuratJalan(Integer id) {
+        this.id = id;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public Integer getId() {
+        return id;
     }
-    
-    
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getTglKirim() {
         return tglKirim;
@@ -88,18 +90,13 @@ public class SuratJalan implements Serializable {
     public void setTglTerima(String tglTerima) {
         this.tglTerima = tglTerima;
     }
- 
 
-    public SuratJalan(Integer id) {
-        this.id = id;
+    public String getStatus() {
+        return status;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @XmlTransient
@@ -143,5 +140,5 @@ public class SuratJalan implements Serializable {
     public String toString() {
         return "com.example.buanaMekar.entities.SuratJalan[ id=" + id + " ]";
     }
-
+    
 }

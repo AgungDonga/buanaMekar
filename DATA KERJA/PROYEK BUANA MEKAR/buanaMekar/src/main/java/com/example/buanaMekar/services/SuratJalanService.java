@@ -27,7 +27,10 @@ public class SuratJalanService {
     
     public List<SuratJalan> listAll() {
         return repo.findAll();
-
+    }
+    
+    public List<SuratJalan> listAllSuratJalan() {
+        return repo.findAllSuratJalan();
     }
 
     public void save(SuratJalan sj) {
