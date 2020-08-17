@@ -6,11 +6,12 @@
 package com.example.buanaMekar.controllers;
 
 import com.example.buanaMekar.entities.Orderan;
-import com.example.buanaMekar.entities.Produk;
 import com.example.buanaMekar.entities.SuratJalan;
 import com.example.buanaMekar.services.OrderanService;
 import com.example.buanaMekar.services.SuratJalanService;
 import com.example.buanaMekar.services.TokoService;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,7 +52,7 @@ public class OrderanController {
         return "listOrderan";
     }
     
-    @RequestMapping("/orderan/suratJalan")
+    @RequestMapping("/generateSuratJalan")
     public String cetakSuratJalan(Model model){
         List<Orderan> listOrderans = service.listAll();
         Orderan orderan = new Orderan();
@@ -64,10 +65,14 @@ public class OrderanController {
                 orderan.setQuantity(listOrderans.get(i).getQuantity());
                 orderan.setToko(listOrderans.get(i).getToko());
                 orderan.setTotalHarga(listOrderans.get(i).getTotalHarga());
+                service.save(orderan);
                 SuratJalan sj = new SuratJalan();
                 sj.setOrderan(orderan);
-                service.save(orderan);
-                orderan.setStatus("0");
+                sj.setStatus("0");
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date date = new Date();
+                sj.setTglKirim(formatter.format(date));
+                sj.setTglTerima(formatter.format(date));
                 suratJalanService.save(sj);
             }
         }

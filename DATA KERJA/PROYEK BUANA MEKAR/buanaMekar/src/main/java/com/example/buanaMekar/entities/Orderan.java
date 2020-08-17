@@ -53,12 +53,12 @@ public class Orderan implements Serializable {
     @Size(max = 50)
     @Column(name = "status")
     private String status;
-    @JoinColumn(name = "produk", referencedColumnName = "id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Produk produk;
     @JoinColumn(name = "toko", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Toko toko;
+    @JoinColumn(name = "produk", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Produk produk;
     @OneToMany(mappedBy = "orderan", fetch = FetchType.LAZY)
     private List<SuratJalan> suratJalanList;
 
@@ -101,20 +101,20 @@ public class Orderan implements Serializable {
         this.status = status;
     }
 
-    public Produk getProduk() {
-        return produk;
-    }
-
-    public void setProduk(Produk produk) {
-        this.produk = produk;
-    }
-
     public Toko getToko() {
         return toko;
     }
 
     public void setToko(Toko toko) {
         this.toko = toko;
+    }
+
+    public Produk getProduk() {
+        return produk;
+    }
+
+    public void setProduk(Produk produk) {
+        this.produk = produk;
     }
 
     @XmlTransient

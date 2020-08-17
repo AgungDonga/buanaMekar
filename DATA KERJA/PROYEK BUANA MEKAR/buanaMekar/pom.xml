@@ -73,6 +73,7 @@
     </dependencies>
 
     <build>
+        <finalName>${artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -106,5 +107,5 @@
             </snapshots>
         </repository>
     </repositories>
-
+    <packaging>war</packaging>
 </project>
