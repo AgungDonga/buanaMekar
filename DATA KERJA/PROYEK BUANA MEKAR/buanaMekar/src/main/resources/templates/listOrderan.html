@@ -86,41 +86,41 @@
                                                         <span aria-hidden="true">&times;</span></button>
                                                 </div>
                                                 <form action="#" th:action="@{/orderan/save}" method="post" enctype="multipart/form-data">
-                                                
-                                                <div class="modal-body">
-                                                    <input type="hidden" id="id" name="id" th:value="${orderans.id}">
-                                                    
-                                                    <div class="form-group">
-                                                        <label for="exampleInputEmail1">Nama Toko</label>
-                                                        <select class="form-control" id="toko" name="toko" >
-                                                            <option value="0">Select Nama Toko</option>
-                                                            <div th:each="tokoss : ${tokos}">
-                                                                <option th:value="${tokoss.id}" th:text="${tokoss.namaToko}" th:selected="(${orderans.toko.namaToko} == ${tokoss.namaToko} ? selected : no)"></option>
-                                                            </div>
-                                                        </select>
-                                                        
-                                                        
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <select class="form-control" id="produk" name="produk" >
-                                                            <div th:each="produk : ${produks}">
-                                                                <option th:value="${produk.id}" th:text="${produk.merkProduk}" th:selected="(${orderans.produk.merkProduk} == ${produk.merkProduk} ? selected : no)"></option>
-                                                            </div>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
+
+                                                    <div class="modal-body">
+                                                        <input type="hidden" id="id" name="id" th:value="${orderans.id}">
+
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Nama Toko</label>
+                                                            <select class="form-control" id="toko" name="toko" >
+                                                                <option value="0">Select Nama Toko</option>
+                                                                <div th:each="tokoss : ${tokos}">
+                                                                    <option th:value="${tokoss.id}" th:text="${tokoss.namaToko}" th:selected="(${orderans.toko.namaToko} == ${tokoss.namaToko} ? selected : no)"></option>
+                                                                </div>
+                                                            </select>
+
+
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <select class="form-control" id="produk" name="produk" >
+                                                                <div th:each="produk : ${produks}">
+                                                                    <option th:value="${produk.id}" th:text="${produk.merkProduk}" th:selected="(${orderans.produk.merkProduk} == ${produk.merkProduk} ? selected : no)"></option>
+                                                                </div>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label for="exampleInputEmail">Banyaknya</label>
                                                             <input type="text" class="form-control" id="quantity" name="quantity" th:value="${orderans.quantity}">
+                                                        </div>
+
                                                     </div>
-                                                    
-                                                </div>
-                                                
-                                                <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                                </div>
-                                            </form>
-                                                
+
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </form>
+
                                             </div>
                                         </div>
                                     </div>
@@ -188,23 +188,20 @@
                         </div>
                         <!-- /.box -->
                     </div>
-                    <div class="col-lg-3 col-xs-6">
-                    <!-- small box -->
-                    <form action="#" th:action="@{/generateSuratJalan}" method="post" enctype="multipart/form-data">
-                        <button type="submit" class="btn btn-primary">Jadikan Surat Jalan</button>
-                    </form>
-                </div>
+
                     <!-- /.col -->
                 </div>
-                
+                <form action="#" th:action="@{/generateSuratJalan}" method="post" enctype="multipart/form-data">
+                    <button type="submit" class="btn btn-primary">Jadikan Surat Jalan</button>
+                </form>
 
                 <!-- /.row -->
             </section>
             <!-- /.content -->
-            
+
         </div>
-        
-        
+
+
         <!-- /.content-wrapper -->
         <div th:replace="frag/component::footer"></div>
 
