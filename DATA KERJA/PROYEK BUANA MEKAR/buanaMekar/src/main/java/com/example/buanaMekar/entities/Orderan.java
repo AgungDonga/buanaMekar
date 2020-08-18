@@ -45,11 +45,12 @@ public class Orderan implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Size(max = 100)
     @Column(name = "total_harga")
-    private Double totalHarga;
+    private String totalHarga;
+    @Size(max = 100)
     @Column(name = "quantity")
-    private Integer quantity;
+    private String quantity;
     @Size(max = 50)
     @Column(name = "status")
     private String status;
@@ -77,19 +78,19 @@ public class Orderan implements Serializable {
         this.id = id;
     }
 
-    public Double getTotalHarga() {
+    public String getTotalHarga() {
         return totalHarga;
     }
 
-    public void setTotalHarga(Double totalHarga) {
+    public void setTotalHarga(String totalHarga) {
         this.totalHarga = totalHarga;
     }
 
-    public Integer getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 

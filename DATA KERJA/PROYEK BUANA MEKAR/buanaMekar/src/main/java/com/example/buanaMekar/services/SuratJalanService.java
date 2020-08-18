@@ -32,6 +32,10 @@ public class SuratJalanService {
     public List<SuratJalan> listAllSuratJalan() {
         return repo.findAllSuratJalan();
     }
+    
+    public List<SuratJalan> listDetailSuratJalan(String key1, String key2){
+        return repo.listDetailSuratJalan(key1, key2);
+    }
 
     public void save(SuratJalan sj) {
         repo.save(sj);

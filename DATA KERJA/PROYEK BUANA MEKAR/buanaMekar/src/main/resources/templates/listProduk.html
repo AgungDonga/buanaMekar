@@ -52,10 +52,10 @@
                                     <thead>
                                         <tr>
                                             <th>Kode Produk</th>
-                                            <th>Merk Produk</th>
+                                            <th>Nama Produk</th>
                                             <th>Harga</th>
                                             <th>Stok</th>
-                                            <th>Jenis Produk</th>
+                                            <th>Merk Produk</th>
                                             <th>Catatan</th>
 
                                             <th sec:authorize="hasRole('ADMIN')">ACTIONS</th>
@@ -64,10 +64,10 @@
                                     <tbody>
                                         <tr th:each="produks : ${listProduks}">
                                             <td th:text="${produks.id}">Kode Produk</td>
-                                            <td th:text="${produks.merkProduk}">Merk Produk</td>
+                                            <td th:text="${produks.merkProduk}">Nama Produk</td>
                                             <td th:text="${produks.harga}">Harga Produk</td>
                                             <td th:text="${produks.stok}">Stok</td>
-                                            <td th:text="${produks.jenisProduk.jenisProduk}">Jenis Produk</td>
+                                            <td th:text="${produks.jenisProduk.jenisProduk}">Merk Produk</td>
                                             <td th:text="${produks.catatan}">Catatan</td>
 
                                             <td sec:authorize="hasRole('ADMIN')">
@@ -90,7 +90,7 @@
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <input type="hidden" class="form-control" id="id" name="id" th:value="${produks.id}">
-                                                            <label for="exampleInputEmail1">Merk Produk</label>
+                                                            <label for="exampleInputEmail1">Nama Produk</label>
                                                             <input type="text" class="form-control" id="merkProduk" name="merkProduk" th:value="${produks.merkProduk}">
                                                         </div>
                                                     </div>
@@ -108,7 +108,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="form-group">
-                                                            <label for="exampleInputEmail1">Jenis Produk</label>
+                                                            <label for="exampleInputEmail1">Merk Produk</label>
                                                             <select class="form-control" id="jenisProduk" name="jenisProduk" >
                                                                 <option value="0">Select Jenis Produk</option>
                                                                 <div th:each="jenis : ${jenisProduks}">
@@ -137,10 +137,10 @@
                                     <tfoot>
                                         <tr>
                                             <th>NO</th>
-                                            <th>Merk Produk</th>
+                                            <th>Nama Produk</th>
                                             <th>Harga</th>
                                             <th>Stok</th>
-                                            <th>Jenis Produk</th>
+                                            <th>Merk Produk</th>
                                             <th>Catatan</th>
                                             <th sec:authorize="hasRole('ADMIN')">ACTIONS</th>
                                         </tr>
@@ -163,7 +163,7 @@
                                                         <input type="text" class="form-control required" id="id" name="id">
                                                     </div>
                                                     <div class="form-group has-error">
-                                                        <label for="exampleInputEmail1">Merk Produk</label>
+                                                        <label for="exampleInputEmail1">Nama Produk</label>
                                                         <input type="text" class="form-control required" id="merkProduk" name="merkProduk">
                                                     </div>
                                                 </div>
@@ -181,7 +181,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="form-group">
-                                                        <label for="exampleInputEmail1">Jenis Produk</label>
+                                                        <label for="exampleInputEmail1">Merk Produk</label>
                                                         <select class="form-control" id="jenisProduk" name="jenisProduk" >
                                                             <option value="0">Select Jenis Produk</option>
                                                             <div th:each="jenis : ${jenisProduks}">

@@ -52,14 +52,14 @@
                                     <thead>
                                         <tr>
                                             <th>NO</th>
-                                            <th>Jenis Produk</th>
+                                            <th>Merk Produk</th>
                                             <th sec:authorize="hasRole('ADMIN')">ACTIONS</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="jenisProduks : ${listJenisProduks}">
                                             <td></td>
-                                            <td th:text="${jenisProduks.jenisProduk}">Jenis Produk</td>
+                                            <td th:text="${jenisProduks.jenisProduk}">Merk Produk</td>
 
                                             <td sec:authorize="hasRole('ADMIN')">
                                                 <a class="btn btn-info" th:attr="data-target='#modal-warning'+${jenisProduks.id}" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i></a>
@@ -71,14 +71,14 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title"><b>Masukkan Data Jenis Produk</b></h4>
+                                                    <h4 class="modal-title"><b>Masukkan Data Merk Produk</b></h4>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span></button>
                                                 </div>
                                                 <form action="#" th:action="@{/jenisProduk/save}" method="post" enctype="multipart/form-data" id="newModalForm">
                                                     <div class="modal-body">
                                                         <div class="form-group has-error">
-                                                            <label for="exampleInputEmail1">Jenis Produk</label>
+                                                            <label for="exampleInputEmail1">Merk Produk</label>
                                                             <input type="text" class="form-control required" id="jenisProduk" name="jenisProduk" placeholder="Masukan jenis produk"/>
 
                                                         </div>
@@ -98,7 +98,7 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Update Data User</h4>
+                                                    <h4 class="modal-title"><b>Update Data Merk Produk</b></h4>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span></button>
                                                 </div>
@@ -106,7 +106,7 @@
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <input type="hidden" class="form-control" id="id" name="id" th:value="${jenisProduks.id}">
-                                                            <label for="exampleInputEmail1">Jenis Produk</label>
+                                                            <label for="exampleInputEmail1">Merk Produk</label>
                                                             <input type="text" class="form-control" id="jenisProduk" name="jenisProduk" th:value="${jenisProduks.jenisProduk}">
                                                         </div>
                                                     </div>
@@ -124,7 +124,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>NO</th>
-                                            <th>Jenis Produk</th>
+                                            <th>Merk Produk</th>
                                             <th sec:authorize="hasRole('ADMIN')">ACTIONS</th>
 
                                         </tr>

@@ -34,9 +34,10 @@ public class suratJalanController {
     
     @RequestMapping("/detailSuratJalan")
     public String viewDetailSuratJalanPage(Model model, HttpServletRequest request) {
-        List<SuratJalan> listSuratJalans = service.listAllSuratJalan();
-        //getById(request.getParameter("id")
+        List<SuratJalan> listSuratJalans = service.listDetailSuratJalan(request.getParameter("id").replaceAll("%20", " "), request.getParameter("id2").replaceAll("%20", " "));
         model.addAttribute("listSuratJalans",listSuratJalans);
+        System.out.println(request.getParameter("id").replaceAll("%20", " "));
+        System.out.println(request.getParameter("id2").replaceAll("%20", " "));
         return "listDetailSuratJalan";
     }
 

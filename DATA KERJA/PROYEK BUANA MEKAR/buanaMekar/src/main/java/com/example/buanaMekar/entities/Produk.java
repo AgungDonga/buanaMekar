@@ -49,11 +49,12 @@ public class Produk implements Serializable {
     @Size(max = 50)
     @Column(name = "merk_produk")
     private String merkProduk;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Size(max = 100)
     @Column(name = "harga")
-    private Double harga;
+    private String harga;
+    @Size(max = 100)
     @Column(name = "stok")
-    private Integer stok;
+    private String stok;
     @Size(max = 50)
     @Column(name = "catatan")
     private String catatan;
@@ -86,19 +87,19 @@ public class Produk implements Serializable {
         this.merkProduk = merkProduk;
     }
 
-    public Double getHarga() {
+    public String getHarga() {
         return harga;
     }
 
-    public void setHarga(Double harga) {
+    public void setHarga(String harga) {
         this.harga = harga;
     }
 
-    public Integer getStok() {
+    public String getStok() {
         return stok;
     }
 
-    public void setStok(Integer stok) {
+    public void setStok(String stok) {
         this.stok = stok;
     }
 
