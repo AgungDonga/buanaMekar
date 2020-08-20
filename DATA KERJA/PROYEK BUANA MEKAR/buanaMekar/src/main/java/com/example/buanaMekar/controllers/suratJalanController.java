@@ -6,7 +6,6 @@
 package com.example.buanaMekar.controllers;
 
 import com.example.buanaMekar.entities.SuratJalan;
-import com.example.buanaMekar.services.OrderanService;
 import com.example.buanaMekar.services.SuratJalanService;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -36,8 +35,6 @@ public class suratJalanController {
     public String viewDetailSuratJalanPage(Model model, HttpServletRequest request) {
         List<SuratJalan> listSuratJalans = service.listDetailSuratJalan(request.getParameter("id").replaceAll("%20", " "), request.getParameter("id2").replaceAll("%20", " "));
         model.addAttribute("listSuratJalans",listSuratJalans);
-        System.out.println(request.getParameter("id").replaceAll("%20", " "));
-        System.out.println(request.getParameter("id2").replaceAll("%20", " "));
         return "listDetailSuratJalan";
     }
 

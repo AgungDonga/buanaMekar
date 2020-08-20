@@ -51,7 +51,7 @@ public class Invoice implements Serializable {
     @Column(name = "invoice")
     private String invoice;
     @Column(name = "ppn")
-    private Integer ppn;
+    private String ppn;
     @Size(max = 20)
     @Column(name = "tgl_jatuh_tempo")
     private String tglJatuhTempo;
@@ -86,11 +86,11 @@ public class Invoice implements Serializable {
         this.invoice = invoice;
     }
 
-    public Integer getPpn() {
+    public String getPpn() {
         return ppn;
     }
 
-    public void setPpn(Integer ppn) {
+    public void setPpn(String ppn) {
         this.ppn = ppn;
     }
 

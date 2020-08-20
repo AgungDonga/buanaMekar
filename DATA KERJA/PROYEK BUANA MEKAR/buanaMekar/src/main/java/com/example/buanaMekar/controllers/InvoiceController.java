@@ -6,8 +6,13 @@
 package com.example.buanaMekar.controllers;
 
 import com.example.buanaMekar.entities.Invoice;
+import com.example.buanaMekar.entities.SuratJalan;
 import com.example.buanaMekar.services.InvoiceService;
+import com.example.buanaMekar.services.SuratJalanService;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +31,9 @@ public class InvoiceController {
     
     @Autowired
     InvoiceService service;
+    
+    @Autowired
+    SuratJalanService serviceSuratJalan;
     
     @RequestMapping("/invoice/createInvoice")
     public String createInvoice(){
@@ -49,8 +57,32 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "/invoice/save",method = RequestMethod.POST)
-    public String saveInvoice(@ModelAttribute("invoice")Invoice invoice){
-        service.save(invoice);
+    public String saveInvoice(HttpServletRequest request){
+        Invoice invoicenya = new Invoice();
+        String arrayBulan[]={"O","I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII"};
+        Double totalHarga= Double.MAX_VALUE;
+        List<SuratJalan> listSuratJalans = serviceSuratJalan.listDetailSuratJalan(request.getParameter("id").replaceAll("%20", " "), request.getParameter("id2").replaceAll("%20", " "));
+        for (int i = 0; i < listSuratJalans.size(); i++) {
+            totalHarga = totalHarga + Integer.valueOf(listSuratJalans.get(i).getOrderan().getTotalHarga());
+        }
+        for (int i = 0; i < listSuratJalans.size(); i++) {
+            invoicenya.setInvoice("/INV/BPK"+arrayBulan[Integer.valueOf(listSuratJalans.get(i).getTglKirim().substring(3, 4).replaceAll("0", ""))]+2020);
+            System.out.println("Bulan ke "+Integer.valueOf(listSuratJalans.get(i).getTglKirim().substring(3, 4).replaceAll("0", "")) +"- "+ listSuratJalans.get(i).getTglKirim().substring(3, 4));
+            //invoice.setPpn(Integer.tlistSuratJalans.get(i).getOrderan().getTotalHarga());
+            invoicenya.setStatus(0);
+            invoicenya.setSuratJalan(listSuratJalans.get(i));
+            
+            Calendar calTambah = Calendar.getInstance();
+
+            calTambah.setTime(Date.valueOf(listSuratJalans.get(i).getTglKirim()));
+            calTambah.add(Calendar.DAY_OF_MONTH, 30);
+            invoicenya.setTglJatuhTempo(calTambah.getTime().toString());
+            Double ppn =totalHarga * 0.1;
+            invoicenya.setPpn(ppn.toString());
+            service.save(invoicenya);
+            
+        }
+        
         return "redirect:/invoice";
     }
     

@@ -50,7 +50,10 @@
                                             <td th:text="${row.orderan.toko.namaToko}"></td>
                                             <td th:text="${row.tglKirim}">Tanggal Kirim</td>
                                             <td th:text="${row.tglTerima}">Tanggal Terima</td>
-                                            <td><a th:href="'detailSuratJalan?id='+${row.orderan.toko.namaToko}+'&id2='+${row.tglKirim}">Detail</a></td>
+                                            <td><a th:href="'detailSuratJalan?id='+${row.orderan.toko.namaToko}+'&id2='+${row.tglKirim}">Detail</a>
+                                             <form action="#" th:action="@{'invoice/save?id='+${row.orderan.toko.namaToko}+'&id2='+${row.tglKirim}}" method="post" enctype="multipart/form-data">
+                                                <button type="submit" class="btn btn-primary" align="right">Jadikan Invoice</button>
+                                            </form></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
