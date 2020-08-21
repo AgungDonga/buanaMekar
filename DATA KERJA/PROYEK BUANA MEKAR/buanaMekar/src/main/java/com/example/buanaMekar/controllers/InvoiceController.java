@@ -83,8 +83,8 @@ public class InvoiceController {
             Date tgl;
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             System.out.println("tanggal = "+listSuratJalans.get(i).getTglKirim());
-            System.out.println(listSuratJalans.get(i).getTglKirim().substring(3, 5));
-//            invoicenya.setInvoice("/INV/BPK"+arrayBulan[Integer.parseInt(listSuratJalans.get(i).getTglKirim().substring(3, 4))]+"2020");
+            System.out.println(listSuratJalans.get(i).getTglKirim().substring(3, 4).equals("0") ? listSuratJalans.get(i).getTglKirim().substring(4, 5): listSuratJalans.get(i).getTglKirim().substring(3, 5));
+            invoicenya.setInvoice(listSuratJalans.get(i).getId()+"/INV/BPK"+arrayBulan[Integer.parseInt(listSuratJalans.get(i).getTglKirim().substring(3, 4).equals("0") ? listSuratJalans.get(i).getTglKirim().substring(4, 5): listSuratJalans.get(i).getTglKirim().substring(3, 5))]+"2020");
             try {
                 tgl = sdf.parse(listSuratJalans.get(i).getTglKirim());
                 cal3.setTime(tgl);
