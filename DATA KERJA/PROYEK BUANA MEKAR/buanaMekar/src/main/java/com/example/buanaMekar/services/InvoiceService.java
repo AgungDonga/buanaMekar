@@ -30,6 +30,11 @@ public class InvoiceService {
         return repo.findAll();
 
     }
+    
+    public List<Invoice> listAllInvoice() {
+        return repo.getAllInvoice();
+
+    }
 
     public void save(Invoice invoice) {
         repo.save(invoice);

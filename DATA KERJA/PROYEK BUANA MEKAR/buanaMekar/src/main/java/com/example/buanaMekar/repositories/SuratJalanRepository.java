@@ -27,4 +27,5 @@ public interface SuratJalanRepository extends CrudRepository<SuratJalan, Integer
     
     @Query("SELECT sj, o FROM SuratJalan sj, Orderan o WHERE sj.status = 0 AND sj.tglKirim= ?2 AND o.toko.namaToko = ?1 AND o.id = sj.orderan")
     List<SuratJalan> listDetailSuratJalan(String key1, String key2);
+    
 }

@@ -7,6 +7,7 @@ package com.example.buanaMekar.repositories;
 
 import com.example.buanaMekar.entities.Invoice;
 import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,6 @@ public interface InvoiceRepository extends CrudRepository<Invoice, String>{
     
     List<Invoice> findAll();
     
+    @Query("SELECT i FROM Invoice i GROUP BY i.invoice")
+    List<Invoice> getAllInvoice();
 }

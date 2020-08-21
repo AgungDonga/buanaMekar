@@ -43,10 +43,17 @@ public class InvoiceController {
 
     @RequestMapping("/invoice")
     public String viewInvoicePage(Model model){
-        List<Invoice> listInvoices = service.listAll();
+        List<Invoice> listInvoices = service.listAllInvoice();
         model.addAttribute("listInvoices",listInvoices);
         return "listInvoice";
 
+    }
+    
+    @RequestMapping("/detailInvoice")
+    public String viewDetailSuratJalanPage(Model model, HttpServletRequest request) {
+        List<SuratJalan> listSuratJalans = serviceSuratJalan.listDetailSuratJalan(request.getParameter("id").replaceAll("%20", " "), request.getParameter("id2").replaceAll("%20", " "));
+        model.addAttribute("listSuratJalans",listSuratJalans);
+        return "listInvoice";
     }
 
     @RequestMapping("/invoice/new")
@@ -69,27 +76,20 @@ public class InvoiceController {
         
         Double ppnnya = totalHarga * 10 / 100;
         for (int i = 0; i < listSuratJalans.size(); i++) {
-//            invoicenya.setInvoice("/INV/BPK"+arrayBulan[Integer.valueOf(listSuratJalans.get(i).getTglKirim().substring(3, 4).replaceAll("0", ""))]+"2020");
-//            System.out.println("Bulan ke "+Integer.valueOf(listSuratJalans.get(i).getTglKirim().substring(3, 4).replaceAll("0", "")));
-            //invoice.setPpn(Integer.tlistSuratJalans.get(i).getOrderan().getTotalHarga());
             invoicenya.setId(i);
             invoicenya.setStatus(0);
             SuratJalan sj = new SuratJalan();
             sj.setId(listSuratJalans.get(i).getId());
             invoicenya.setSuratJalan(sj);
-            System.out.println("a="+listSuratJalans.get(i).getId());
-//          
+            
             Calendar cal3 = Calendar.getInstance();
             Date tgl;
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            System.out.println("tanggal = "+listSuratJalans.get(i).getTglKirim());
-            System.out.println(listSuratJalans.get(i).getTglKirim().substring(3, 4).equals("0") ? listSuratJalans.get(i).getTglKirim().substring(4, 5): listSuratJalans.get(i).getTglKirim().substring(3, 5));
             invoicenya.setInvoice(listSuratJalans.get(0).getId()+"/INV/BPK"+arrayBulan[Integer.parseInt(listSuratJalans.get(i).getTglKirim().substring(3, 4).equals("0") ? listSuratJalans.get(i).getTglKirim().substring(4, 5): listSuratJalans.get(i).getTglKirim().substring(3, 5))]+"/2020");
             try {
                 tgl = sdf.parse(listSuratJalans.get(i).getTglKirim());
                 cal3.setTime(tgl);
                 cal3.add(Calendar.MONTH, 1);
-                System.out.println("3 Hari Setelah 30 hari adalah Tanggal : " + sdf.format(cal3.getTime()));
                 invoicenya.setTglJatuhTempo(sdf.format(cal3.getTime()));
             } catch (ParseException e) {
                 // TODO Auto-generated catch block
@@ -97,8 +97,8 @@ public class InvoiceController {
             }
             
             Double result = totalHarga + ppnnya;
-            System.out.println(result);
-            invoicenya.setPpn(result.toString());
+            invoicenya.setPpn(ppnnya.toString());
+            invoicenya.setTotalHarga(result.toString());
             service.save(invoicenya);
         }
         

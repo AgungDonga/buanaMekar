@@ -39,6 +39,7 @@
                                             <th>NO</th>
                                             <th>Invoice</th>
                                             <th>PPN</th>
+                                            <th>Total Harga</th>
                                             <th>Tanggal Jatuh Tempo</th>
                                             <th></th>
                                         </tr>
@@ -48,8 +49,9 @@
                                             <td></td>
                                             <td th:text="${invoice.invoice}"></td>
                                             <td th:text="${invoice.ppn}"></td>
+                                            <td th:text="${invoice.totalHarga}"></td>
                                             <td th:text="${invoice.tglJatuhTempo}"></td>
-                                            <td><a>Detail</a></td>
+                                            <td><a th:href="'detailInvoice?id='+${invoice.suratJalan.orderan.toko.namaToko}+'&id2='+${invoice.suratJalan.tglKirim}">Detail</a></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -57,6 +59,7 @@
                                             <th>NO</th>
                                             <th>Invoice</th>
                                             <th>PPN</th>
+                                            <th>Total Harga</th>
                                             <th>Tanggal Jatuh Tempo</th>
                                             <th></th>
                                         </tr>

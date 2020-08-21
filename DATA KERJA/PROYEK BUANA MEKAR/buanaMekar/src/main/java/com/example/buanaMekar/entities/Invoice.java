@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Invoice.findById", query = "SELECT i FROM Invoice i WHERE i.id = :id")
     , @NamedQuery(name = "Invoice.findByInvoice", query = "SELECT i FROM Invoice i WHERE i.invoice = :invoice")
     , @NamedQuery(name = "Invoice.findByPpn", query = "SELECT i FROM Invoice i WHERE i.ppn = :ppn")
+    , @NamedQuery(name = "Invoice.findByTotalHarga", query = "SELECT i FROM Invoice i WHERE i.totalHarga = :totalHarga")
     , @NamedQuery(name = "Invoice.findByTglJatuhTempo", query = "SELECT i FROM Invoice i WHERE i.tglJatuhTempo = :tglJatuhTempo")
     , @NamedQuery(name = "Invoice.findByStatus", query = "SELECT i FROM Invoice i WHERE i.status = :status")})
 public class Invoice implements Serializable {
@@ -50,8 +51,12 @@ public class Invoice implements Serializable {
     @Size(max = 100)
     @Column(name = "invoice")
     private String invoice;
+    @Size(max = 20)
     @Column(name = "ppn")
     private String ppn;
+    @Size(max = 20)
+    @Column(name = "total_harga")
+    private String totalHarga;
     @Size(max = 20)
     @Column(name = "tgl_jatuh_tempo")
     private String tglJatuhTempo;
@@ -92,6 +97,14 @@ public class Invoice implements Serializable {
 
     public void setPpn(String ppn) {
         this.ppn = ppn;
+    }
+
+    public String getTotalHarga() {
+        return totalHarga;
+    }
+
+    public void setTotalHarga(String totalHarga) {
+        this.totalHarga = totalHarga;
     }
 
     public String getTglJatuhTempo() {
