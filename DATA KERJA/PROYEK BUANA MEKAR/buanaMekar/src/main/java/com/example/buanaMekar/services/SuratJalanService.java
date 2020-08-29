@@ -56,6 +56,7 @@ public class SuratJalanService {
             JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\suratJalan.pdf");
         }
         return "success : " + path;
+        //kurang asem
     }
 
     public List<SuratJalan> listAll() {
