@@ -8,8 +8,11 @@ package com.example.buanaMekar.repositories;
 import com.example.buanaMekar.entities.SuratJalan;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -27,5 +30,9 @@ public interface SuratJalanRepository extends CrudRepository<SuratJalan, Integer
     
     @Query("SELECT sj, o FROM SuratJalan sj, Orderan o WHERE sj.status = 0 AND sj.tglKirim= ?2 AND o.toko.namaToko = ?1 AND o.id = sj.orderan")
     List<SuratJalan> listDetailSuratJalan(String key1, String key2);
+    
+    
+    @Query(nativeQuery = true,value = "call getAllPesanan(:namaToko, :tanggalL)")   // call store procedure with arguments
+    List<String> findAllPesanan(@Param("namaToko")String namaToko, @Param("tanggalL")String tanggalL);
     
 }

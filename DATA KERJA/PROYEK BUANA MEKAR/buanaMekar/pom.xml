@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>buanaMekar</name>
     <description>Pergudangan PT.BUANA MEKAR Sangatta</description>
-
+    
     <properties>
         <java.version>1.8</java.version>
     </properties>
