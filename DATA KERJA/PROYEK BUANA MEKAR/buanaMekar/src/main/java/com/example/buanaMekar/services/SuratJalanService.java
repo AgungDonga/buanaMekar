@@ -5,6 +5,7 @@
  */
 package com.example.buanaMekar.services;
 
+import com.example.buanaMekar.entities.Beannya;
 import com.example.buanaMekar.entities.Orderan;
 import com.example.buanaMekar.entities.SuratJalan;
 import com.example.buanaMekar.repositories.OrderanRepository;
@@ -15,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,23 +51,48 @@ public class SuratJalanService {
     @Autowired
     OrderanRepository orderanRepo;
 
-    public String exportReport2(String reportFormat) throws FileNotFoundException, JRException {
-        String path = "C:\\Users\\Insane\\Desktop\\Report";
-
-        List<SuratJalan> sj = repo.findAll();
-
-        File file = ResourceUtils.getFile("classpath:sJalanReport.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(sj);
+//    public String exportReport2(String reportFormat) throws FileNotFoundException, JRException {
+//        String path = "C:\\Users\\Insane\\Desktop\\Report";
+//
+//        List<SuratJalan> sj = repo.findAll();
+//
+//        File file = ResourceUtils.getFile("classpath:sJalanReport.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(sj);
+//        Map<String, Object> parameters = new HashMap<>();
+//        parameters.put("created", "Developer");
+//        JasperPrint jp = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+//        if (reportFormat.equalsIgnoreCase("html")) {
+//            JasperExportManager.exportReportToHtmlFile(jp, path + "\\suratJalan.html");
+//        }
+//        if (reportFormat.equalsIgnoreCase("pdf")) {
+//            JasperExportManager.exportReportToPdfFile(jp, path + "\\999999999.pdf");
+//        }
+//        return "success : " + path;
+//    }
+    
+    public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
+        String path  = "D:\\INDEX2";
+        File file = ResourceUtils.getFile("classpath:report2.jrxml");
+        
         Map<String, Object> parameters = new HashMap<>();
+        parameters.put("param1", "ALIONG COMPANY");
+        parameters.put("param2", "18/08/2020 23:04:55");
+        //JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters);
+        
+        List<Beannya> collection = repo.findAllPesanan("ALIONG COMPANY", "18/08/2020 23:04:55");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
         parameters.put("created", "Developer");
         JasperPrint jp = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         if (reportFormat.equalsIgnoreCase("html")) {
             JasperExportManager.exportReportToHtmlFile(jp, path + "\\suratJalan.html");
         }
         if (reportFormat.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jp, path + "\\suratJalan.pdf");
+            JasperExportManager.exportReportToPdfFile(jp, path + "\\99999999.pdf");
         }
+        JasperViewer.viewReport(jp);
+        System.out.println("BERHASIL");
         return "success : " + path;
     }
 

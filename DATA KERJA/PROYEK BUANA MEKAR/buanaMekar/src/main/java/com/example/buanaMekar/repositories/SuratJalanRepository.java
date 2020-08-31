@@ -5,6 +5,7 @@
  */
 package com.example.buanaMekar.repositories;
 
+import com.example.buanaMekar.entities.Beannya;
 import com.example.buanaMekar.entities.SuratJalan;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
@@ -33,6 +34,6 @@ public interface SuratJalanRepository extends CrudRepository<SuratJalan, Integer
     
     
     @Query(nativeQuery = true,value = "call getAllPesanan(:namaToko, :tanggalL)")   // call store procedure with arguments
-    List<String> findAllPesanan(@Param("namaToko")String namaToko, @Param("tanggalL")String tanggalL);
+    List<Beannya> findAllPesanan(@Param("namaToko")String namaToko, @Param("tanggalL")String tanggalL);
     
 }

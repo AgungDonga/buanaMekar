@@ -3,8 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	
-        <field name="id" class="java.lang.Integer"/>
+	<field name="id" class="java.lang.Integer"/>
 	<field name="tglKirim" class="java.lang.String"/>
 	<field name="tglTerima" class="java.lang.String"/>
 	<background>
@@ -13,15 +12,14 @@
 	<title>
 		<band height="65" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="0505f12e-a299-4ea4-9022-550da6108cd3" x="216" y="19" width="126" height="36"/>
+				<reportElement x="216" y="19" width="126" height="36" uuid="0505f12e-a299-4ea4-9022-550da6108cd3"/>
 				<textElement>
 					<font size="18"/>
 				</textElement>
 				<text><![CDATA[SURAT JALAN]]></text>
 			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement uuid="02bc20f6-77da-4588-8f5a-9848ebf56df1" x="442" y="35" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="442" y="35" width="100" height="20" uuid="02bc20f6-77da-4588-8f5a-9848ebf56df1"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
@@ -32,18 +30,15 @@
 	<columnHeader>
 		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="6a0d5819-3469-433a-ad0e-b59b7c1786f9" x="0" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="0" y="0" width="100" height="20" uuid="6a0d5819-3469-433a-ad0e-b59b7c1786f9"/>
 				<text><![CDATA[surat_jalan_id]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="919df9c3-aeb3-4dd5-8d16-fbe8fa3531bb" x="100" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="100" y="0" width="100" height="20" uuid="919df9c3-aeb3-4dd5-8d16-fbe8fa3531bb"/>
 				<text><![CDATA[surat_jalan_tgl_kirim]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="98145ef9-b9f2-4cfc-b0cf-8ae499b5ac46" x="200" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="200" y="0" width="100" height="20" uuid="98145ef9-b9f2-4cfc-b0cf-8ae499b5ac46"/>
 				<text><![CDATA[surat_jalan_tgl_terima]]></text>
 			</staticText>
 		</band>
@@ -51,18 +46,15 @@
 	<detail>
 		<band height="28" splitType="Stretch">
 			<textField>
-				<reportElement uuid="8243d84d-0528-4409-9b79-caf5bad9762a" x="0" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="0" y="0" width="100" height="20" uuid="8243d84d-0528-4409-9b79-caf5bad9762a"/>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="300f1b5c-9650-40f1-b261-3aa0919d2101" x="100" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="100" y="0" width="100" height="20" uuid="300f1b5c-9650-40f1-b261-3aa0919d2101"/>
 				<textFieldExpression><![CDATA[$F{tglKirim}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="9af8a815-e740-4c1a-9a01-fb3acd5be7e3" x="200" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="200" y="0" width="100" height="20" uuid="9af8a815-e740-4c1a-9a01-fb3acd5be7e3"/>
 				<textFieldExpression><![CDATA[$F{tglTerima}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -73,13 +65,12 @@
 	<pageFooter>
 		<band height="54" splitType="Stretch">
 			<textField>
-				<reportElement uuid="46f24b6f-2f3a-473b-a032-43e97aa603b1" x="216" y="0" width="80" height="20"/>
+				<reportElement x="216" y="0" width="80" height="20" uuid="46f24b6f-2f3a-473b-a032-43e97aa603b1"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement uuid="b726dcf4-b04f-4325-8aa2-e3c6cebbb0a3" x="296" y="0" width="40" height="20"/>
-				<textElement/>
+				<reportElement x="296" y="0" width="40" height="20" uuid="b726dcf4-b04f-4325-8aa2-e3c6cebbb0a3"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
