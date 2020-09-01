@@ -29,7 +29,7 @@ public class suratJalanController {
     
     @RequestMapping("/suratJalan/report/{format}")
     public String generateReport(@PathVariable String format)throws FileNotFoundException, JRException{
-        return service.exportReport(format);
+        return service.exportReport2(format);
     }
     
     @RequestMapping("/suratJalan/report2/{format}")

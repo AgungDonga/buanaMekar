@@ -47,29 +47,29 @@ public class SuratJalanService {
 
     @Autowired
     SuratJalanRepository repo;
-
+    
     @Autowired
     OrderanRepository orderanRepo;
 
-//    public String exportReport2(String reportFormat) throws FileNotFoundException, JRException {
-//        String path = "C:\\Users\\Insane\\Desktop\\Report";
-//
-//        List<SuratJalan> sj = repo.findAll();
-//
-//        File file = ResourceUtils.getFile("classpath:sJalanReport.jrxml");
-//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(sj);
-//        Map<String, Object> parameters = new HashMap<>();
-//        parameters.put("created", "Developer");
-//        JasperPrint jp = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-//        if (reportFormat.equalsIgnoreCase("html")) {
-//            JasperExportManager.exportReportToHtmlFile(jp, path + "\\suratJalan.html");
-//        }
-//        if (reportFormat.equalsIgnoreCase("pdf")) {
-//            JasperExportManager.exportReportToPdfFile(jp, path + "\\999999999.pdf");
-//        }
-//        return "success : " + path;
-//    }
+    public String exportReport2(String reportFormat) throws FileNotFoundException, JRException {
+        String path = "C:\\Users\\Insane\\Desktop\\Report";
+
+        List<Orderan> sj = orderanRepo.findAll();
+
+        File file = ResourceUtils.getFile("classpath:sJalanReport.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(sj);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("created", "Developer");
+        JasperPrint jp = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        if (reportFormat.equalsIgnoreCase("html")) {
+            JasperExportManager.exportReportToHtmlFile(jp, path + "\\suratJalan.html");
+        }
+        if (reportFormat.equalsIgnoreCase("pdf")) {
+            JasperExportManager.exportReportToPdfFile(jp, path + "\\suratJalan.pdf");
+        }
+        return "success : " + path;
+    }
     
     public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
         String path  = "D:\\INDEX2";
