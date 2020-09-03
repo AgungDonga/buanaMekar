@@ -7,8 +7,10 @@ package com.example.buanaMekar.controllers;
 
 import com.example.buanaMekar.entities.JenisProduk;
 import com.example.buanaMekar.services.JenisProdukService;
+import java.io.FileNotFoundException;
 import java.util.List;
 import javax.validation.Valid;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,11 @@ public class jenisProdukController {
 
     @Autowired
     private JenisProdukService service;
+    
+    @RequestMapping("/sj/report/{format}")
+    public String generateReport(@PathVariable String format)throws FileNotFoundException, JRException{
+        return service.exportReport2(format);
+    }
 
     @RequestMapping("/jenisProduk/createJenisProduk")
     public String createJenisProduk() {
