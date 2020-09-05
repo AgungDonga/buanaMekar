@@ -53,7 +53,7 @@ public class InvoiceController {
     public String viewDetailSuratJalanPage(Model model, HttpServletRequest request) {
         List<SuratJalan> listSuratJalans = serviceSuratJalan.listDetailSuratJalan(request.getParameter("id").replaceAll("%20", " "), request.getParameter("id2").replaceAll("%20", " "));
         model.addAttribute("listSuratJalans",listSuratJalans);
-        return "listInvoice";
+        return "listDetailInvoice";
     }
 
     @RequestMapping("/invoice/new")
