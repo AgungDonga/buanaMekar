@@ -32,7 +32,7 @@ public class JenisProdukService {
     
     @Autowired
     JenisProdukRepository repo;
-    
+    //yaya
     public String exportReport2(String reportFormat) throws FileNotFoundException, JRException {
         String path = "C:\\Users\\Insane\\Desktop\\Report";
 
