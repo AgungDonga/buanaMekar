@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["F:\\DATA KERJA\\PROYEK BUANA MEKAR\\buanaMekarFix4.1\\DATA KERJA\\PROYEK BUANA MEKAR\\buanaMekar\\src\\main\\resources\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["D:\\@ProjectAgung\\buana_mekar\\buanaMekar\\DATA KERJA\\PROYEK BUANA MEKAR\\buanaMekar\\src\\main\\resources\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT
@@ -20,12 +20,11 @@ FROM
 	<detail>
 		<band height="27" splitType="Stretch">
 			<textField>
-				<reportElement uuid="d0e41a71-7d1e-4a61-ad6b-4b4b8d85db61" x="11" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="11" y="0" width="100" height="20" uuid="d0e41a71-7d1e-4a61-ad6b-4b4b8d85db61"/>
 				<textFieldExpression><![CDATA[$F{merkProduk}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement uuid="574c7a4d-c097-491c-82dc-261901fcd261" x="111" y="0" width="200" height="27"/>
+				<reportElement x="111" y="0" width="200" height="27" uuid="574c7a4d-c097-491c-82dc-261901fcd261"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{orderanList})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "jenisProduk_produk_orderan.jasper"]]></subreportExpression>
 			</subreport>
