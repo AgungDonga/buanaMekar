@@ -9,12 +9,14 @@ import com.example.buanaMekar.entities.Invoice;
 import com.example.buanaMekar.entities.SuratJalan;
 import com.example.buanaMekar.services.InvoiceService;
 import com.example.buanaMekar.services.SuratJalanService;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +37,11 @@ public class InvoiceController {
     
     @Autowired
     SuratJalanService serviceSuratJalan;
+    
+    @RequestMapping("/invoice/report/{format}")
+    public String generateReport(@PathVariable String format)throws FileNotFoundException, JRException{
+        return service.exportReport2(format);
+    }
     
     @RequestMapping("/invoice/createInvoice")
     public String createInvoice(){
