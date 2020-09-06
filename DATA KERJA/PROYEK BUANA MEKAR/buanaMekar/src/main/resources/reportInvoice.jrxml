@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="612" pageHeight="400" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8221e155-5de8-416b-affc-247a4ad507b5">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="90"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["D:\\@ProjectAgung\\buana_mekar\\buanaMekar\\DATA KERJA\\PROYEK BUANA MEKAR\\buanaMekar\\src\\main\\resources\\"]]></defaultValueExpression>
@@ -19,7 +19,8 @@ o.quantity quantity,
 p.harga hargaSatuan,
 o.total_harga subHarga,
 i.total_harga totalHarga,
-i.invoice invoice 
+i.invoice invoice,
+i.ppn ppnnya 
 from orderan o, surat_jalan sj, toko t, produk p, invoice i
 where o.toko = t.id 
 AND sj.orderan = o.id 
@@ -38,6 +39,7 @@ AND sj.tgl_kirim like $P{param2}]]>
 	<field name="invoice" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="ppnnya" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -144,21 +146,29 @@ AND sj.tgl_kirim like $P{param2}]]>
 	<columnFooter>
 		<band height="111" splitType="Stretch">
 			<staticText>
-				<reportElement x="7" y="34" width="79" height="20" uuid="3a47ea72-3218-465c-90f0-a6e42326729f"/>
+				<reportElement x="7" y="54" width="79" height="20" uuid="3a47ea72-3218-465c-90f0-a6e42326729f"/>
 				<text><![CDATA[Tanda Terima]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="454" y="34" width="79" height="20" uuid="3a47ea72-3218-465c-90f0-a6e42326729f"/>
+				<reportElement x="447" y="54" width="79" height="20" uuid="3a47ea72-3218-465c-90f0-a6e42326729f"/>
 				<text><![CDATA[Hormat Kami]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="433" y="2" width="100" height="20" uuid="65fd513d-90fb-4ea7-a61e-a1c79da8a649"/>
+				<reportElement x="433" y="14" width="100" height="20" uuid="65fd513d-90fb-4ea7-a61e-a1c79da8a649"/>
 				<textFieldExpression><![CDATA[$P{param1}.replaceAll( $P{param1}, $F{totalHarga})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="358" y="2" width="71" height="20" uuid="835c4cd5-8cff-40bf-94ea-79ddcdac6619"/>
-				<text><![CDATA[Total + PPN : ]]></text>
+				<reportElement x="358" y="14" width="71" height="20" uuid="835c4cd5-8cff-40bf-94ea-79ddcdac6619"/>
+				<text><![CDATA[Total               : ]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="358" y="0" width="71" height="20" uuid="44b9df39-928e-4a76-a16b-3d126a36c929"/>
+				<text><![CDATA[PPN                :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="433" y="0" width="100" height="20" uuid="0867906f-c1fc-4006-af62-a0bfc1f3b5e4"/>
+				<textFieldExpression><![CDATA[$P{param1}.replaceAll($P{param1}, $F{ppnnya})]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
