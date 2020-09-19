@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="612" pageHeight="400" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8221e155-5de8-416b-affc-247a4ad507b5">
 	<property name="ireport.zoom" value="1.771561000000001"/>
-	<property name="ireport.x" value="90"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["D:\\@ProjectAgung\\buana_mekar\\buanaMekar\\DATA KERJA\\PROYEK BUANA MEKAR\\buanaMekar\\src\\main\\resources\\"]]></defaultValueExpression>
@@ -16,11 +16,11 @@
 		<![CDATA[select 
 p.merk_produk namaBarang,
 o.quantity quantity,
-p.harga hargaSatuan,
-o.total_harga subHarga,
-i.total_harga totalHarga,
+concat('Rp ', format( sum(p.harga), 0)) hargaSatuan,
+concat('Rp ', format( sum(o.total_harga), 0)) subHarga,
+concat('Rp ', format( sum(i.total_harga), 0)) totalHarga,
 i.invoice invoice,
-i.ppn ppnnya 
+concat('Rp ', format( sum(i.ppn), 0)) ppnnya 
 from orderan o, surat_jalan sj, toko t, produk p, invoice i
 where o.toko = t.id 
 AND sj.orderan = o.id 
