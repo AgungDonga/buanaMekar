@@ -64,32 +64,43 @@ public class OrderanController {
         
         for (int i = 0; i < listOrderans.size(); i++) {
             if(listOrderans.get(i).getStatus().equals("0")){
-                //mengalirkan data ke surat jalan
-                orderan.setId(listOrderans.get(i).getId());
-                orderan.setStatus("1");
-                orderan.setProduk(listOrderans.get(i).getProduk());
-                orderan.setQuantity(listOrderans.get(i).getQuantity());
-                orderan.setToko(listOrderans.get(i).getToko());
-                orderan.setTotalHarga(listOrderans.get(i).getTotalHarga());
-                service.save(orderan);
-                SuratJalan sj = new SuratJalan();
-                sj.setOrderan(orderan);
-                sj.setStatus("0");
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                Date date = new Date();
-                sj.setTglKirim(formatter.format(date));
-                sj.setTglTerima(formatter.format(date));
-                suratJalanService.save(sj);
-                //update stok
+                //initialisasi
                 Produk produk = new Produk();
-                produk.setId(orderan.getProduk().getId());
-                produk.setMerkProduk(orderan.getProduk().getMerkProduk());
-                produk.setHarga(orderan.getProduk().getHarga());
-                produk.setJenisProduk(orderan.getProduk().getJenisProduk());
-                produk.setCatatan(orderan.getProduk().getCatatan());
+                SuratJalan sj = new SuratJalan();
                 int stok = Integer.parseInt(orderan.getProduk().getStok()) - Integer.parseInt(orderan.getQuantity());
-                produk.setStok(String.valueOf(stok));
-                produkService.save(produk);
+                //validasi stok
+                if(stok < 0){
+                    //lempar ke html error
+                    return "403";
+                }else{
+                    //mengalirkan data penyusaian ditabel order
+                    orderan.setId(listOrderans.get(i).getId());
+                    orderan.setStatus("1");
+                    orderan.setProduk(listOrderans.get(i).getProduk());
+                    orderan.setQuantity(listOrderans.get(i).getQuantity());
+                    orderan.setToko(listOrderans.get(i).getToko());
+                    orderan.setTotalHarga(listOrderans.get(i).getTotalHarga());
+                    service.save(orderan);
+                    //insert ke tabel surat jalan
+                    sj.setOrderan(orderan);
+                    sj.setStatus("0");
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                    Date date = new Date();
+                    sj.setTglKirim(formatter.format(date));
+                    sj.setTglTerima(formatter.format(date));
+                    suratJalanService.save(sj);
+                    //update stok
+
+                    produk.setId(orderan.getProduk().getId());
+                    produk.setMerkProduk(orderan.getProduk().getMerkProduk());
+                    produk.setHarga(orderan.getProduk().getHarga());
+                    produk.setJenisProduk(orderan.getProduk().getJenisProduk());
+                    produk.setCatatan(orderan.getProduk().getCatatan());
+
+                    produk.setStok(String.valueOf(stok));
+                    produkService.save(produk);
+                }
+                
             }
         }
         return "listProduk";
