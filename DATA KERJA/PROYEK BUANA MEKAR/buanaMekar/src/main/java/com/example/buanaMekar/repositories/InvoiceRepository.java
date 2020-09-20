@@ -20,6 +20,6 @@ public interface InvoiceRepository extends CrudRepository<Invoice, String>{
     
     List<Invoice> findAll();
     
-    @Query("SELECT i FROM Invoice i GROUP BY i.invoice")
+    @Query("SELECT i FROM Invoice i where i.status = 0 GROUP BY i.invoice ")
     List<Invoice> getAllInvoice();
 }

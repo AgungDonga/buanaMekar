@@ -90,6 +90,7 @@ public class InvoiceService {
         parameters.put("param1", "ALIONG COMPANY");
         parameters.put("param2", "18/08/2020 23:04:55");
         JasperPrint jp = JasperFillManager.fillReport(jasperReport, parameters, conn);
+            
         if (reportFormat.equalsIgnoreCase("html")) {
             JasperExportManager.exportReportToHtmlFile(jp, path + "\\suratJalan.html");
         }

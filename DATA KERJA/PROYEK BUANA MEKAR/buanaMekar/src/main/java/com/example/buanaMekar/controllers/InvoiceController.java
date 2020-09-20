@@ -6,8 +6,10 @@
 package com.example.buanaMekar.controllers;
 
 import com.example.buanaMekar.entities.Invoice;
+import com.example.buanaMekar.entities.Penagihan;
 import com.example.buanaMekar.entities.SuratJalan;
 import com.example.buanaMekar.services.InvoiceService;
+import com.example.buanaMekar.services.PenagihanService;
 import com.example.buanaMekar.services.SuratJalanService;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
@@ -38,9 +40,14 @@ public class InvoiceController {
     @Autowired
     SuratJalanService serviceSuratJalan;
     
+    @Autowired
+    PenagihanService servicePenagihan;
+    
     @RequestMapping("/invoice/report/{format}")
     public String generateReport(@PathVariable String format)throws FileNotFoundException, JRException{
-        return service.exportReport2(format);
+//        service.exportReport2(format);
+//        return "redirect:/invoice";
+          return service.exportReport2(format);
     }
     
     @RequestMapping("/invoice/createInvoice")
@@ -50,8 +57,40 @@ public class InvoiceController {
 
     @RequestMapping("/invoice")
     public String viewInvoicePage(Model model){
+        
+        Date HariSekarang = new Date( );
+        SimpleDateFormat ft = 
+        new SimpleDateFormat ("dd/MM/yyyy");
+
+        
         List<Invoice> listInvoices = service.listAllInvoice();
         model.addAttribute("listInvoices",listInvoices);
+        
+//        insert ke penagihan
+        for (int i = 0; i < listInvoices.size(); i++) {
+            int hasilPerbandingan = ft.format(HariSekarang).compareTo(listInvoices.get(i).getTglJatuhTempo().substring(0, 10));
+            System.out.println(ft.format(HariSekarang) + "="+ listInvoices.get(i).getTglJatuhTempo().substring(0, 10));
+            System.out.println("Hasil perbandingan = "+hasilPerbandingan);
+            if (hasilPerbandingan >= 0 && listInvoices.get(i).getStatus() == 0) {
+                System.out.println("MASUK PENAGIHAN");
+                Invoice invoice = new Invoice();
+                invoice.setId(listInvoices.get(i).getId());
+                invoice.setInvoice(listInvoices.get(i).getInvoice());
+                invoice.setSuratJalan(listInvoices.get(i).getSuratJalan());
+                invoice.setPpn(listInvoices.get(i).getPpn());
+                invoice.setTotalHarga(listInvoices.get(i).getTotalHarga());
+                invoice.setTglJatuhTempo(listInvoices.get(i).getTglJatuhTempo());
+                invoice.setStatus(1);
+                service.save(invoice);
+                
+                Penagihan penagihan = new Penagihan();
+                penagihan.setIdInvoice(invoice);
+                penagihan.setInvoice(listInvoices.get(i).getInvoice());
+                penagihan.setStatusPenagihan("BELUM DITAGIH");
+                penagihan.setCatatan("Belum ada aksi");
+                servicePenagihan.save(penagihan);
+            }
+        }
         return "listInvoice";
 
     }
