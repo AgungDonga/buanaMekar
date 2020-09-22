@@ -19,14 +19,12 @@ p.id kodeBarang,
 o.quantity quantity,
 p.harga hargaSatuan,
 o.total_harga subHarga,
-i.total_harga totalHarga,
 t.alamat_toko alamatToko,
 sj.tgl_kirim tanggalKirim
-from orderan o, surat_jalan sj, toko t, produk p, invoice i
+from orderan o, surat_jalan sj, toko t, produk p
 where o.toko = t.id 
 AND sj.orderan = o.id 
 AND p.id = o.produk
-AND i.surat_jalan = sj.id
 AND t.nama_toko like $P{param1}
 AND sj.tgl_kirim like $P{param2}]]>
 	</queryString>
@@ -37,7 +35,6 @@ AND sj.tgl_kirim like $P{param2}]]>
 	</field>
 	<field name="hargaSatuan" class="java.lang.String"/>
 	<field name="subHarga" class="java.lang.String"/>
-	<field name="totalHarga" class="java.lang.String"/>
 	<field name="alamatToko" class="java.lang.String"/>
 	<field name="tanggalKirim" class="java.lang.String"/>
 	<background>
