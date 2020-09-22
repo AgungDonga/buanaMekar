@@ -8,6 +8,7 @@ package com.example.buanaMekar.controllers;
 import com.example.buanaMekar.entities.Invoice;
 import com.example.buanaMekar.entities.Penagihan;
 import com.example.buanaMekar.entities.SuratJalan;
+import com.example.buanaMekar.repositories.SuratJalanRepository;
 import com.example.buanaMekar.services.InvoiceService;
 import com.example.buanaMekar.services.PenagihanService;
 import com.example.buanaMekar.services.SuratJalanService;
@@ -18,11 +19,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,6 +45,9 @@ public class InvoiceController {
     
     @Autowired
     PenagihanService servicePenagihan;
+    
+    @Autowired
+    SuratJalanRepository repo;
     
     @RequestMapping("/invoice/report/{format}")
     public String generateReport(@PathVariable String format)throws FileNotFoundException, JRException{
@@ -111,7 +117,8 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "/invoice/save",method = RequestMethod.POST)
-    public String saveInvoice(HttpServletRequest request){
+    public String saveInvoice(HttpServletRequest request, SuratJalan suratJalan){
+        
         Invoice invoicenya = new Invoice();
         String arrayBulan[]={"O","I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII"};
         Double totalHarga= 0.0;
@@ -125,7 +132,15 @@ public class InvoiceController {
             invoicenya.setId(i);
             invoicenya.setStatus(0);
             SuratJalan sj = new SuratJalan();
+            
             sj.setId(listSuratJalans.get(i).getId());
+            System.out.println("Nilainya 1 = "+listSuratJalans.get(i).getId());
+            sj.setOrderan(listSuratJalans.get(i).getOrderan());
+            sj.setTglKirim(listSuratJalans.get(i).getTglKirim());
+            sj.setTglTerima(listSuratJalans.get(i).getTglTerima());
+            sj.setStatus(listSuratJalans.get(i).getStatus());
+            sj.setIsTax(suratJalan.getIsTax()); //ini
+            System.out.println("Nilainya 2 = "+sj.getIsTax());
             invoicenya.setSuratJalan(sj);
             
             Calendar cal3 = Calendar.getInstance();
@@ -146,6 +161,7 @@ public class InvoiceController {
             invoicenya.setPpn(ppnnya.toString());
             invoicenya.setTotalHarga(result.toString());
             service.save(invoicenya);
+            repo.save(sj);
         }
         
         return "redirect:/invoice";

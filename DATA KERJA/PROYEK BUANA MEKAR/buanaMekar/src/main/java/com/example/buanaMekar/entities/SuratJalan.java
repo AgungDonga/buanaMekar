@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "SuratJalan.findById", query = "SELECT s FROM SuratJalan s WHERE s.id = :id")
     , @NamedQuery(name = "SuratJalan.findByTglKirim", query = "SELECT s FROM SuratJalan s WHERE s.tglKirim = :tglKirim")
     , @NamedQuery(name = "SuratJalan.findByTglTerima", query = "SELECT s FROM SuratJalan s WHERE s.tglTerima = :tglTerima")
+    , @NamedQuery(name = "SuratJalan.findByIsTax", query = "SELECT s FROM SuratJalan s WHERE s.isTax = :isTax")
     , @NamedQuery(name = "SuratJalan.findByStatus", query = "SELECT s FROM SuratJalan s WHERE s.status = :status")})
 public class SuratJalan implements Serializable {
 
@@ -54,6 +55,10 @@ public class SuratJalan implements Serializable {
     @Size(max = 100)
     @Column(name = "status")
     private String status;
+    @Size(max = 100)
+    @Column(name = "is_tax")
+    private String isTax;
+
     @OneToMany(mappedBy = "suratJalan", fetch = FetchType.LAZY)
     private List<Invoice> invoiceList;
     @JoinColumn(name = "orderan", referencedColumnName = "id")
@@ -116,6 +121,16 @@ public class SuratJalan implements Serializable {
         this.orderan = orderan;
     }
 
+    public String getIsTax() {
+        return isTax;
+    }
+
+    public void setIsTax(String isTax) {
+        this.isTax = isTax;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -141,4 +156,5 @@ public class SuratJalan implements Serializable {
         return "com.example.buanaMekar.entities.SuratJalan[ id=" + id + " ]";
     }
     
+
 }

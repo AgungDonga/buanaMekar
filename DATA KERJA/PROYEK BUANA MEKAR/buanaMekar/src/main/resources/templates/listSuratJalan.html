@@ -24,7 +24,7 @@
 
             <!-- Main content -->
             <section class="content">
-                
+
 
                 <div class="row box-body">
                     <div class="col-xs-12">
@@ -46,14 +46,15 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="row : ${listSuratJalans}">
-                                            <td></td>
+                                            <td th:text="${row.id}"></td>
                                             <td th:text="${row.orderan.toko.namaToko}"></td>
                                             <td th:text="${row.tglKirim}">Tanggal Kirim</td>
                                             <td th:text="${row.tglTerima}">Tanggal Terima</td>
                                             <td><a th:href="'detailSuratJalan?id='+${row.orderan.toko.namaToko}+'&id2='+${row.tglKirim}">Detail</a>
-                                             <form action="#" th:action="@{'invoice/save?id='+${row.orderan.toko.namaToko}+'&id2='+${row.tglKirim}}" method="post" enctype="multipart/form-data">
-                                                <button type="submit" class="btn btn-primary" align="right">Jadikan Invoice</button>
-                                            </form></td>
+                                                <form action="#" th:action="@{'invoice/save?id='+${row.orderan.toko.namaToko}+'&id2='+${row.tglKirim}}" method="post" enctype="multipart/form-data">
+                                                    <input value="0" name="isTax" id="isTax" type="checkbox"> Include Pajak?
+                                                    <button type="submit" class="btn btn-primary" align="right">Jadikan Invoice</button>
+                                                </form></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -90,21 +91,21 @@
 
     <div th:replace="frag/component::script"></div>
 
-<!--    <script type="text/javascript">
-
-        $('#newModalForm').on('submit', function (e) {
-            var jenisProduk = $('#jenisProduk');
-            // Check if there is an entered value
-            if (!jenisProduk.val()) {
-                // Add errors highlight
-                jenisProduk.closest('.form-group').removeClass('has-success').addClass('has-error');
-                // Stop submission of the form
-                e.preventDefault();
-            } else {
-                // Remove the errors highlight
-                jenisProduk.closest('.form-group').removeClass('has-error').addClass('has-success');
-            }
-        });
-    </script>-->
+    <!--    <script type="text/javascript">
+    
+            $('#newModalForm').on('submit', function (e) {
+                var jenisProduk = $('#jenisProduk');
+                // Check if there is an entered value
+                if (!jenisProduk.val()) {
+                    // Add errors highlight
+                    jenisProduk.closest('.form-group').removeClass('has-success').addClass('has-error');
+                    // Stop submission of the form
+                    e.preventDefault();
+                } else {
+                    // Remove the errors highlight
+                    jenisProduk.closest('.form-group').removeClass('has-error').addClass('has-success');
+                }
+            });
+        </script>-->
 </body>
 </html>

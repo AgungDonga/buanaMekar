@@ -65,6 +65,7 @@ public class OrderanController {
         for (int i = 0; i < listOrderans.size(); i++) {
             if (listOrderans.get(i).getStatus().equals("0")) {
                 //initialisasi
+                System.out.println("size = "+listOrderans.size());
                 Produk produk = new Produk();
                 SuratJalan sj = new SuratJalan();
 
@@ -102,6 +103,9 @@ public class OrderanController {
 
                     produk.setStok(String.valueOf(stok));
                     produkService.save(produk);
+                    }catch(Exception e){
+                        System.out.println("Errornya = "+e);
+                    }
                 }
                 
 
