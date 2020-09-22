@@ -30,56 +30,59 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class OrderanController {
-    
+
     @Autowired
     OrderanService service;
-    
+
     @Autowired
     TokoService tokoService;
-    
+
     @Autowired
     SuratJalanService suratJalanService;
-    
+
     @Autowired
     ProdukService produkService;
-    
+
     @RequestMapping("/orderan/createOrderan")
-    public String createOrderan(){
+    public String createOrderan() {
         return "createOrderan";
     }
 
     @RequestMapping("/orderan")
-    public String viewOrderanPage(Model model){
+    public String viewOrderanPage(Model model) {
         List<Orderan> listOrderans = service.getAllOrder();
         model.addAttribute("produks", service.getAllProduk());
         model.addAttribute("tokos", service.getAllToko());
-        model.addAttribute("listOrderans",listOrderans);
+        model.addAttribute("listOrderans", listOrderans);
         return "listOrderan";
     }
-    
+
     @RequestMapping("/generateSuratJalan")
-    public String cetakSuratJalan(Model model){
+    public String cetakSuratJalan(Model model) {
         List<Orderan> listOrderans = service.listAll();
         Orderan orderan = new Orderan();
-        
+
         for (int i = 0; i < listOrderans.size(); i++) {
-            if(listOrderans.get(i).getStatus().equals("0")){
+            if (listOrderans.get(i).getStatus().equals("0")) {
                 //initialisasi
                 Produk produk = new Produk();
                 SuratJalan sj = new SuratJalan();
-                int stok = Integer.parseInt(orderan.getProduk().getStok()) - Integer.parseInt(orderan.getQuantity());
+
+                System.out.println("");
                 //validasi stok
+
+                //mengalirkan data penyusaian ditabel order
+                orderan.setId(listOrderans.get(i).getId());
+                orderan.setStatus("1");
+                orderan.setProduk(listOrderans.get(i).getProduk());
+                orderan.setQuantity(listOrderans.get(i).getQuantity());
+                orderan.setToko(listOrderans.get(i).getToko());
+                orderan.setTotalHarga(listOrderans.get(i).getTotalHarga());
+
+                int stok = Integer.parseInt(orderan.getProduk().getStok()) - Integer.parseInt(orderan.getQuantity());
                 if(stok < 0){
-                    //lempar ke html error
-                    return "403";
+                    System.out.println("TIDAK SAVE KARENA STOK" + stok);
                 }else{
-                    //mengalirkan data penyusaian ditabel order
-                    orderan.setId(listOrderans.get(i).getId());
-                    orderan.setStatus("1");
-                    orderan.setProduk(listOrderans.get(i).getProduk());
-                    orderan.setQuantity(listOrderans.get(i).getQuantity());
-                    orderan.setToko(listOrderans.get(i).getToko());
-                    orderan.setTotalHarga(listOrderans.get(i).getTotalHarga());
                     service.save(orderan);
                     //insert ke tabel surat jalan
                     sj.setOrderan(orderan);
@@ -101,12 +104,13 @@ public class OrderanController {
                     produkService.save(produk);
                 }
                 
+
             }
         }
         return "listProduk";
 
     }
-    
+
     @RequestMapping("/orderan/new")
     public String showNewOrderanForm(Model model) {
         Orderan orderan = new Orderan();
@@ -116,32 +120,32 @@ public class OrderanController {
         return "createOrderan";
     }
 
-    @RequestMapping(value = "/orderan/save",method = RequestMethod.POST)
-    public String saveOrderan(@ModelAttribute("orderan")Orderan orderan){
+    @RequestMapping(value = "/orderan/save", method = RequestMethod.POST)
+    public String saveOrderan(@ModelAttribute("orderan") Orderan orderan) {
         orderan.setStatus("0"); // set default Status to = 0
-        int getQuantity = Integer.valueOf(orderan.getQuantity()) ;
+        int getQuantity = Integer.valueOf(orderan.getQuantity());
         int getHarga = Integer.valueOf(orderan.getProduk().getHarga());
         int total = getQuantity * getHarga;
         orderan.setTotalHarga(String.valueOf(total));
         service.save(orderan);
         return "redirect:/orderan";
     }
-    
+
     @RequestMapping("/orderan/edit/{id}")
-    public ModelAndView showEditOrderanForm(@PathVariable(name = "id")Integer id, Model model){
+    public ModelAndView showEditOrderanForm(@PathVariable(name = "id") Integer id, Model model) {
         ModelAndView mav = new ModelAndView("editOrderan");
         Orderan orderan = service.get(id);
         model.addAttribute("produk", service.getAllProduk());
         model.addAttribute("toko", service.getAllToko());
-        mav.addObject("orderan",orderan);
+        mav.addObject("orderan", orderan);
         return mav;
     }
-    
+
     @RequestMapping("/orderan/delete/{id}")
-    public String deleteOrderan(@PathVariable(name = "id")Integer id){
+    public String deleteOrderan(@PathVariable(name = "id") Integer id) {
         service.delete(id);
-        
+
         return "redirect:/orderan";
     }
-    
+
 }

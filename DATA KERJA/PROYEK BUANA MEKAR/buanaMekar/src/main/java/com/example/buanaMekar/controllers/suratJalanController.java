@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -27,9 +28,11 @@ public class suratJalanController {
     @Autowired
     SuratJalanService service;
     
+    public String id1="", id2="";
+    
     @RequestMapping("/suratJalan/report/{format}")
-    public String generateReport(@PathVariable String format)throws FileNotFoundException, JRException{
-        return service.exportReport2(format);
+    public String generateReport(@PathVariable String format, @RequestParam(required = false, value = "id") String id, @RequestParam(required = false, value = "id2") String id22)throws FileNotFoundException, JRException{
+        return service.exportReport2(format, id1, id2);
     }
     
     @RequestMapping("/suratJalan/report2/{format}")
@@ -47,6 +50,8 @@ public class suratJalanController {
     @RequestMapping("/detailSuratJalan")
     public String viewDetailSuratJalanPage(Model model, HttpServletRequest request) {
         List<SuratJalan> listSuratJalans = service.listDetailSuratJalan(request.getParameter("id").replaceAll("%20", " "), request.getParameter("id2").replaceAll("%20", " "));
+        id1=request.getParameter("id").replaceAll("%20", " ");
+        id2=request.getParameter("id2").replaceAll("%20", " ");
         model.addAttribute("listSuratJalans",listSuratJalans);
         return "listDetailSuratJalan";
     }

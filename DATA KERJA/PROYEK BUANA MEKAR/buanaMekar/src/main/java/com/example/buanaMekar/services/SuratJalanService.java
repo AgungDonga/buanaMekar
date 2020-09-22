@@ -45,7 +45,7 @@ public class SuratJalanService {
     
     Connection conn;
 
-    public String exportReport2(String reportFormat) throws FileNotFoundException, JRException {
+    public String exportReport2(String reportFormat, String id, String id2) throws FileNotFoundException, JRException {
         try{
             String url1 = "jdbc:mysql://localhost/buana_mekar?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
             String user = "root";
@@ -62,8 +62,10 @@ public class SuratJalanService {
         File file = ResourceUtils.getFile("classpath:report1.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("param1", "ALIONG COMPANY");
-        parameters.put("param2", "18/08/2020 23:04:55");
+        parameters.put("param1", id);
+        parameters.put("param2", id2);
+        System.out.println("id="+ id);
+        System.out.println("id2="+ id2);
         JasperPrint jp = JasperFillManager.fillReport(jasperReport, parameters, conn);
         if (reportFormat.equalsIgnoreCase("html")) {
             JasperExportManager.exportReportToHtmlFile(jp, path + "\\suratJalan.html");
