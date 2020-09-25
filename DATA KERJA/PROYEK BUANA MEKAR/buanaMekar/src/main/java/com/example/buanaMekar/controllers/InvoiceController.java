@@ -13,6 +13,7 @@ import com.example.buanaMekar.services.InvoiceService;
 import com.example.buanaMekar.services.PenagihanService;
 import com.example.buanaMekar.services.SuratJalanService;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -36,47 +38,46 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class InvoiceController {
-    
+
     @Autowired
     InvoiceService service;
-    
+
     @Autowired
     SuratJalanService serviceSuratJalan;
-    
+
     @Autowired
     PenagihanService servicePenagihan;
-    
+
     @Autowired
     SuratJalanRepository repo;
+
+    public String id1="", id2="";
     
     @RequestMapping("/invoice/report/{format}")
-    public String generateReport(@PathVariable String format)throws FileNotFoundException, JRException{
-//        service.exportReport2(format);
-//        return "redirect:/invoice";
-          return service.exportReport2(format);
+    public String generateReport(@PathVariable String format,@RequestParam(required = false, value = "id") String id, @RequestParam(required = false, value = "id2") String id22) throws FileNotFoundException, JRException, IOException {
+        return service.exportReport2(format, id1, id2);
     }
-    
+
     @RequestMapping("/invoice/createInvoice")
-    public String createInvoice(){
+    public String createInvoice() {
         return "createInvoice";
     }
 
     @RequestMapping("/invoice")
-    public String viewInvoicePage(Model model){
-        
-        Date HariSekarang = new Date( );
-        SimpleDateFormat ft = 
-        new SimpleDateFormat ("dd/MM/yyyy");
+    public String viewInvoicePage(Model model) {
 
-        
+        Date HariSekarang = new Date();
+        SimpleDateFormat ft
+                = new SimpleDateFormat("dd/MM/yyyy");
+
         List<Invoice> listInvoices = service.listAllInvoice();
-        model.addAttribute("listInvoices",listInvoices);
-        
+        model.addAttribute("listInvoices", listInvoices);
+
 //        insert ke penagihan
         for (int i = 0; i < listInvoices.size(); i++) {
             int hasilPerbandingan = ft.format(HariSekarang).compareTo(listInvoices.get(i).getTglJatuhTempo().substring(0, 10));
-            System.out.println(ft.format(HariSekarang) + "="+ listInvoices.get(i).getTglJatuhTempo().substring(0, 10));
-            System.out.println("Hasil perbandingan = "+hasilPerbandingan);
+            System.out.println(ft.format(HariSekarang) + "=" + listInvoices.get(i).getTglJatuhTempo().substring(0, 10));
+            System.out.println("Hasil perbandingan = " + hasilPerbandingan);
             if (hasilPerbandingan >= 0 && listInvoices.get(i).getStatus() == 0) {
                 System.out.println("MASUK PENAGIHAN");
                 Invoice invoice = new Invoice();
@@ -88,7 +89,7 @@ public class InvoiceController {
                 invoice.setTglJatuhTempo(listInvoices.get(i).getTglJatuhTempo());
                 invoice.setStatus(1);
                 service.save(invoice);
-                
+
                 Penagihan penagihan = new Penagihan();
                 penagihan.setIdInvoice(invoice);
                 penagihan.setInvoice(listInvoices.get(i).getInvoice());
@@ -100,11 +101,13 @@ public class InvoiceController {
         return "listInvoice";
 
     }
-    
+
     @RequestMapping("/detailInvoice")
     public String viewDetailSuratJalanPage(Model model, HttpServletRequest request) {
         List<SuratJalan> listSuratJalans = serviceSuratJalan.listDetailSuratJalan(request.getParameter("id").replaceAll("%20", " "), request.getParameter("id2").replaceAll("%20", " "));
-        model.addAttribute("listSuratJalans",listSuratJalans);
+        id1=request.getParameter("id").replaceAll("%20", " ");
+        id2=request.getParameter("id2").replaceAll("%20", " ");
+        model.addAttribute("listSuratJalans", listSuratJalans);
         return "listDetailInvoice";
     }
 
@@ -116,37 +119,37 @@ public class InvoiceController {
         return "createInvoice";
     }
 
-    @RequestMapping(value = "/invoice/save",method = RequestMethod.POST)
-    public String saveInvoice(HttpServletRequest request, SuratJalan suratJalan){
-        
+    @RequestMapping(value = "/invoice/save", method = RequestMethod.POST)
+    public String saveInvoice(HttpServletRequest request) {
+
         Invoice invoicenya = new Invoice();
-        String arrayBulan[]={"O","I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII"};
-        Double totalHarga= 0.0;
+        String arrayBulan[] = {"O", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"};
+        Double totalHarga = 0.0;
         List<SuratJalan> listSuratJalans = serviceSuratJalan.listDetailSuratJalan(request.getParameter("id").replaceAll("%20", " "), request.getParameter("id2").replaceAll("%20", " "));
         for (int i = 0; i < listSuratJalans.size(); i++) {
             totalHarga = totalHarga + Double.valueOf(listSuratJalans.get(i).getOrderan().getTotalHarga());
         }
-        
+
         Double ppnnya = totalHarga * 10 / 100;
         for (int i = 0; i < listSuratJalans.size(); i++) {
             invoicenya.setId(i);
             invoicenya.setStatus(0);
             SuratJalan sj = new SuratJalan();
-            
+
             sj.setId(listSuratJalans.get(i).getId());
-            System.out.println("Nilainya 1 = "+listSuratJalans.get(i).getId());
+            System.out.println("Nilainya 1 = " + listSuratJalans.get(i).getId());
             sj.setOrderan(listSuratJalans.get(i).getOrderan());
             sj.setTglKirim(listSuratJalans.get(i).getTglKirim());
             sj.setTglTerima(listSuratJalans.get(i).getTglTerima());
             sj.setStatus(listSuratJalans.get(i).getStatus());
-            sj.setIsTax(suratJalan.getIsTax()); //ini
-            System.out.println("Nilainya 2 = "+sj.getIsTax());
+            sj.setIsTax("1"); //ini
+            System.out.println("Nilainya 2 = " + sj.getIsTax());
             invoicenya.setSuratJalan(sj);
-            
+
             Calendar cal3 = Calendar.getInstance();
             Date tgl;
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            invoicenya.setInvoice(listSuratJalans.get(0).getId()+"/INV/BPK"+arrayBulan[Integer.parseInt(listSuratJalans.get(i).getTglKirim().substring(3, 4).equals("0") ? listSuratJalans.get(i).getTglKirim().substring(4, 5): listSuratJalans.get(i).getTglKirim().substring(3, 5))]+"/2020");
+            invoicenya.setInvoice(listSuratJalans.get(0).getId() + "/INV/BPK" + arrayBulan[Integer.parseInt(listSuratJalans.get(i).getTglKirim().substring(3, 4).equals("0") ? listSuratJalans.get(i).getTglKirim().substring(4, 5) : listSuratJalans.get(i).getTglKirim().substring(3, 5))] + "/2020");
             try {
                 tgl = sdf.parse(listSuratJalans.get(i).getTglKirim());
                 cal3.setTime(tgl);
@@ -156,31 +159,31 @@ public class InvoiceController {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            
+
             Double result = totalHarga + ppnnya;
             invoicenya.setPpn(ppnnya.toString());
             invoicenya.setTotalHarga(result.toString());
             service.save(invoicenya);
-            repo.save(sj);
+//            repo.save(sj);
         }
-        
+
         return "redirect:/invoice";
     }
-    
+
     @RequestMapping("/invoice/edit/{id}")
-    public ModelAndView showEditInvoiceForm(@PathVariable(name = "id")String id, Model model){
+    public ModelAndView showEditInvoiceForm(@PathVariable(name = "id") String id, Model model) {
         ModelAndView mav = new ModelAndView("editOrderan");
         Invoice invoice = service.get(id);
         model.addAttribute("orderan", service.getAllOrderan());
-        mav.addObject("invoice",invoice);
+        mav.addObject("invoice", invoice);
         return mav;
     }
-    
+
     @RequestMapping("/invoice/delete/{id}")
-    public String deleteOrderan(@PathVariable(name = "id")String id){
+    public String deleteOrderan(@PathVariable(name = "id") String id) {
         service.delete(id);
-        
+
         return "redirect:/invoice";
     }
-    
+
 }

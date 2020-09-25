@@ -29,6 +29,7 @@ import org.springframework.util.ResourceUtils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import net.sf.jasperreports.engine.JasperPrintManager;
 
 /**
  *
@@ -71,9 +72,10 @@ public class SuratJalanService {
             JasperExportManager.exportReportToHtmlFile(jp, path + "\\suratJalan.html");
         }
         if (reportFormat.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jp, path + "\\YESANJING.pdf");
+            JasperExportManager.exportReportToPdfFile(jp, path + "\\suratJalan.pdf");
+//            JasperPrintManager.printReport(jp, false); //ini
         }
-        return "success : " + path;
+        return "succes";
     }
     
     public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
