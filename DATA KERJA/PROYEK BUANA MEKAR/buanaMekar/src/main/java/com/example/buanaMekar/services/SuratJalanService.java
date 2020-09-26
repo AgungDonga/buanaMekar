@@ -45,7 +45,7 @@ public class SuratJalanService {
     OrderanRepository orderanRepo;
     
     Connection conn;
-
+//baru gan
     public String exportReport2(String reportFormat, String id, String id2) throws FileNotFoundException, JRException {
         try{
             String url1 = "jdbc:mysql://localhost/buana_mekar?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";

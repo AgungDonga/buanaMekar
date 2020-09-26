@@ -9,10 +9,12 @@ import com.example.buanaMekar.entities.Invoice;
 import com.example.buanaMekar.entities.Orderan;
 import com.example.buanaMekar.repositories.InvoiceRepository;
 import com.example.buanaMekar.repositories.OrderanRepository;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -40,8 +42,7 @@ import org.springframework.util.ResourceUtils;
 @Service
 public class InvoiceService {
 
-//    HttpServletResponse response = null;
-    
+    HttpServletResponse response = null;
     @Autowired
     InvoiceRepository repo;
 
@@ -80,7 +81,7 @@ public class InvoiceService {
     Connection conn;
 
     public String exportReport2(String reportFormat, String id, String id2) throws FileNotFoundException, JRException, IOException {
-        
+
         try {
             String url1 = "jdbc:mysql://localhost/buana_mekar?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
             String user = "root";
@@ -102,13 +103,20 @@ public class InvoiceService {
         System.out.println("id=" + id);
         System.out.println("id2=" + id2);
         JasperPrint jp = JasperFillManager.fillReport(jasperReport, parameters, conn);
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment" + "; filename=Invoice.pdf");
 //        response.setContentType("application/x/download");
 //        response.setHeader("Content-Disposition", String.format("attachment; filename=\"Invoice.pdf\""));
 //        OutputStream outputStream = response.getOutputStream();
         if (reportFormat.equalsIgnoreCase("pdf")) {
+            ByteArrayOutputStream finalReport = new ByteArrayOutputStream();
+            JasperExportManager.exportReportToPdfStream(jp, finalReport);
+            PrintWriter ouputStream = response.getWriter();
+            ouputStream.write(new String(finalReport.toByteArray()));
+            ouputStream.flush();
+//            FacesContext.getCurrentInstance().getExternalContext().responseReset();
 //            JasperExportManager.exportReportToPdfStream(jp, outputStream);
             JasperExportManager.exportReportToPdfFile(jp, path + "\\Invoice.pdf");
-
         }
         return "succes";
     }
