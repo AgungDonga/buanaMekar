@@ -5,8 +5,10 @@
  */
 package com.example.buanaMekar.repositories;
 
+import com.example.buanaMekar.entities.Invoice;
 import com.example.buanaMekar.entities.Penagihan;
 import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +20,7 @@ import org.springframework.stereotype.Repository;
 public interface PenagihanRepository extends CrudRepository<Penagihan, Integer>{
    
     List<Penagihan> findAll();
+    
+    
     
 }

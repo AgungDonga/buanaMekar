@@ -58,6 +58,14 @@ public class InvoiceService {
         return repo.getAllInvoice();
 
     }
+    
+    public List<Invoice> findBulanan(String key1){
+        return repo.findBulanan(key1);
+    }
+    
+    public String totalBulanan(String key1){
+        return repo.totalBulanan(key1);
+    }
 
     public void save(Invoice invoice) {
         repo.save(invoice);

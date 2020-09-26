@@ -86,7 +86,7 @@ public class InvoiceController {
                 invoice.setSuratJalan(listInvoices.get(i).getSuratJalan());
                 invoice.setPpn(listInvoices.get(i).getPpn());
                 invoice.setTotalHarga(listInvoices.get(i).getTotalHarga());
-                invoice.setTglJatuhTempo(listInvoices.get(i).getTglJatuhTempo());
+                invoice.setTglJatuhTempo(listInvoices.get(i).getTglJatuhTempo().substring(0, 10));
                 invoice.setStatus(1);
                 service.save(invoice);
 
@@ -101,6 +101,15 @@ public class InvoiceController {
         return "listInvoice";
 
     }
+    
+//    @RequestMapping("/laporanBulanan")
+//    public String viewLaporanBulanan(Model model) {
+//
+//        List<Invoice> listInvoices = service.();
+//        model.addAttribute("listInvoices", listInvoices);
+//
+//        return "listInvoiceBulanan";
+//    }
 
     @RequestMapping("/detailInvoice")
     public String viewDetailSuratJalanPage(Model model, HttpServletRequest request) {
@@ -148,7 +157,7 @@ public class InvoiceController {
 
             Calendar cal3 = Calendar.getInstance();
             Date tgl;
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); //update
             invoicenya.setInvoice(listSuratJalans.get(0).getId() + "/INV/BPK" + arrayBulan[Integer.parseInt(listSuratJalans.get(i).getTglKirim().substring(3, 4).equals("0") ? listSuratJalans.get(i).getTglKirim().substring(4, 5) : listSuratJalans.get(i).getTglKirim().substring(3, 5))] + "/2020");
             try {
                 tgl = sdf.parse(listSuratJalans.get(i).getTglKirim());
